@@ -267,31 +267,10 @@ const I18N = window.XUEAI_I18N || {
     topBar.innerHTML = `
       <a id="nav-toc-link" href="${I18N.locFile('learn.html')}#${encodeURIComponent(cur)}" title="${I18N.t('tocTitle')}">☰ ${I18N.t('toc')}</a>
       <div class="nav-top-sep"></div>
-      <a id="nav-author-link" href="https://luoxiaoshan.cn/" target="_blank">${I18N.t('askAuthor')}</a>
-      <div class="nav-top-sep"></div>
-      <div id="nav-pv-badge">
-        <span class="nav-pv-label">${I18N.t('today')}</span>
-        <span class="nav-pv-num-today" id="nav-pv-today">—</span>
-        <div class="nav-pv-sep"></div>
-        <span class="nav-pv-label">${I18N.t('total')}</span>
-        <span class="nav-pv-num-total" id="nav-pv-total">—</span>
-      </div>
+      <a id="nav-author-link" href="https://www.waytoaic.com" target="_blank">${I18N.t('askAuthor')}</a>
     `;
     document.body.appendChild(topBar);
-
-    fetch('/pv')
-      .then(r => r.json())
-      .then(d => {
-        function fmt(n) {
-          n = Number(n) || 0;
-          if (I18N.lang === 'zh' && n >= 10000) return (n / 10000).toFixed(1).replace(/\.0$/, '') + ' 万';
-          if (I18N.lang !== 'zh' && n >= 10000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
-          return n.toLocaleString('en-US');
-        }
-        document.getElementById('nav-pv-today').textContent = fmt(d.today);
-        document.getElementById('nav-pv-total').textContent = fmt(d.total);
-      })
-      .catch(() => {});
+    /* WaytoAIC: 浏览量角标（/pv）随上游统计后端一并下线 */
   })();
 
   // 嵌入模式 或 不在序列中：不注入底部翻页条（外层 Wiki 已有上一节/下一节）

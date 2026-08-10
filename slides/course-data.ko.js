@@ -5,10 +5,10 @@ window.COURSE = {
   meta: {
     title: 'AI 프로덕트 입문부터 마스터까지',
     subtitle: '대규모 언어 모델 기초 원리부터 AI Agent Harness까지',
-    brand: '미양테크(米羊科技) · AI 과정',
-    author: '뤄샤오산(洛小山)',
-    authorUrl: 'https://luoxiaoshan.cn/',
-    github: 'https://github.com/itshen/learn-ai',
+    brand: 'WaytoAIC · AI 커머스',
+    author: 'WaytoAIC',
+    authorUrl: 'https://www.waytoaic.com',
+    github: 'https://github.com/WaytoAIC/study',
   },
   parts: [
     /* 시작 챕터: 과정의 첫 정거장 — 먼저 자신의 위치를 파악하고 학습법을 다룹니다.

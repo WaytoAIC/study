@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>结业证书 · AI 产品从入门到精通 | xueai.app</title>
-<meta name="description" content="学完《AI 产品从入门到精通》全部课程即可领取结业证书，证书同步展示在米羊账号的 AI 学习页。">
+<title>结业证书 · AI 产品从入门到精通 | WaytoAIC</title>
+<meta name="description" content="学完《AI 产品从入门到精通》全部课程即可领取结业证书，证书记录在你的账号学习进度里。">
 <meta name="robots" content="noindex, follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -186,9 +186,9 @@ body{
   <!-- 未登录 -->
   <div class="state-card hidden" id="stLogin">
     <h1>登录后查看结业证书</h1>
-    <p>结业证书记录在你的米羊账号下，请先用米羊账号登录。</p>
+    <p>结业证书记录在你的账号下，请先登录。</p>
     <div style="margin-top:28px;">
-      <a class="btn btn-primary" href="/auth/login?next=%2Fslides%2Fcertificate.html">用米羊账号登录</a>
+      <a class="btn btn-primary" href="/auth/login?next=%2Fslides%2Fcertificate.html">登录</a>
     </div>
   </div>
 
@@ -204,7 +204,7 @@ body{
   <!-- 可领取 -->
   <div class="state-card hidden" id="stClaim">
     <h1>🎓 恭喜你学完了全部课程！</h1>
-    <p>全部 <b id="claimTotal"></b> 节课都已完成。<br>现在就领取你的结业证书吧，证书会同步到你的米羊账号。</p>
+    <p>全部 <b id="claimTotal"></b> 节课都已完成。<br>现在就领取你的结业证书吧，证书会记录在你的账号里。</p>
     <div style="margin-top:28px;">
       <button class="btn btn-gold" id="claimBtn">领取结业证书</button>
     </div>
@@ -223,12 +223,10 @@ body{
       <div class="action-links">
         <span id="certSeqWrap" style="color:var(--text-faint);" hidden>这是全球第 <b id="certSeqTxt" style="color:#a97b1f;"></b> 张结业证书</span>
         <span style="color:var(--text-faint);">证书编号 <b id="certNoTxt" style="color:var(--text-sub);"></b></span>
-        <a href="https://miyang.cn/profile/ai-learn" target="_blank" rel="noopener">→ 在米羊账号中查看</a>
       </div>
     </div>
     <div class="name-note">
-      证书上的姓名取自你的米羊账号昵称。需要改名请
-      <a href="https://miyang.cn/profile" target="_blank" rel="noopener">前往米羊修改昵称</a>，
+      证书上的姓名取自你的账号昵称。需要改名请先修改账号昵称，
       几分钟后回到本页刷新即可生效。
     </div>
   </div>
@@ -248,9 +246,9 @@ body{
   var ACCENT = '#4f7bff';
   var INDIGO = '#6366f1';
 
-  /* 米羊科技官方组合标（透明底 PNG，1400×322），加载完成后重绘补上 */
+  /* WaytoAIC 品牌标，加载完成后重绘补上 */
   var MARK = new Image();
-  MARK.src = 'assets/miyang-logo.png';
+  MARK.src = 'images/brand/waytoaic-mark.svg';
   MARK.onload = function(){ if(CERT) drawCert(CERT); };
 
   function fmtDateEn(ts){
@@ -327,7 +325,7 @@ body{
     ctx.textAlign = 'center';
     ctx.textBaseline = 'alphabetic';
 
-    /* 顶部品牌视觉：米羊科技官方组合标（M 标 + 米羊科技 / Miyang.AI） */
+    /* 顶部品牌视觉：WaytoAIC 标 */
     if(MARK.complete && MARK.naturalWidth){
       var logoH = 44, logoW = logoH * MARK.naturalWidth / MARK.naturalHeight;
       ctx.drawImage(MARK, W/2 - logoW/2, 80, logoW, logoH);
@@ -338,7 +336,7 @@ body{
     ctx.font = '400 21px ' + SANS;
     ctx.fillText('This acknowledges that', W/2, 310);
 
-    var name = cert.nick || 'Miyang User';
+    var name = cert.nick || 'WaytoAIC User';
     var hasCJK = /[\u4e00-\u9fff]/.test(name);
     var nameFont = hasCJK
       ? '700 ' + (name.length > 10 ? 54 : 68) + 'px "Songti SC","STSong",serif'
@@ -406,7 +404,7 @@ body{
     ctx.textAlign = 'center';
     ctx.fillStyle = '#111827';
     ctx.font = '600 56px Caveat,cursive';
-    var sig = 'Luo Xiaoshan';
+    var sig = 'WaytoAIC';
     ctx.fillText(sig, W/2, 980);
     var sw = ctx.measureText(sig).width;
     ctx.strokeStyle = '#d1d5db';
@@ -417,10 +415,10 @@ body{
     ctx.stroke();
     ctx.fillStyle = '#374151';
     ctx.font = '600 21px ' + SANS;
-    ctx.fillText('Luo Xiaoshan', W/2, 1030);
+    ctx.fillText('WaytoAIC', W/2, 1030);
     ctx.fillStyle = '#9ca3af';
     ctx.font = '400 17px ' + SANS;
-    ctx.fillText('Instructor, xueai.app', W/2, 1058);
+    ctx.fillText('study.waytoaic.com', W/2, 1058);
 
     /* 右：圆形徽章印 */
     drawSeal(ctx, W - 216, 972, 96, SANS);

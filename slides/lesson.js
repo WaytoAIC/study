@@ -40,9 +40,10 @@
   };
 
   function initQrBar() {
+    return; // WaytoAIC: 公众号横幅暂停用，二维码素材到位后恢复
     if (sessionStorage.getItem('qr_bar_closed')) return;
     var i18n = window.XUEAI_I18N;
-    var qrText = i18n ? i18n.t('qrText') : '扫码关注 <b>洛小山</b> 公众号，获取更多 AI 实战干货';
+    var qrText = i18n ? i18n.t('qrText') : '关注 <b>WaytoAIC</b>，获取更多 AI×跨境电商实战干货';
     var closeLabel = i18n ? i18n.t('close') : '关闭';
     var bar = document.createElement('div');
     bar.className = 'qr-bar';

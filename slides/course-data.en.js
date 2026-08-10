@@ -10,10 +10,10 @@ window.COURSE = {
   meta: {
     title: 'AI Products: From Beginner to Expert',
     subtitle: 'From LLM Fundamentals to AI Agent Harness',
-    brand: 'Miyang Tech (米羊科技) · AI Course',
-    author: 'Luo Xiaoshan (洛小山)',
-    authorUrl: 'https://luoxiaoshan.cn/',
-    github: 'https://github.com/itshen/learn-ai',
+    brand: 'WaytoAIC · AI Commerce',
+    author: 'WaytoAIC',
+    authorUrl: 'https://www.waytoaic.com',
+    github: 'https://github.com/WaytoAIC/study',
   },
   parts: [
     /* Opening chapter: the first stop of the course — locate yourself, then learn how to

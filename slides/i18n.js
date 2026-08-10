@@ -14,7 +14,7 @@
     zh: {
       toc: '目录',
       tocTitle: '在课程阅读器中打开，左侧带完整目录',
-      askAuthor: '请教作者',
+      askAuthor: '关于 WaytoAIC',
       today: '今日',
       total: '总学习',
       backHomeTitle: '返回首页 (Cmd+↑返回目录)',
@@ -25,14 +25,14 @@
       rotateTitle: '请横屏观看',
       rotateSub: '横屏后内容会按比例完整显示<br/>竖屏可关闭后继续浏览',
       rotateClose: '继续竖屏浏览',
-      qrText: '扫码关注 <b>洛小山</b> 公众号，获取更多 AI 实战干货',
+      qrText: '关注 <b>WaytoAIC</b>，获取更多 AI×跨境电商实战干货',
       close: '关闭',
       langSwitchLabel: '切换语言'
     },
     en: {
       toc: 'Contents',
       tocTitle: 'Open in the course reader with full table of contents',
-      askAuthor: 'Ask the Author',
+      askAuthor: 'About WaytoAIC',
       today: 'Today',
       total: 'All-time',
       backHomeTitle: 'Back to home (Cmd+↑ for contents)',
@@ -43,14 +43,14 @@
       rotateTitle: 'Please rotate to landscape',
       rotateSub: 'Content scales to fit in landscape<br/>You can dismiss this and keep browsing in portrait',
       rotateClose: 'Continue in portrait',
-      qrText: 'Scan to follow <b>Luo Xiaoshan (洛小山)</b> on WeChat for more hands-on AI insights',
+      qrText: 'Follow <b>WaytoAIC</b> for more hands-on AI &times; e-commerce insights',
       close: 'Close',
       langSwitchLabel: 'Change language'
     },
     ko: {
       toc: '목차',
       tocTitle: '전체 목차가 있는 코스 리더에서 열기',
-      askAuthor: '저자에게 질문',
+      askAuthor: 'WaytoAIC 소개',
       today: '오늘',
       total: '누적 학습',
       backHomeTitle: '홈으로 (Cmd+↑ 목차)',
@@ -61,7 +61,7 @@
       rotateTitle: '가로 모드로 봐 주세요',
       rotateSub: '가로 모드에서 내용이 비율에 맞게 표시됩니다<br/>닫고 세로 모드로 계속 볼 수도 있습니다',
       rotateClose: '세로 모드로 계속 보기',
-      qrText: 'QR 코드를 스캔해 <b>뤄샤오산(洛小山)</b> 위챗 공식 계정을 팔로우하고 AI 실전 노하우를 받아보세요',
+      qrText: '<b>WaytoAIC</b>를 팔로우하고 AI &times; 이커머스 실전 노하우를 받아보세요',
       close: '닫기',
       langSwitchLabel: '언어 변경'
     }

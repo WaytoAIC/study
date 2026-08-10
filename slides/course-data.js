@@ -10,10 +10,10 @@ window.COURSE = {
   meta: {
     title: 'AI 产品从入门到精通',
     subtitle: '从大模型底层原理到 AI Agent Harness',
-    brand: '米羊科技 · AI 课程',
-    author: '洛小山',
-    authorUrl: 'https://luoxiaoshan.cn/',
-    github: 'https://github.com/itshen/learn-ai',
+    brand: 'WaytoAIC · AI 电商之路',
+    author: 'WaytoAIC',
+    authorUrl: 'https://www.waytoaic.com',
+    github: 'https://github.com/WaytoAIC/study',
   },
   parts: [
     /* 开篇：课程的第一站，先定位自己再讲怎么学。放在第零篇章之前，新访客默认落地
