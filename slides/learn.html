@@ -955,6 +955,18 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
   function loadLesson(file){
     var f = findLesson(file);
     var L = f.data;
+    /* 登录墙：非免费节未登录不加载，弹登录；首屏落在锁定节时退回第一节 */
+    if(window.XueaiAuth && !window.XueaiAuth.isFree(L.file)){
+      window.XueaiAuth.ready.then(function(){
+        if(window.XueaiAuth.state.loggedIn){ doLoadLesson(f, L); return; }
+        window.XueaiAuth.openLoginModal();
+        if(!iframe.src){ var ff = findLesson(FLAT[0].file); doLoadLesson(ff, ff.data); }
+      });
+      return;
+    }
+    doLoadLesson(f, L);
+  }
+  function doLoadLesson(f, L){
     iframe.src = L.file + (L.file.indexOf('?')>=0 ? '&' : '?') + 'embed=1';
 
     var tagStyle = TAGS[L.tag] || {bg:'#f3f4f6', fg:'#4b5563'};

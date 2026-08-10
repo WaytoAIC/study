@@ -8,7 +8,9 @@
  * 对外契约 window.XueaiAuth（沿用上游命名，调用方不用改）：
  *   ready          Promise<state>
  *   state          {loggedIn, nickname}
- *   isFree(file)   第一版全部课程开放，恒 true
+ *   isFree(file)   登录墙口径（维正 2026-08-10 拍板）：prologue 篇章整章免费，
+ *                  其余每篇章前 2 节免费，更多内容需注册登录。
+ *                  注：站点开源，此墙是注册转化机制而非内容保密墙。
  *   openLoginModal(next)  弹出邮箱登录/注册弹窗
  *   openGroupModal()      预留，空操作
  *   mount(slotEl)  渲染 登录按钮 / 昵称+退出
@@ -236,10 +238,30 @@
 
   var ready = refreshIfNeeded().then(function(){ return state; });
 
+  /* ── 登录墙：免费节集合（prologue 篇章整章 + 其余篇章前 2 节） ── */
+  var _freeSet = null;
+  function buildFreeSet(){
+    _freeSet = {};
+    var C = window.COURSE;
+    if(!C || !C.parts) return;
+    C.parts.forEach(function(part){
+      var files = [];
+      (part.topics || []).forEach(function(t){
+        (t.lessons || []).forEach(function(l){ if(l && l.file) files.push(l.file); });
+      });
+      var freeAll = !!part.prologue;
+      files.forEach(function(f, i){ if(freeAll || i < 2) _freeSet[f] = 1; });
+    });
+  }
+
   window.XueaiAuth = {
     ready: ready,
     get state(){ return state; },
-    isFree: function(){ return true; },
+    isFree: function(file){
+      if(!window.COURSE) return true;   /* 无课程数据的页面（证书/考试壳）不拦 */
+      if(_freeSet === null) buildFreeSet();
+      return !!_freeSet[file];
+    },
     openLoginModal: openLoginModal,
     openGroupModal: function(){},
     mount: mount,
