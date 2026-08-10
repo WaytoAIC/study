@@ -34,19 +34,22 @@
           toSignup:'没有账号？注册一个', toLogin:'已有账号？去登录',
           submitLogin:'登录', submitSignup:'注册并登录', close:'关闭',
           errCred:'邮箱或密码不对', errExists:'这个邮箱已经注册过了，直接登录即可',
-          errWeak:'密码至少 6 位', errNet:'网络不给力，稍后再试' },
+          errWeak:'密码至少 6 位', errNet:'网络不给力，稍后再试',
+          legal:'注册或登录即表示同意 <a href="/terms.html" target="_blank">《用户协议》</a>与 <a href="/privacy.html" target="_blank">《隐私政策》</a>' },
     en: { login:'Sign in', logout:'Sign out', signup:'Sign up', email:'Email', password:'Password (6+ chars)',
           title:'Sign in to WaytoAIC Study', sub:'Your learning progress syncs across devices.',
           toSignup:'No account? Sign up', toLogin:'Have an account? Sign in',
           submitLogin:'Sign in', submitSignup:'Sign up & sign in', close:'Close',
           errCred:'Wrong email or password', errExists:'Already registered — just sign in',
-          errWeak:'Password needs 6+ characters', errNet:'Network error, try again' },
+          errWeak:'Password needs 6+ characters', errNet:'Network error, try again',
+          legal:'By signing up or in, you agree to the <a href="/terms.html" target="_blank">Terms</a> and <a href="/privacy.html" target="_blank">Privacy Policy</a>' },
     ko: { login:'로그인', logout:'로그아웃', signup:'가입', email:'이메일', password:'비밀번호(6자 이상)',
           title:'WaytoAIC Study 로그인', sub:'학습 진도가 기기 간에 동기화됩니다.',
           toSignup:'계정이 없나요? 가입하기', toLogin:'계정이 있나요? 로그인',
           submitLogin:'로그인', submitSignup:'가입 후 로그인', close:'닫기',
           errCred:'이메일 또는 비밀번호가 올바르지 않습니다', errExists:'이미 가입된 이메일입니다. 로그인해 주세요',
-          errWeak:'비밀번호는 6자 이상이어야 합니다', errNet:'네트워크 오류입니다. 다시 시도해 주세요' }
+          errWeak:'비밀번호는 6자 이상이어야 합니다', errNet:'네트워크 오류입니다. 다시 시도해 주세요',
+          legal:'가입 또는 로그인 시 <a href="/terms.html" target="_blank">이용약관</a> 및 <a href="/privacy.html" target="_blank">개인정보 처리방침</a>에 동의하는 것으로 간주됩니다' }
   };
   var T = _T[_lang] || _T.zh;
 
@@ -152,7 +155,9 @@
     '.wa-userchip{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;}',
     '.wa-userchip .wa-nick{max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}',
     '.wa-linkbtn{background:none;border:none;color:var(--accent,#0066ff);cursor:pointer;font-size:13px;font-weight:700;padding:0;}',
-    '.wa-loginbtn{background:var(--accent,#0066ff);color:#fff;border:none;border-radius:10px;padding:8px 16px;font-size:13px;font-weight:800;cursor:pointer;}'
+    '.wa-loginbtn{background:var(--accent,#0066ff);color:#fff;border:none;border-radius:10px;padding:8px 16px;font-size:13px;font-weight:800;cursor:pointer;}',
+    '.wa-legal{margin-top:14px;font-size:12px;color:var(--sub,#94a3b8);text-align:center;line-height:1.6;}',
+    '.wa-legal a{color:var(--sub,#94a3b8);text-decoration:underline;}'
   ].join('\n');
   function injectCss(){
     if(document.getElementById('wa-auth-css')) return;
@@ -177,6 +182,7 @@
         '<div class="wa-err" id="waErr"></div>' +
         '<button class="wa-submit" id="waSubmit">' + T.submitLogin + '</button>' +
         '<a class="wa-alt" id="waSwitch">' + T.toSignup + '</a>' +
+        '<div class="wa-legal">' + T.legal + '</div>' +
       '</div>';
     document.body.appendChild(mask);
     var mode = 'login';
