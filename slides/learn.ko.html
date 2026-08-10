@@ -818,11 +818,7 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
     if(!cloudSync) return;
     clearTimeout(pushTimer);
     pushTimer = setTimeout(function(){
-      fetch('/auth/progress', {
-        method:'POST', credentials:'same-origin',
-        headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({progress: progress})
-      }).catch(function(){});
+      window.XueaiAuth.pushProgress(progress);
     }, 1500);
   }
 
@@ -1310,8 +1306,7 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
       applyLocks();
       if(!window.XueaiAuth.state.loggedIn) return;
       /* 로그인 상태: 서버 진도 조회 → 로컬과 합산 → 양쪽 저장 */
-      fetch('/auth/progress', {credentials:'same-origin'})
-        .then(function(r){ return r.json(); })
+      window.XueaiAuth.getProgress()
         .then(function(d){
           cloudSync = true;
           var remote = (d && d.ok && d.progress) || {};
