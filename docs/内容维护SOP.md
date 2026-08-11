@@ -55,5 +55,17 @@
 open "http://localhost:8809/slides/learn.html?preview=1"
 # 发布某篇章：course-data.js 删该篇章的 draft: true 行 → commit+push
 # 撤回：保持 draft（永不可见）或整段移除（目录消失，文件保留）
-# 首个电商篇章发布后：COURSE_DEFAULT_TRACK 改 'aic'
 ```
+
+## 七、发布到火山引擎（2026-08-11 起）
+
+站点托管在火山引擎 Pages（IGA，项目 `study`/5ohsyrm18a，绑定 waytoaic-study 工作区，与账号后端同厂）。每次内容达到"可以了"节点：
+
+```bash
+# commit + push 之后，一条命令发布：
+bash scripts/deploy-volc.sh
+```
+
+- 脚本输出的预览链接带令牌、短时效，适合验收分享，不适合当正式入口
+- **正式公开域名（study.waytoaic.com）前置 = ICP 备案**：国内 scope 的自定义域名绑定按规必须备案；备案办妥后在火山控制台绑定域名即为正式入口
+- 备案期间若需要免备案的正式入口，走 Cloudflare Pages 连 GitHub 仓（见项目计划 Phase E），备案后切回火山
