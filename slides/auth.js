@@ -84,6 +84,11 @@
     });
   }
 
+  /* xa_auth：给 paywall.js 与内容页 head 内联脚本用的登录标记（同源共享） */
+  function setPaywallFlag(on){
+    try{ localStorage.setItem('xa_auth', on ? '1' : '0'); }catch(e){}
+  }
+
   function setFromTokenResp(d){
     session = {
       access_token: d.access_token,
@@ -94,6 +99,7 @@
     saveSession(session);
     state.loggedIn = true;
     state.nickname = nickFromEmail(session.user.email);
+    setPaywallFlag(true);
   }
 
   function refreshIfNeeded(){
@@ -101,11 +107,12 @@
     if(session.expires_at && session.expires_at > Date.now()) {
       state.loggedIn = true;
       state.nickname = nickFromEmail(session.user && session.user.email);
+      setPaywallFlag(true);
       return Promise.resolve();
     }
     return req('/auth/v1/token?grant_type=refresh_token', { method:'POST', body:{ refresh_token: session.refresh_token } })
       .then(setFromTokenResp)
-      .catch(function(){ session = null; saveSession(null); state.loggedIn = false; state.nickname = ''; });
+      .catch(function(){ session = null; saveSession(null); state.loggedIn = false; state.nickname = ''; setPaywallFlag(false); });
   }
 
   /* ── 进度同步（契约与上游 /auth/progress 对齐：{file:1,...,__last}） ── */
@@ -222,6 +229,7 @@
     var t = session && session.access_token;
     session = null; saveSession(null);
     state.loggedIn = false; state.nickname = '';
+    setPaywallFlag(false);
     if(t){ fetch(BASE + '/auth/v1/logout', { method:'POST', headers:{ 'apikey': ANON, 'Authorization': 'Bearer ' + t } }).catch(function(){}); }
     location.reload();
   }

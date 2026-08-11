@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>登录解锁更多课程 · xueai.app</title>
+<title>登录解锁更多课程 · WaytoAIC</title>
 <script>
 (function(){
   try{
@@ -85,10 +85,10 @@ body{
   .qr-section{flex-direction:column;text-align:center;}
 }
 </style>
-<link rel="alternate" hreflang="zh-CN" href="https://xueai.app/slides/locked.html">
-<link rel="alternate" hreflang="en" href="https://xueai.app/slides/locked.en.html">
-<link rel="alternate" hreflang="ko" href="https://xueai.app/slides/locked.ko.html">
-<link rel="alternate" hreflang="x-default" href="https://xueai.app/slides/locked.html">
+<link rel="alternate" hreflang="zh-CN" href="https://study.waytoaic.com/slides/locked.html">
+<link rel="alternate" hreflang="en" href="https://study.waytoaic.com/slides/locked.en.html">
+<link rel="alternate" hreflang="ko" href="https://study.waytoaic.com/slides/locked.ko.html">
+<link rel="alternate" hreflang="x-default" href="https://study.waytoaic.com/slides/locked.html">
 </head>
 <body>
 <div class="wrap">
@@ -106,30 +106,29 @@ body{
       </div>
       <div class="benefit">
         <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
-        <div><div class="benefit-title">AI 实战技巧分享</div><div class="benefit-desc">定期组织技术分享与交流会</div></div>
+        <div><div class="benefit-title">AI×跨境电商实战</div><div class="benefit-desc">学-讲-练实战篇章与提示词模板持续更新</div></div>
       </div>
       <div class="benefit">
         <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
-        <div><div class="benefit-title">岗位机会推荐</div><div class="benefit-desc">帮你对接有 AI 岗位需求的公司</div></div>
+        <div><div class="benefit-title">WaytoAIC 共创社群</div><div class="benefit-desc">真正的护城河是进化的速度 · waytoaic.com</div></div>
       </div>
     </div>
     <a class="btn" id="loginBtn" href="/auth/login" target="_top">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
       快速登录，免费学习
     </a>
-    <p class="foot">还没有账号？登录页可直接注册，一分钟搞定。<br>前两节课无需登录即可<a href="learn.html" target="_top">免费试看</a><br>要求登录也是为了防止内容被恶意贩卖。本站是免费公益站，若你在付费课程里买到它，请申请退款。</p>
+    <p class="foot">还没有账号？登录窗里可直接注册，一分钟搞定。<br>每篇章前两节无需登录即可<a href="learn.html" target="_top">免费试看</a><br>要求登录仅用于同步学习进度。本站开源免费。</p>
     <div class="qr-section">
-      <img src="assets/group-qrcode.png" alt="小山学 AI 交流群二维码">
-      <div class="qr-txt"><b>加入学习社群</b><br>技术分享 · 实战交流 · 岗位推荐<br>微信扫码，和同学一起学 AI</div>
+      <div class="qr-txt"><b>WaytoAIC · 通往 AI 电商之路</b><br>愿景与共创见 <a href="https://www.waytoaic.com" target="_blank" rel="noopener">waytoaic.com</a></div>
     </div>
   </div>
 </div>
 <script>
 (function(){
   var file = location.pathname.split('/').pop();
-  var next = '/slides/learn.html';
-  if(file && file !== 'locked.html') next += '#' + file;
-  document.getElementById('loginBtn').href = '/auth/login?next=' + encodeURIComponent(next);
+  var next = 'learn.html';
+  if(file && file !== 'locked.html') next += '#' + encodeURIComponent(file);
+  document.getElementById('loginBtn').href = next;
 })();
 </script>
 <script src="i18n.js?v=20260808"></script>

@@ -31,55 +31,52 @@
   /* 措辞与 auth.js 的登录弹窗保持一致，同一个站里两处引导不该各说各的 */
   var _T = {
     zh: {
-      artAlt:        '小山学 AI',
+      artAlt:        'WaytoAIC · 通往 AI 电商之路',
       gateTitle:     '登录后继续免费阅读',
-      gateSub:       '本节还没有结束。登录即可解锁余下内容与全部课程，完全免费，不花一分钱。',
+      gateSub:       '本节还没有结束。登录即可解锁余下内容与全部课程，完全免费。',
       b0Title:       '解锁全部课程',
-      b0Desc:        '所有章节完整学完，不花一分钱',
-      b1Title:       'AI 实战技巧分享',
-      b1Desc:        '定期组织技术分享与交流会',
-      b2Title:       '岗位机会推荐',
-      b2Desc:        '帮你对接有 AI 岗位需求的公司',
+      b0Desc:        '全部章节 + 学习进度云同步，完全免费',
+      b1Title:       'AI×跨境电商实战',
+      b1Desc:        '学-讲-练实战篇章与提示词模板持续更新',
+      b2Title:       'WaytoAIC 共创社群',
+      b2Desc:        '真正的护城河是进化的速度 · waytoaic.com',
       gateBtn:       '快速登录，免费学习',
-      gateFoot:      '还没有账号？登录页可直接注册，一分钟搞定。<br>'
-                     + '要求登录也是为了防止内容被恶意贩卖。本站是免费公益站，'
-                     + '若你在任何付费课程里买到它，请申请退款。',
+      gateFoot:      '还没有账号？登录窗里可直接注册，一分钟搞定。<br>'
+                     + '要求登录仅用于同步学习进度。本站开源免费。',
       noteText:      '本节为部分预览，登录后可免费阅读全文',
       noteLink:      '登录后继续免费阅读'
     },
     en: {
-      artAlt:        'Learn AI with Xiaoshan',
+      artAlt:        'WaytoAIC · Way to AI Commerce',
       gateTitle:     'Log in to keep reading — free',
       gateSub:       'This lesson is not over yet. Log in to unlock the rest and every other course, '
                      + 'completely free of charge.',
       b0Title:       'Unlock all courses',
       b0Desc:        'Every lesson, completely free of charge',
-      b1Title:       'Hands-on AI tips',
-      b1Desc:        'Regular tech talks and practice exchanges',
-      b2Title:       'Job referrals',
-      b2Desc:        'We connect you with companies hiring for AI roles',
+      b1Title:       'AI x e-commerce in practice',
+      b1Desc:        'Hands-on chapters and prompt templates, updated continuously',
+      b2Title:       'WaytoAIC community',
+      b2Desc:        'The real moat is the speed of evolution · waytoaic.com',
       gateBtn:       'Log in free — start learning',
-      gateFoot:      'No account yet? You can sign up right on the login page in about a minute.<br>'
-                     + 'Login is required to prevent content from being resold. This site is a free '
-                     + 'public resource. If you paid for it anywhere, please request a refund.',
+      gateFoot:      'No account yet? You can sign up right in the login dialog in about a minute.<br>'
+                     + 'Login is only used to sync your learning progress. This site is free and open source.',
       noteText:      'This is a partial preview. Log in to read the full lesson for free.',
       noteLink:      'Log in to keep reading'
     },
     ko: {
-      artAlt:        '샤오산과 함께 배우는 AI',
+      artAlt:        'WaytoAIC · AI 커머스로 가는 길',
       gateTitle:     '로그인하고 무료로 계속 읽기',
       gateSub:       '이 강의는 아직 끝나지 않았습니다. 로그인하면 나머지 내용과 전체 강의를 '
                      + '완전 무료로 이용할 수 있습니다.',
       b0Title:       '전체 강의 잠금 해제',
       b0Desc:        '모든 챕터를 무료로 완주하세요',
-      b1Title:       'AI 실전 노하우 공유',
-      b1Desc:        '정기적인 기술 공유회와 교류회를 진행합니다',
-      b2Title:       '채용 기회 추천',
-      b2Desc:        'AI 인재를 찾는 기업과 연결해 드립니다',
+      b1Title:       'AI x 이커머스 실전',
+      b1Desc:        '실전 챕터와 프롬프트 템플릿을 계속 업데이트합니다',
+      b2Title:       'WaytoAIC 커뮤니티',
+      b2Desc:        '진짜 해자는 진화의 속도입니다 · waytoaic.com',
       gateBtn:       '무료 로그인 · 학습 시작',
-      gateFoot:      '아직 계정이 없으신가요? 로그인 페이지에서 바로 가입할 수 있고, 1분이면 끝납니다.<br>'
-                     + '로그인은 콘텐츠의 무단 판매를 방지하기 위한 조치입니다. 이 사이트는 무료 '
-                     + '공익 사이트이며, 유료로 구입하셨다면 환불을 요청하시기 바랍니다.',
+      gateFoot:      '아직 계정이 없으신가요? 로그인 창에서 바로 가입할 수 있습니다.<br>'
+                     + '로그인은 학습 진도 동기화에만 사용됩니다. 이 사이트는 무료 오픈소스입니다.',
       noteText:      '이 강의는 부분 미리보기입니다. 로그인하면 전문을 무료로 읽을 수 있습니다',
       noteLink:      '로그인하고 무료로 계속 읽기'
     }
@@ -98,7 +95,8 @@
     + 'box-shadow:0 1px 3px rgba(15,23,41,.04),0 8px 28px rgba(15,23,41,.05);}'
     + 'html.xa-locked .xa-gate{display:flex;}'
     + '.xa-gate-art{flex:0 0 208px;align-self:stretch;min-height:318px;'
-    + 'background:#1a1040 url("assets/login-hero.webp") center 18% / cover no-repeat;}'
+    + 'background:#f8fafc url("images/brand/waytoaic-logo.png") center / 86% no-repeat;'
+    + 'border-right:1px solid rgba(120,130,150,.12);}'
     + '.xa-gate-main{flex:1 1 auto;min-width:0;padding:30px 32px 28px;}'
     + '.xa-gate h2{margin:0 0 7px;font-size:20px;line-height:1.4;'
     + 'color:#0f1729;font-weight:650;letter-spacing:-.2px;}'
@@ -136,9 +134,7 @@
     /* 窄屏改成配图横幅在上：竖图挤在侧边只剩一条，看不出画的是什么 */
     + '@media(max-width:680px){'
     + 'html.xa-locked .xa-gate{display:block;}'
-    /* 横幅只有 132px 高，取图要对着主体：狐狸头大约在原图 46% 处，
-       用默认的 center 会切到上方星空，看不出画的是什么 */
-    + '.xa-gate-art{min-height:138px;background-position:center 45%;}'
+    + '.xa-gate-art{min-height:138px;background-size:auto 78%;background-position:center;}'
     + '.xa-gate-main{padding:22px 20px 24px;}'
     + '.xa-gate h2{font-size:18px;}'
     + '.xa-gate-btn{max-width:none;}'
@@ -220,23 +216,23 @@
   // 阅读器分语言，英韩课程要回各自那份，否则登录一趟就被切回中文站。
   var file = location.pathname.split('/').pop();
   var reader = _lang === 'zh' ? 'learn.html' : 'learn.' + _lang + '.html';
-  var next = (inFrame && file) ? '/slides/' + reader + '#' + file : location.pathname;
-  var href = '/auth/login?next=' + encodeURIComponent(next);
+  var href = reader + '#' + encodeURIComponent(file || '');
   [gate.querySelector('#xaGateBtn'), note.querySelector('.xa-note-link')]
     .forEach(function (a) {
       a.href = href;
       if (inFrame) a.setAttribute('target', '_top');
+      a.addEventListener('click', function (e) {
+        /* 阅读器内（同源 iframe）直接弹外壳的登录窗，省一次跳转 */
+        try {
+          var XA = window.top.XueaiAuth;
+          if (XA && XA.openLoginModal) { e.preventDefault(); XA.openLoginModal(); }
+        } catch (err) { /* 拿不到外壳就按链接走 */ }
+      });
     });
 
-  /* ── 用真实登录态校正 ── */
-  fetch('/auth/me', { credentials: 'same-origin' })
-    .then(function (r) { return r.json(); })
-    .then(function (d) {
-      var on = !!(d && d.logged_in);
-      try { localStorage.setItem(KEY, on ? '1' : '0'); } catch (e) {}
-      document.documentElement.classList.toggle(LOCK, !on);
-    })
-    .catch(function () {
-      /* 接口不可用（如本地预览）时不额外拦截，交给 head 内联脚本的判断 */
-    });
+  /* ── 登录态校正：WaytoAIC 版无 /auth/me，读 auth.js 维护的 xa_auth 本地标记
+        （登录/退出/会话刷新时由 auth.js 写入，同源 localStorage 全站共享） ── */
+  var on = false;
+  try { on = localStorage.getItem(KEY) === '1'; } catch (e) {}
+  document.documentElement.classList.toggle(LOCK, !on);
 })();
