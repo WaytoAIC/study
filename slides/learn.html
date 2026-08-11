@@ -761,6 +761,7 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
         <span>你的结业证书已经准备好，姓名取自账号昵称</span>
       </div>
       <a class="fb-cta" href="certificate.html">领取结业证书</a>
+      <a class="fb-cta" style="background:transparent;color:inherit;border:1.5px solid rgba(127,127,127,.35);" href="https://www.waytoaic.com" target="_blank" rel="noopener">加入 WaytoAIC 社群</a>
       <button class="fb-close" id="finishClose" type="button" title="不再提示">×</button>
     </div>
     <div class="lesson-foot">
@@ -968,6 +969,8 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
   }
   function doLoadLesson(f, L){
     var _wm = document.getElementById('waLoginMask'); if(_wm) _wm.remove();
+    var _tk = PART_TRACK[L.partId] || 'base';
+    if(_tk !== curTrack) switchTrack(_tk);
     iframe.src = L.file + (L.file.indexOf('?')>=0 ? '&' : '?') + 'embed=1';
 
     var tagStyle = TAGS[L.tag] || {bg:'#f3f4f6', fg:'#4b5563'};
@@ -1130,7 +1133,9 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
         var L = BY_FILE[file];
         var titleHit = !q || (L && ((L.title+L.desc+L.topicTitle).toLowerCase().indexOf(q)>=0));
         var bodyHit = !!q && !titleHit && !!body && body.has(file);
-        var hit = titleHit || bodyHit;
+        /* 双轨：无搜索词时只显示当前轨；有搜索词时跨轨命中 */
+        var trackOk = !!q || !L || (PART_TRACK[L.partId] || 'base') === curTrack;
+        var hit = (titleHit || bodyHit) && trackOk;
         item.style.display = hit ? '' : 'none';
         item.classList.toggle('body-hit', bodyHit);
         if(hit) any = true;
@@ -1145,7 +1150,8 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
         if(next.classList.contains('topic-block') && next.style.display !== 'none') anyVisible = true;
         next = next.nextElementSibling;
       }
-      d.style.display = (!q || anyVisible) ? '' : 'none';
+      /* 双轨后：无论有无搜索词，没有可见主题块的篇章头都藏（轨道过滤也走这条） */
+      d.style.display = anyVisible ? '' : 'none';
     });
   }
 
@@ -1283,6 +1289,51 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
   });
 
   buildTree();
+
+  /* ── 双轨切换：AI 基础知识 / AI 跨境电商实战（维正 2026-08-11 拍板）──
+     过滤走 applySearch 统一管道：无搜索词只显当前轨，搜索时跨轨命中；
+     电商轨无可见篇章（草稿未发布且非预览）时不渲染 tab。 */
+  var TRACK_LABELS = { base:'AI 基础知识', aic:'AI 跨境电商实战' };
+  var PART_TRACK = {};
+  window.COURSE.parts.forEach(function(p){ PART_TRACK[p.id] = p.track || 'base'; });
+  var hasAic = window.COURSE.parts.some(function(p){ return (p.track||'base') === 'aic'; });
+  var curTrack = 'base';
+  try{ curTrack = localStorage.getItem('wa_track') || window.COURSE_DEFAULT_TRACK || 'base'; }catch(e){}
+  if(curTrack !== 'base' && !hasAic) curTrack = 'base';
+
+  function switchTrack(t){
+    if(t === curTrack) return;
+    curTrack = t;
+    try{ localStorage.setItem('wa_track', t); }catch(e){}
+    var tabs = document.getElementById('trackTabs');
+    if(tabs) tabs.querySelectorAll('.track-tab').forEach(function(b){
+      b.classList.toggle('on', b.dataset.track === t);
+    });
+    applySearch();
+  }
+
+  (function initTracks(){
+    if(!hasAic){ applySearch(); return; }
+    var st = document.createElement('style');
+    st.textContent = '.track-tabs{display:flex;gap:6px;padding:12px 14px 0;}'
+      + '.track-tab{flex:1;border:1.5px solid var(--border,rgba(0,0,0,.08));background:transparent;'
+      + 'border-radius:10px;padding:7px 4px;font-size:12.5px;font-weight:800;cursor:pointer;'
+      + 'color:var(--sub,#6b7280);}'
+      + '.track-tab.on{background:var(--accent,#0066ff);border-color:var(--accent,#0066ff);color:#fff;}';
+    document.head.appendChild(st);
+    var bar = document.createElement('div');
+    bar.className = 'track-tabs'; bar.id = 'trackTabs';
+    ['base','aic'].forEach(function(t){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'track-tab' + (t===curTrack?' on':'');
+      b.dataset.track = t; b.textContent = TRACK_LABELS[t];
+      b.addEventListener('click', function(){ switchTrack(t); });
+      bar.appendChild(b);
+    });
+    var sw = document.querySelector('.search-wrap');
+    sw.parentNode.insertBefore(bar, sw);
+    applySearch();
+  })();
   refreshProgress();
   loadLesson(currentFile());
 

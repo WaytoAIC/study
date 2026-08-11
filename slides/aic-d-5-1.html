@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>上下文窗口：为什么 AI 记不住你的店铺 | WaytoAIC</title>
+<style>@keyframes _si{from{opacity:0}to{opacity:1}}body{opacity:0;animation:_si 0.15s ease 0.08s forwards}</style>
+<link rel="stylesheet" href="lesson.css">
+<link rel="stylesheet" href="aic-study.css">
+<style>
+.mem-demo{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin:14px 0;}
+.mem-demo .md-lab{font-size:11.5px;font-weight:800;letter-spacing:1px;margin-bottom:8px;}
+.mem-demo.bad .md-lab{color:var(--danger);} .mem-demo.good .md-lab{color:var(--success);}
+.mem-demo p{font-size:14px;line-height:1.85;color:var(--sub);}
+.mem-demo p b{color:var(--text);}
+.desk{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0;}
+.desk-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px 18px;}
+.desk-card h4{font-size:14px;font-weight:800;margin-bottom:6px;color:var(--accent);}
+.desk-card p{font-size:12.5px;color:var(--sub);line-height:1.7;}
+@media(max-width:680px){.desk{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<main class="lesson">
+  <div class="aic-status">AI 初稿 · 待维正过手补充实战思考</div>
+  <header class="lesson-header">
+    <div class="kicker">实战三 · 团队 AI 上岗 · 场景版</div>
+    <h1>上下文窗口：为什么 AI <em>记不住你的店铺</em></h1>
+    <p class="subtitle">聊到第 50 轮，AI 开始忘事、说车轱辘话？不是它变笨了，是它的"办公桌"堆满了。</p>
+  </header>
+
+  <div class="aic-stage learn"><span class="aic-stage-tag">学</span>先把这个点看明白<span class="aic-stage-sub">办公桌比喻 + 三个电商现场</span></div>
+
+  <div class="l-card reveal">
+    <p>AI 没有硬盘式的记忆，只有一张<b>大小固定的办公桌</b>（术语叫"上下文窗口"）：你说过的话、它答过的话、你贴的资料，全都摊在这张桌上。桌面没满时它样样记得；<b>桌面一满，最早摊上去的东西就被挤下去</b>——它不是选择性遗忘，是物理性装不下。想深挖机制原理，去基础轨的通用版（页尾关联可跳）。</p>
+  </div>
+
+  <div class="desk reveal">
+    <div class="desk-card"><h4>现场一：长对话失忆</h4><p>选品讨论聊了一下午，AI 突然把你上午定的预算说错——上午的内容已经被挤出桌面了。</p></div>
+    <div class="desk-card"><h4>现场二：大文件噎住</h4><p>把 5000 行的全类目表格整个贴进去，AI 回答开始飘——桌面被一张大表占满，你的问题本身反而没地方摊。</p></div>
+    <div class="desk-card"><h4>现场三：新对话冷启动</h4><p>昨天调教得很懂你店铺的 AI，今天开新对话一问三不知——新对话=新桌面，昨天的东西根本不在桌上。</p></div>
+  </div>
+
+  <h2 class="sec-title">同一件事，两种做法</h2>
+  <div class="mem-demo bad reveal"><div class="md-lab">✗ 硬扛桌面</div><p>一个对话从选品聊到 Listing 再聊到广告，三天不换；全类目表格整表贴入；发现 AI 忘事就把之前说过的重新打一遍——越堆越满，越满越忘。</p></div>
+  <div class="mem-demo good reveal"><div class="md-lab">✓ 管理桌面</div><p><b>一事一对话</b>：选品、文案、广告分开聊，桌面永远干净；<b>喂料先瘦身</b>：5000 行表格先筛出相关的 50 行再贴；<b>要点落背景包</b>：聊出的重要结论摘出来存进背景包（见"喂料与边界"课），下次新对话贴包冷启动——桌面会清空，背景包不会。</p></div>
+
+  <h2 class="sec-title">判断题：点开对答案</h2>
+  <div class="aic-opt"><div class="aic-opt-q">AI 工具标榜"支持超长上下文"，是不是就可以随便堆了？</div><div class="aic-opt-a"><b>桌子变大 ≠ 不用整理。</b>两个现实：桌面越满，AI 翻找的准头越差——放在中段的信息最容易被忽略；而且更大的桌面通常意味着更慢、更贵。正确姿势不变：<b>只把和当前任务相关的东西摊上桌</b>。</div></div>
+  <div class="aic-opt"><div class="aic-opt-q">怎么判断"该开新对话了"？</div><div class="aic-opt-a">三个信号出现任何一个就换：①AI 开始忘记你早前定的关键前提；②话题已经切到另一件事（从选品切到广告）；③它开始重复自己或明显变笨。换之前花 30 秒<b>让 AI 自己总结本次对话的关键结论</b>，把总结贴进下一个对话——这是最实用的"搬家"技巧。</div></div>
+
+  <div class="aic-stage speak"><span class="aic-stage-tag">讲</span>用自己的话讲一遍<span class="aic-stage-sub">费曼时刻</span></div>
+  <div class="aic-feynman">
+    <div class="aic-fy-title">FEYNMAN · 输出倒逼输入</div>
+    <p>同事抱怨："这 AI 真笨，昨天教过的今天全忘了。"<br>用办公桌的比喻给他讲清：<b>为什么这不是笨，以及他现在就能改的两个习惯。</b></p>
+    <div class="aic-fy-check">
+      <button class="aic-fy-check-btn" type="button">讲完了，对照要点 ›</button>
+      <div class="aic-fy-check-body"><ul>
+        <li>比喻到位：固定大小的办公桌，满了就挤掉最早的；新对话=新桌面</li>
+        <li>习惯一：一事一对话 + 喂料先瘦身</li>
+        <li>习惯二：重要结论落背景包/让 AI 总结搬家，别指望它自己记住</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="aic-stage do"><span class="aic-stage-tag">练</span>拿真活练一把<span class="aic-stage-sub">刻意练习</span></div>
+  <div class="aic-practice">
+    <div class="aic-pr-row"><div class="aic-pr-k">任务</div><div class="aic-pr-v">找出你最近一个<b>超过 30 轮的长对话</b>，做两件事：①让 AI 总结这个对话的关键结论，检查有没有总结错（错的就是被挤掉的部分）；②把值得留的结论搬进你的背景包。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">合格标准</div><div class="aic-pr-v">产出一份"搬家清单"：这个对话里有 __ 条结论值得留，其中 __ 条 AI 总结时已经记错或漏掉。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">习惯落地</div><div class="aic-pr-v">接下来一周执行"一事一对话"，周末回看：忘事、重复、变笨的情况比上周少了多少。</div></div>
+    <div class="aic-pr-metric">衡量口径：搬家清单 + 一周后主观评估（AI 忘事次数对比）。记错/漏掉的条数就是"硬扛桌面"的真实代价。</div>
+    <ul class="aic-check">
+      <li>找出一个 30 轮以上的长对话</li>
+      <li>让 AI 总结并核对错漏</li>
+      <li>关键结论搬进背景包</li>
+      <li>一周"一事一对话"后回看对比</li>
+    </ul>
+  </div>
+
+  <div class="l-callout reveal">
+    <p><b>本页 Takeaway</b>：AI 的记忆是一张固定大小的办公桌，满了就挤掉最早的；管桌面三招=一事一对话、喂料先瘦身、结论落背景包；换对话前先让 AI 总结搬家。</p>
+  </div>
+</main>
+<script src="i18n.js?v=20260808"></script>
+<script src="lesson.js"></script>
+<script src="nav-inject.js?v=20260809q"></script>
+<script src="aic-study.js"></script>
+</body>
+</html>

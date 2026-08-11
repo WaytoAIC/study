@@ -91,6 +91,11 @@
       next: [{ file: 'aic-select-2.html', why: '实战应用：选品数据的验真' }],
       terms: [{ t: '缓解幻觉的 Prompt 手段', file: '1-2-mitigation-prompt.html' }],
     },
+    'aic-d-5-1.html': {
+      needs: [{ file: '5-1.html', why: '通用版：上下文窗口的机制详解（本页为电商场景版）' }],
+      next: [{ file: 'aic-team-2.html', why: '结论落背景包的完整做法' }],
+      terms: [{ t: '上下文溢出的三种处理策略', file: '5-2.html' }],
+    },
     'aic-team-4.html': {
       needs: [
         { file: 'aic-team-1.html', why: '交接模板=固定化的任务交代' },
@@ -111,7 +116,7 @@
     'aic-team-1.html': 'AI 是同事，不是搜索框', 'aic-team-2.html': '喂料与边界',
     'aic-team-3.html': '验证 AI 的活', 'aic-team-4.html': '一人一流水线',
     'zero-q-prompt.html': '提示词到底怎么写才好？', '1-2-hallucination.html': '大模型幻觉演示',
-    '1-2-mitigation-prompt.html': '应对幻觉：Prompt Engineering', '5-1.html': '上下文窗口：AI 的工作记忆',
+    '1-2-mitigation-prompt.html': '应对幻觉：Prompt Engineering', '5-1.html': '上下文窗口：AI 的工作记忆', 'aic-d-5-1.html': '上下文窗口：为什么 AI 记不住你的店铺（电商场景版）',
     '5-2.html': '上下文溢出：三种处理策略',
   };
 
