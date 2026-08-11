@@ -107,3 +107,29 @@
   .aic-stage .aic-stage-sub{margin-left:0;text-align:left;width:100%;}
   .aic-practice .aic-pr-row{flex-direction:column;gap:4px;}
 }
+
+/* ── AI 实战演示：可复制的 prompt 卡（维正素材位） ── */
+.aic-prompt{
+  background:#0f172a;border-radius:var(--radius);margin:16px 0;overflow:hidden;
+  border:1.5px solid rgba(0,102,255,.25);
+}
+.aic-prompt .aic-pm-head{
+  display:flex;align-items:center;gap:10px;padding:10px 16px;
+  background:rgba(255,255,255,.06);font-size:12px;font-weight:800;
+  letter-spacing:.5px;color:#93c5fd;
+}
+.aic-prompt .aic-pm-copy{
+  margin-left:auto;background:none;border:1px solid rgba(147,197,253,.4);
+  color:#93c5fd;border-radius:8px;padding:4px 12px;font-size:12px;font-weight:700;cursor:pointer;
+}
+.aic-prompt .aic-pm-copy:hover{background:rgba(147,197,253,.1);}
+.aic-prompt pre{
+  margin:0;padding:16px 18px;font-size:13px;line-height:1.8;color:#e2e8f0;
+  white-space:pre-wrap;word-break:break-word;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+.aic-prompt pre .ph{color:#fbbf24;font-weight:700;}
+.aic-prompt .aic-pm-note{
+  padding:10px 16px;background:rgba(255,255,255,.04);font-size:12.5px;
+  color:#94a3b8;line-height:1.7;border-top:1px solid rgba(255,255,255,.06);
+}

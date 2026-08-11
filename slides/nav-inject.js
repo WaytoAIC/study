@@ -690,6 +690,16 @@ const I18N = window.XUEAI_I18N || {
   } catch (e) { /* 加载失败不影响浏览 */ }
 })();
 
+// ── WaytoAIC 知识点关联网络：数据+渲染都在 aic-rel.js，声明单点维护、反向自动 ──
+(function () {
+  try {
+    var s = document.createElement('script');
+    s.src = 'aic-rel.js?v=20260811a';
+    s.async = true;
+    document.head.appendChild(s);
+  } catch (e) { /* 加载失败不影响浏览 */ }
+})();
+
 // ── 嵌入模式下的站内跳页：交给外壳换 hash，别让 iframe 自己跳 ──
 // 课件正文里的站内链接（如 interview-* 的「用这些课程页组织答案」）写的是相对
 // 路径。iframe 自己跳过去的话，外壳 learn.html 的 hash 和左侧目录都不会动，用户
