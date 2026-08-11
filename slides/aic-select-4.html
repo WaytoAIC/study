@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>财务底线：一单到底赚不赚钱 | WaytoAIC</title>
+<style>@keyframes _si{from{opacity:0}to{opacity:1}}body{opacity:0;animation:_si 0.15s ease 0.08s forwards}</style>
+<link rel="stylesheet" href="lesson.css">
+<link rel="stylesheet" href="aic-study.css">
+<style>
+.knife{display:flex;flex-direction:column;gap:10px;margin:20px 0;}
+.knife-row{display:flex;align-items:center;gap:14px;background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:13px 18px;font-size:14.5px;}
+.knife-row .k-icon{flex:none;width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;background:var(--danger);font-size:13px;}
+.knife-row.top .k-icon{background:var(--success);}
+.knife-row .k-note{margin-left:auto;font-size:12.5px;color:var(--sub);text-align:right;}
+.calc-box{background:linear-gradient(135deg,rgba(22,163,74,.05),rgba(0,102,255,.04));border:1.5px solid rgba(22,163,74,.3);border-radius:var(--radius);padding:20px 24px;margin:16px 0;}
+.calc-box .cb-line{display:flex;justify-content:space-between;font-size:14.5px;padding:6px 0;border-bottom:1px dashed var(--border);}
+.calc-box .cb-line:last-child{border-bottom:none;font-weight:900;font-size:16px;}
+.calc-box .cb-line .neg{color:var(--danger);}
+.calc-box .cb-line .pos{color:var(--success);}
+</style>
+</head>
+<body>
+<main class="lesson">
+  <div class="aic-status">AI 初稿 · 待维正过手补充实战思考</div>
+  <header class="lesson-header">
+    <div class="kicker">实战二 · AI×选品</div>
+    <h1>财务底线：一单到底<em>赚不赚钱</em></h1>
+    <p class="subtitle">很多"爆款"是亏着卖的，卖家自己都不知道。把四刀成本算完再心动。</p>
+  </header>
+
+  <div class="aic-stage learn"><span class="aic-stage-tag">学</span>先把这个点看明白<span class="aic-stage-sub">售价上砍下来的四刀</span></div>
+
+  <div class="knife reveal">
+    <div class="knife-row top"><span class="k-icon">＄</span><b>售价</b>——买家付的钱，一切从这里开始<span class="k-note">参照首页主流价格带定，别自嗨定价</span></div>
+    <div class="knife-row"><span class="k-icon">1</span><b>第一刀：货</b>——采购成本 + 头程运费<span class="k-note">体积和重量在这刀里被放大，轻小件的优势就在这</span></div>
+    <div class="knife-row"><span class="k-icon">2</span><b>第二刀：平台</b>——佣金 + 仓储配送费<span class="k-note">按类目费率和尺寸分段收，上架前就能精确查到</span></div>
+    <div class="knife-row"><span class="k-icon">3</span><b>第三刀：广告</b>——新品期几乎每一单都有广告成本<span class="k-note">最容易被漏算的一刀，也是最致命的一刀</span></div>
+    <div class="knife-row"><span class="k-icon">4</span><b>第四刀：杂項</b>——退货、汇损、包材、仓储长期费<span class="k-note">经验上留售价的几个百分点做缓冲</span></div>
+  </div>
+
+  <h2 class="sec-title">最重要的一个数：盈亏平衡广告费</h2>
+  <div class="calc-box reveal">
+    <div class="cb-line"><span>售价</span><span>$25.00</span></div>
+    <div class="cb-line"><span>− 货（采购+头程）</span><span class="neg">− $6.50</span></div>
+    <div class="cb-line"><span>− 平台（佣金+配送）</span><span class="neg">− $8.20</span></div>
+    <div class="cb-line"><span>− 杂项缓冲</span><span class="neg">− $1.30</span></div>
+    <div class="cb-line"><span>= 广告前毛利（我一单最多能给广告花的钱）</span><span class="pos">$9.00</span></div>
+  </div>
+  <div class="l-callout reveal"><p>这 $9 就是你的<b>盈亏平衡广告费</b>：平均每卖出一单，广告花费低于 $9 就赚、高于 $9 就亏。它把"这个品赚不赚钱"变成一个可以去广告后台验证的具体问题：<b>这个类目的点击单价 × 出一单平均要多少次点击，算出来的钱和 $9 谁大？</b>新品期普遍要亏着投,但你必须知道自己在拿多少钱换位置、打算换多久。</p></div>
+
+  <h2 class="sec-title">两个常见的算账自欺，点开看</h2>
+  <div class="aic-opt"><div class="aic-opt-q">① "毛利有 50%，稳赚"——这句话漏了什么？</div><div class="aic-opt-a"><b>先问这个"毛利"砍了几刀。</b>很多人说的 50% 只砍了第一刀（货成本）。四刀砍完还剩多少才是真话。经验规律：只砍一刀的"毛利率"减去 25-35 个百分点，才接近砍完四刀的样子。</div></div>
+  <div class="aic-opt"><div class="aic-opt-q">② "先不算广告，等品起来了自然有自然流量"</div><div class="aic-opt-a"><b>这是把最贵的一刀假装不存在。</b>新品没有自然流量，正是最依赖广告的时候——广告成本最高的阶段和现金流最脆弱的阶段是同一段。正确姿势：按"新品期每单都背广告费"做压力测试，能扛住再进。</div></div>
+
+  <div class="aic-stage speak"><span class="aic-stage-tag">讲</span>用自己的话讲一遍<span class="aic-stage-sub">费曼时刻</span></div>
+  <div class="aic-feynman">
+    <div class="aic-fy-title">FEYNMAN · 输出倒逼输入</div>
+    <p>向一个准备入场的新卖家解释：<b>为什么"毛利 30%"只是入场券，不是赚钱的保证？</b>用四刀的顺序讲，最后落到"盈亏平衡广告费"这个数上。</p>
+    <div class="aic-fy-check">
+      <button class="aic-fy-check-btn" type="button">讲完了，对照要点 ›</button>
+      <div class="aic-fy-check-body"><ul>
+        <li>四刀依次讲清：货、平台、广告、杂项——大多数人只算了前两刀</li>
+        <li>广告是新品期最大的变量，必须单独拎出来压力测试</li>
+        <li>"盈亏平衡广告费"是把模糊的"赚不赚"变成可验证的一个数字</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="aic-stage do"><span class="aic-stage-tag">练</span>拿真数据练一把<span class="aic-stage-sub">刻意练习</span></div>
+  <div class="aic-practice">
+    <div class="aic-pr-row"><div class="aic-pr-k">任务</div><div class="aic-pr-v">从你的候选清单里挑<b>一个真实候选品</b>，把四刀成本逐项查实（平台费率用官方计算器查，头程按你真实能拿到的物流报价），算出它的<b>盈亏平衡广告费</b>。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">合格标准</div><div class="aic-pr-v">每一刀都有出处（报价截图/费率页链接），不允许"大概"；最终产出一行结论：售价 $__，四刀共 $__，盈亏平衡广告费 $__。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">加压检验</div><div class="aic-pr-v">再算两个悲观情景：售价被迫降 10%、退货率翻倍——盈亏平衡广告费还剩多少？<b>剩得越少的品，容错越差。</b></div></div>
+    <div class="aic-pr-metric">衡量口径：一张四刀成本表（每刀有出处）+ 盈亏平衡广告费 + 两个悲观情景数。可以让 AI 帮你搭表和复算，但每个数的出处你要亲手核过。</div>
+    <ul class="aic-check">
+      <li>四刀成本逐项查实（每项留出处）</li>
+      <li>算出盈亏平衡广告费</li>
+      <li>两个悲观情景重算</li>
+      <li>回填第一节课三问表的"赚不赚钱"栏</li>
+    </ul>
+  </div>
+
+  <div class="l-callout reveal">
+    <p><b>本页 Takeaway</b>：四刀砍完才是真毛利；广告是最容易漏算也最致命的一刀；"盈亏平衡广告费"把赚不赚钱变成一个可验证的数字；悲观情景测的是容错空间。</p>
+  </div>
+</main>
+<script src="i18n.js?v=20260808"></script>
+<script src="lesson.js"></script>
+<script src="nav-inject.js?v=20260809q"></script>
+<script src="aic-study.js"></script>
+</body>
+</html>

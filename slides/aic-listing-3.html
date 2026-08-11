@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>上架实验：让数据判对错 | WaytoAIC</title>
+<style>@keyframes _si{from{opacity:0}to{opacity:1}}body{opacity:0;animation:_si 0.15s ease 0.08s forwards}</style>
+<link rel="stylesheet" href="lesson.css">
+<link rel="stylesheet" href="aic-study.css">
+<style>
+.exp-table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px;}
+.exp-table th,.exp-table td{border:1px solid var(--border);padding:10px 14px;text-align:left;line-height:1.6;}
+.exp-table th{background:rgba(0,102,255,.05);font-weight:800;font-size:13px;}
+.exp-table td .y{color:var(--success);font-weight:800;}
+.exp-table td .n{color:var(--danger);font-weight:800;}
+</style>
+</head>
+<body>
+<main class="lesson">
+  <div class="aic-status">AI 初稿 · 待维正过手补充实战思考</div>
+  <header class="lesson-header">
+    <div class="kicker">实战一 · AI×Listing 与主图</div>
+    <h1>上架实验：<em>"感觉好看"不算数</em>，数据才算</h1>
+    <p class="subtitle">5 版图做好了，谁上？别开会投票——让买家用点击投票。</p>
+  </header>
+
+  <div class="aic-stage learn"><span class="aic-stage-tag">学</span>先把这个点看明白<span class="aic-stage-sub">最小可行的实验方法</span></div>
+
+  <div class="l-card reveal">
+    <p>团队开会挑主图是最常见的错误姿势：办公室里赢的图和搜索页上赢的图，经常不是同一张。你的审美不是买家的审美，你盯着自己产品三个月了，买家只看 0.3 秒。<b>结论只能来自真实曝光下的点击数据。</b></p>
+  </div>
+
+  <h2 class="sec-title">两条实验路径，按条件选</h2>
+  <table class="exp-table reveal">
+    <tr><th></th><th>官方实验工具（做了品牌备案可用）</th><th>轮换法（谁都能用）</th></tr>
+    <tr><td><b>做法</b></td><td>平台把流量对半分给两版图，同时段对照</td><td>版本 A 挂满一周 → 换版本 B 挂一周，对比两周数据</td></tr>
+    <tr><td><b>优点</b></td><td class=""><span class="y">同时段对照，最干净</span>；系统自动判胜负</td><td>零门槛；不止两版可以排队轮</td></tr>
+    <tr><td><b>要小心</b></td><td>一次实验周期长；两版差异太小测不出赢家</td><td><span class="n">时间因素会捣乱</span>：促销周、竞对断货周的数据不可比——轮换期间记录"当周有没有异常事件"</td></tr>
+  </table>
+
+  <h2 class="sec-title">实验最容易自欺的三个地方，点开看</h2>
+  <div class="aic-opt"><div class="aic-opt-q">① 挂了两天，点击率涨了，宣布胜利</div><div class="aic-opt-a"><b>样本太小，别急。</b>点击这种事天然有波动，几十次点击的差异说明不了什么。经验底线：每版至少积累<b>几千次曝光</b>再看结论；曝光少的品，宁可拉长周期也别提前宣判。</div></div>
+  <div class="aic-opt"><div class="aic-opt-q">② 同时换了主图 + 改了价格 + 开了新广告</div><div class="aic-opt-a"><b>这实验废了。</b>三个变量一起动，涨了跌了都不知道该记在谁头上。一次实验只动一个变量——这是所有实验方法的第一戒律。</div></div>
+  <div class="aic-opt"><div class="aic-opt-q">③ 点击率涨了，但订单没涨，实验成功了吗？</div><div class="aic-opt-a"><b>要看第二层。</b>主图管点击，详情页和价格管转化。点击率涨、转化率跌，可能是图"骗"进来了不精准的流量（比如图暗示了产品没有的用途）。看数据要成对看：<b>点击率 × 转化率</b>一起涨才是真赢。</div></div>
+
+  <div class="aic-stage speak"><span class="aic-stage-tag">讲</span>用自己的话讲一遍<span class="aic-stage-sub">费曼时刻</span></div>
+  <div class="aic-feynman">
+    <div class="aic-fy-title">FEYNMAN · 输出倒逼输入</div>
+    <p>老板说："新图挂上三天，点击率从 2.1% 涨到 2.4%，就用它了。"<br>请你有理有据地回应他——<b>什么情况下这个结论可信，什么情况下不可信</b>。</p>
+    <p class="aic-fy-tips">提示：样本量、当周异常事件、只动了一个变量吗、转化率跟上了吗。</p>
+    <div class="aic-fy-check">
+      <button class="aic-fy-check-btn" type="button">讲完了，对照要点 ›</button>
+      <div class="aic-fy-check-body"><ul>
+        <li>三天的数据要先问曝光量够不够（几千次是底线），不够就是噪声</li>
+        <li>要排除同期干扰：促销、广告调整、竞对变动、周末效应</li>
+        <li>确认这三天里只换了主图这一个变量</li>
+        <li>点击率涨了还要看转化率——图把什么人骗进来了，钱包知道</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="aic-stage do"><span class="aic-stage-tag">练</span>拿真数据练一把<span class="aic-stage-sub">刻意练习 · 本篇章的主实验</span></div>
+  <div class="aic-practice">
+    <div class="aic-pr-row"><div class="aic-pr-k">任务</div><div class="aic-pr-v">用上一节的 5 版图跑一轮真实实验：有品牌备案用官方工具测最有把握的 2 版；没有就用轮换法排队，每版至少一周。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">合格标准</div><div class="aic-pr-v">每版记录：曝光、点击、点击率、转化率、当周异常事件。实验期间<b>不动其他任何变量</b>。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">反馈闭环</div><div class="aic-pr-v">实验结束后回到第一节课的 3 条假设——<b>逐条写"验证 / 证伪 / 没测出来"</b>。证伪不是失败，是你花几十块广告费买到了一条真知识。</div></div>
+    <div class="aic-pr-metric">衡量口径：选出赢家版本 + 写出它相对基线的点击率变化幅度；3 条假设全部有判定结论。</div>
+    <ul class="aic-check">
+      <li>确定实验路径（官方工具 / 轮换法）并排期</li>
+      <li>基线数据存档（换图前的点击率/转化率）</li>
+      <li>实验执行中：每周记录一行数据 + 异常事件</li>
+      <li>出结论：赢家版本 + 3 条假设逐条判定</li>
+    </ul>
+  </div>
+
+  <div class="l-callout reveal">
+    <p><b>本页 Takeaway</b>：结论来自真实曝光下的数据，不来自会议室；一次只动一个变量、样本够了再宣判；点击率与转化率成对看；被证伪的假设是花小钱买来的真知识。</p>
+  </div>
+</main>
+<script src="i18n.js?v=20260808"></script>
+<script src="lesson.js"></script>
+<script src="nav-inject.js?v=20260809q"></script>
+<script src="aic-study.js"></script>
+</body>
+</html>

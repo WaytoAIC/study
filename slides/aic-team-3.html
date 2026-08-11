@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>验证 AI 的活 | WaytoAIC</title>
+<style>@keyframes _si{from{opacity:0}to{opacity:1}}body{opacity:0;animation:_si 0.15s ease 0.08s forwards}</style>
+<link rel="stylesheet" href="lesson.css">
+<link rel="stylesheet" href="aic-study.css">
+<style>
+.when-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0;}
+.when-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px 18px;}
+.when-card h4{font-size:14px;font-weight:800;color:var(--danger);margin-bottom:6px;}
+.when-card p{font-size:12.5px;color:var(--sub);line-height:1.65;}
+.v3{display:flex;flex-direction:column;gap:10px;margin:18px 0;}
+.v3-row{display:flex;gap:12px;background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:14px 18px;font-size:14px;line-height:1.7;}
+.v3-row .v-n{flex:none;width:28px;height:28px;border-radius:8px;background:var(--success);color:#fff;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;}
+@media(max-width:700px){.when-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<main class="lesson">
+  <div class="aic-status">AI 初稿 · 待维正过手补充实战思考</div>
+  <header class="lesson-header">
+    <div class="kicker">实战三 · 团队 AI 上岗</div>
+    <h1>验证 AI 的活：<em>不轻信，不返工</em></h1>
+    <p class="subtitle">AI 会一本正经地说错话，这叫"幻觉"。不会验证的人要么全信（出事故），要么全查（比自己干还慢）。</p>
+  </header>
+
+  <div class="aic-stage learn"><span class="aic-stage-tag">学</span>先把这个点看明白<span class="aic-stage-sub">幻觉何时来 + 三招验证</span></div>
+
+  <div class="l-card reveal">
+    <p>AI 的工作方式是"接着最可能的话往下说"，不是"查证后回答"——所以它输出错误信息时<b>语气和正确时一模一样自信</b>。好消息是：幻觉高发区是可预测的。</p>
+  </div>
+
+  <div class="when-grid reveal">
+    <div class="when-card"><h4>具体的数字和事实</h4><p>费率、日期、法规条款、某产品的具体参数——编起来最顺手，错了最难看出来。</p></div>
+    <div class="when-card"><h4>要求给出处的时候</h4><p>让它列参考来源，它可能给你格式完美但根本不存在的链接和文献。</p></div>
+    <div class="when-card"><h4>你的私有信息</h4><p>问它"我上个月销量多少"这类它根本没见过的数据，它有时不说"不知道"，而是猜一个。</p></div>
+  </div>
+
+  <h2 class="sec-title">三招验证法：按风险花力气</h2>
+  <div class="v3 reveal">
+    <div class="v3-row"><span class="v-n">1</span><b>关键事实抽查</b>：输出里挑出"错了会出事"的硬信息（数字/日期/条款），去官方来源核对这几条就好——不用逐字全查。</div>
+    <div class="v3-row"><span class="v-n">2</span><b>反向拷问</b>：追问 AI"这个结论有没有可能是错的？哪部分你不确定？"——它对自己不确定的部分经常会松口，比你自己猜省力。</div>
+    <div class="v3-row"><span class="v-n">3</span><b>风险分级</b>：发出去给客户的、涉及钱和合规的 = 必须人工核；内部草稿、头脑风暴 = 快速扫一眼即可。<b>验证力度跟着后果走，不是平均用力。</b></div>
+  </div>
+
+  <h2 class="sec-title">判断题：点开对答案</h2>
+  <div class="aic-opt"><div class="aic-opt-q">AI 生成的周报里写"本月广告费率上调 2%"，你没听说过这事，怎么办？</div><div class="aic-opt-a"><b>典型的高危信号：具体数字 + 你没见过。</b>三步：①追问它信息来自哪；②去平台官方公告核对；③如果查无此事，把这次幻觉记进你的"错误集"（下面的练习）。永远别把没核过的数字写进对外文件。</div></div>
+  <div class="aic-opt"><div class="aic-opt-q">既然要验证，那 AI 干的活还算省时间吗？</div><div class="aic-opt-a"><b>算，账要这么算：</b>AI 干活 5 分钟 + 你抽查 5 分钟，替代的是你从零干 40 分钟。验证不是白花的成本，是用 10% 的时间换 90% 的产出可信。真正亏的是两个极端：全信（事故成本）和全查（比自己干还慢）。</div></div>
+
+  <div class="aic-stage speak"><span class="aic-stage-tag">讲</span>用自己的话讲一遍<span class="aic-stage-sub">费曼时刻</span></div>
+  <div class="aic-feynman">
+    <div class="aic-fy-title">FEYNMAN · 输出倒逼输入</div>
+    <p>向同事解释：<b>为什么 AI 说错话时不会脸红？</b>（提示：从"它是怎么生成内容的"讲起）然后给出你自己的一句话验证原则。</p>
+    <div class="aic-fy-check">
+      <button class="aic-fy-check-btn" type="button">讲完了，对照要点 ›</button>
+      <div class="aic-fy-check-body"><ul>
+        <li>讲出机制：它在"续写最像的话"，不是"查证后回答"，所以错的和对的一样流利</li>
+        <li>讲出高发区：具体数字/出处/它没见过的私有信息</li>
+        <li>一句话原则类似："后果越重，核得越狠；对外的数字必须见过官方来源"</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="aic-stage do"><span class="aic-stage-tag">练</span>拿真活练一把<span class="aic-stage-sub">刻意练习</span></div>
+  <div class="aic-practice">
+    <div class="aic-pr-row"><div class="aic-pr-k">任务</div><div class="aic-pr-v">本周正常使用 AI 干活，但带着"猎人心态"：<b>抓到 3 个 AI 的真实错误</b>，每个记录：它说了什么 / 我怎么发现的 / 用哪招验证的。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">合格标准</div><div class="aic-pr-v">3 条错误记录齐全，且至少覆盖两种不同的验证招式（抽查/反向拷问/官方核对）。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">能力边界</div><div class="aic-pr-v">如果一周抓不到 3 个——大概率不是 AI 没错，是你的抽查太温柔。去问它具体数字类问题，高发区里蹲得住猎物。</div></div>
+    <div class="aic-pr-metric">衡量口径：3 条错误捕获记录 → 汇成你团队的"常见幻觉清单"第一版，贴在背景包旁边。</div>
+    <ul class="aic-check">
+      <li>错误 1：内容 / 发现方式 / 验证招式</li>
+      <li>错误 2：内容 / 发现方式 / 验证招式</li>
+      <li>错误 3：内容 / 发现方式 / 验证招式</li>
+      <li>汇成团队"常见幻觉清单"v1</li>
+    </ul>
+  </div>
+
+  <div class="l-callout reveal">
+    <p><b>本页 Takeaway</b>：幻觉高发区可预测（数字/出处/私有信息）；三招=抽查、反向拷问、风险分级；验证力度跟着后果走；抓错误本身就是最好的训练。</p>
+  </div>
+</main>
+<script src="i18n.js?v=20260808"></script>
+<script src="lesson.js"></script>
+<script src="nav-inject.js?v=20260809q"></script>
+<script src="aic-study.js"></script>
+</body>
+</html>

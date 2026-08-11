@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>需求验真：榜单会骗人 | WaytoAIC</title>
+<style>@keyframes _si{from{opacity:0}to{opacity:1}}body{opacity:0;animation:_si 0.15s ease 0.08s forwards}</style>
+<link rel="stylesheet" href="lesson.css">
+<link rel="stylesheet" href="aic-study.css">
+<style>
+.lie-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0;}
+.lie-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px 22px;}
+.lie-card h4{font-size:15px;font-weight:800;margin-bottom:8px;color:var(--danger);}
+.lie-card p{font-size:13.5px;color:var(--sub);line-height:1.75;}
+.lie-card .fix{margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);font-size:13px;}
+.lie-card .fix b{color:var(--success);}
+@media(max-width:640px){.lie-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<main class="lesson">
+  <div class="aic-status">AI 初稿 · 待维正过手补充实战思考</div>
+  <header class="lesson-header">
+    <div class="kicker">实战二 · AI×选品</div>
+    <h1>需求验真：<em>榜单会骗人</em>，学会向数据要真话</h1>
+    <p class="subtitle">排名好看不等于卖得多，卖得多不等于一直卖得多。验真就是把"看起来有需求"变成"确认有需求"。</p>
+  </header>
+
+  <div class="aic-stage learn"><span class="aic-stage-tag">学</span>先把这个点看明白<span class="aic-stage-sub">数据的四种"说谎"方式</span></div>
+
+  <div class="l-card reveal">
+    <p>选品数据本身不会说谎，但你<b>读它的方式</b>会让它变成谎言。下面四种错读，每一种都埋过无数库存：</p>
+  </div>
+
+  <div class="lie-grid reveal">
+    <div class="lie-card"><h4>① 排名幻觉</h4><p>类目排名是相对位置：小类目里排前 100 可能一天卖不了几单；排名还会因为一次促销瞬间蹿高。</p><div class="fix"><b>解法：</b>永远把排名换算成"估算月销量"再下判断，工具都提供这个换算，别偷这一步的懒。</div></div>
+    <div class="lie-card"><h4>② 脉冲幻觉</h4><p>只看最近 30 天，你分不清"稳定需求"和"一波流"：促销冲量、网红带货、节日脉冲，过后一地鸡毛。</p><div class="fix"><b>解法：</b>把时间轴拉到 12-24 个月看形状：平稳、稳步爬坡是好形状；一根针一样的尖峰要问清楚那天发生了什么。</div></div>
+    <div class="lie-card"><h4>③ 均值幻觉</h4><p>"这个市场月销 10 万件"——如果 8 万件集中在前三名，剩下几十个卖家分 2 万件，这个"大市场"跟你没关系。</p><div class="fix"><b>解法：</b>看分布不看总量：头部之外的产品还有没有像样的销量，"腰部有肉"的市场才养得活新人。</div></div>
+    <div class="lie-card"><h4>④ 季节盲区</h4><p>你在 8 月看到一个"稳定增长"的品，可能只是它的旺季正在爬坡——12 月进场，正好接住断崖。</p><div class="fix"><b>解法：</b>看去年同月：旺季提前 3-4 个月布局是机会，旺季尾巴进场是接盘。</div></div>
+  </div>
+
+  <h2 class="sec-title">实操判断：点开对答案</h2>
+  <div class="aic-opt"><div class="aic-opt-q">一个品最近 30 天销量翻了 3 倍，评论只有 40 条但全是五星，你的第一反应该是什么？</div><div class="aic-opt-a"><b>先怀疑，再验证。</b>动作：① 拉 12 个月曲线看这波涨是脉冲还是趋势；② 看评论时间分布——短时间集中出现的五星批量评论是操纵的典型痕迹；③ 查一下这 30 天有没有大促。三步做完再谈心动。<b>验真的黄金动作永远是：换一个独立的数据来源，交叉核对同一个结论。</b></div></div>
+
+  <div class="aic-stage speak"><span class="aic-stage-tag">讲</span>用自己的话讲一遍<span class="aic-stage-sub">费曼时刻</span></div>
+  <div class="aic-feynman">
+    <div class="aic-fy-title">FEYNMAN · 输出倒逼输入</div>
+    <p>把这句话讲给一个刚入行的人听："<b>排名好 ≠ 卖得多，卖得多 ≠ 一直卖得多，市场大 ≠ 有你的份。</b>"三个"≠"各配一个你自己想的例子。</p>
+    <div class="aic-fy-check">
+      <button class="aic-fy-check-btn" type="button">讲完了，对照要点 ›</button>
+      <div class="aic-fy-check-body"><ul>
+        <li>第一个 ≠：排名是相对位置 + 会被促销瞬间拉高 → 必须换算成月销量</li>
+        <li>第二个 ≠：30 天窗口分不清趋势和脉冲 → 拉长到 12-24 个月看形状</li>
+        <li>第三个 ≠：总量大但头部吃光 → 看腰部有没有肉</li>
+        <li>加分项：能说出"所有验真动作的共同逻辑 = 换个角度交叉核对"</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="aic-stage do"><span class="aic-stage-tag">练</span>拿真数据练一把<span class="aic-stage-sub">刻意练习 · 校准你的直觉</span></div>
+  <div class="aic-practice">
+    <div class="aic-pr-row"><div class="aic-pr-k">任务</div><div class="aic-pr-v">从上一节课的候选清单里挑 <b>5 个品</b>。每个品：① 先凭直觉写下你估计的月销量；② 再用你手上的选品工具查估算月销 + 12 个月趋势；③ 对比。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">合格标准</div><div class="aic-pr-v">每个品算出<b>估计误差</b>（你的直觉 vs 工具估算差几倍），并给趋势形状定性：稳定 / 爬坡 / 脉冲 / 季节。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">能力边界</div><div class="aic-pr-v">重点复盘<b>误差最大的那个品</b>：你的直觉是被什么骗了？（排名？最近的热度？评论数？）把骗你的那个信号写下来——这就是你个人的"幻觉清单"，比任何课程都私人订制。</div></div>
+    <div class="aic-pr-metric">衡量口径：5 个品 ×（直觉估计 / 工具估算 / 误差倍数 / 趋势定性）+ 1 条自己的"我最容易被什么骗"结论。</div>
+    <ul class="aic-check">
+      <li>5 个品先写直觉估计（别偷看工具）</li>
+      <li>工具查估算月销 + 12 个月趋势</li>
+      <li>算误差、给趋势定性</li>
+      <li>写下自己的"幻觉清单"第一条</li>
+    </ul>
+  </div>
+
+  <div class="l-callout reveal">
+    <p><b>本页 Takeaway</b>：四种数据幻觉——排名、脉冲、均值、季节；解法共同点是换角度交叉核对；定期校准"直觉 vs 数据"的误差，是选品手艺进步最快的练法。</p>
+  </div>
+</main>
+<script src="i18n.js?v=20260808"></script>
+<script src="lesson.js"></script>
+<script src="nav-inject.js?v=20260809q"></script>
+<script src="aic-study.js"></script>
+</body>
+</html>

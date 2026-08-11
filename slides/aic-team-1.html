@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI 是同事，不是搜索框 | WaytoAIC</title>
+<style>@keyframes _si{from{opacity:0}to{opacity:1}}body{opacity:0;animation:_si 0.15s ease 0.08s forwards}</style>
+<link rel="stylesheet" href="lesson.css">
+<link rel="stylesheet" href="aic-study.css">
+<style>
+.brief-demo{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 22px;margin:12px 0;font-size:14px;line-height:1.85;}
+.brief-demo .lab{font-size:11.5px;font-weight:800;letter-spacing:1px;margin-bottom:8px;}
+.brief-demo.bad .lab{color:var(--danger);} .brief-demo.good .lab{color:var(--success);}
+.brief-demo .hl{background:rgba(22,163,74,.12);border-radius:4px;padding:0 3px;}
+</style>
+</head>
+<body>
+<main class="lesson">
+  <div class="aic-status">AI 初稿 · 待维正过手补充实战思考</div>
+  <header class="lesson-header">
+    <div class="kicker">实战三 · 团队 AI 上岗</div>
+    <h1>AI 是<em>同事</em>，不是搜索框</h1>
+    <p class="subtitle">用搜索框的方式用 AI，你只能得到搜索框级别的结果。差距不在工具，在你怎么交代活。</p>
+  </header>
+
+  <div class="aic-stage learn"><span class="aic-stage-tag">学</span>先把这个点看明白<span class="aic-stage-sub">交代任务 = 给上下文</span></div>
+
+  <div class="l-card reveal">
+    <p>想象公司新来一个能力很强的实习生：聪明、什么都会一点，但<b>对你的公司一无所知</b>。你冲他喊一句"写个产品描述"，他只能凭想象写一份通用模板。AI 就是这个实习生——它不缺能力，缺的是你脑子里那些没说出口的背景。<b>把背景说出来，就是"上下文"。</b></p>
+  </div>
+
+  <h2 class="sec-title">同一个任务，两种交代</h2>
+  <div class="brief-demo bad reveal"><div class="lab">✗ 搜索框式</div>帮我写一个收纳盒的产品描述</div>
+  <div class="brief-demo good reveal"><div class="lab">✓ 同事式</div>帮我写一个亚马逊 Listing 的五点描述。<span class="hl">产品：3 层亚克力化妆品收纳盒，抽屉式，带可调隔板</span>。<span class="hl">卖给：美国的年轻女性，梳妆台空间小</span>。<span class="hl">买家最怕：运输碎裂、抽屉卡顿（竞品差评里最多的两条）</span>——这两点要正面回应。<span class="hl">格式：每点开头 3-5 个词大写点题</span>。<span class="hl">别写"高品质""物超所值"这类放谁身上都成立的空话。</span></div>
+  <div class="l-callout reveal"><p>好的交代五要素，记成一句话：<b>干什么、给谁看、有什么背景、什么格式、什么不要</b>。五要素不必每次全齐，但输出不对时，先检查是不是漏了哪个——而不是骂 AI 笨。</p></div>
+
+  <h2 class="sec-title">判断题：点开对答案</h2>
+  <div class="aic-opt"><div class="aic-opt-q">① AI 第一次输出不满意，正确的下一步是重新生成，多抽几次总有好的？</div><div class="aic-opt-a"><b>错，这是老虎机式用法。</b>重新生成 = 换个随机数再猜一次你没说的要求。正确姿势是<b>把不满意的点说出来</b>："第二点太空，加上尺寸数据"——AI 是能听懂修改意见的同事，不是抽奖机。</div></div>
+  <div class="aic-opt"><div class="aic-opt-q">② 交代得越长越好，把公司简介从头贴一遍？</div><div class="aic-opt-a"><b>不对，相关性比长度重要。</b>五要素之外的冗余信息反而稀释重点。判断标准：这条信息会不会改变输出？公司创始年份不会，"买家最怕运输碎裂"会。</div></div>
+  <div class="aic-opt"><div class="aic-opt-q">③ 这套"五要素"只对写文案有用？</div><div class="aic-opt-a"><b>不，它是通用的交活协议。</b>让 AI 分析数据、写邮件、做表格、查资料，都是同一套：干什么/给谁/背景/格式/不要什么。学会一次，处处能用——这也是为什么这是团队 AI 培训的第一课。</div></div>
+
+  <div class="aic-stage speak"><span class="aic-stage-tag">讲</span>用自己的话讲一遍<span class="aic-stage-sub">费曼时刻</span></div>
+  <div class="aic-feynman">
+    <div class="aic-fy-title">FEYNMAN · 输出倒逼输入</div>
+    <p>把"上下文"这个词讲给一个完全没用过 AI 的同事听，<b>不许用"上下文""提示词"这些术语</b>——用"新来的实习生"或你自己想的比喻讲。</p>
+    <div class="aic-fy-check">
+      <button class="aic-fy-check-btn" type="button">讲完了，对照要点 ›</button>
+      <div class="aic-fy-check-body"><ul>
+        <li>核心比喻到位：AI = 能力强但不了解你公司的新人，背景要靠你给</li>
+        <li>讲出五要素（干什么/给谁/背景/格式/不要什么）或等价的自己的版本</li>
+        <li>讲出"输出不好先补交代，而不是重抽"这个关键动作</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="aic-stage do"><span class="aic-stage-tag">练</span>拿真活练一把<span class="aic-stage-sub">刻意练习</span></div>
+  <div class="aic-practice">
+    <div class="aic-pr-row"><div class="aic-pr-k">任务</div><div class="aic-pr-v">从你<b>今天的真实工作</b>里挑一个要交给 AI 的任务（写邮件/整理表格/翻译文案都行），按五要素写成一份交代，发给 AI。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">合格标准</div><div class="aic-pr-v"><b>AI 第一次输出你就基本能用</b>（改动量 &lt; 20%）。如果不能用，对照五要素找漏项，补上重发——记录你漏的是哪一项。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">能力边界</div><div class="aic-pr-v">练到顺手后加码：挑一个你觉得"AI 肯定干不了"的任务试一次。经常你会发现干不了的原因是你没交代清，而不是它不会。</div></div>
+    <div class="aic-pr-metric">衡量口径：一次产出可用率——连续 5 个任务里，有几个是第一次输出就基本能用的？记录下来，一周后再测一轮对比。</div>
+    <ul class="aic-check">
+      <li>挑一个今天的真实任务</li>
+      <li>按五要素写交代并发给 AI</li>
+      <li>评估第一次输出：能用/不能用+漏了哪要素</li>
+      <li>连续 5 个任务统计一次产出可用率</li>
+    </ul>
+  </div>
+
+  <div class="l-callout reveal">
+    <p><b>本页 Takeaway</b>：AI 的表现上限由你的交代质量决定；五要素=干什么/给谁/背景/格式/不要什么；输出不好先补交代别重抽；一次产出可用率是你和 AI 协作水平的体检指标。</p>
+  </div>
+</main>
+<script src="i18n.js?v=20260808"></script>
+<script src="lesson.js"></script>
+<script src="nav-inject.js?v=20260809q"></script>
+<script src="aic-study.js"></script>
+</body>
+</html>

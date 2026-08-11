@@ -875,6 +875,84 @@ window.COURSE = {
         },
       ],
     },
+
+    /* ═══ WaytoAIC 跨境实战篇章群（草案一·追加式）═══
+       draft: true = 草稿篇章：默认对访客隐藏，?preview=1 可见（见文件尾预览开关）。
+       发布 = 删掉 draft 行；撤回 = 保持 draft 或整段移除。内容页均带「AI 初稿」状态标。 */
+    {
+      id: 'p-aic-listing',
+      num: '实战一',
+      title: 'AI×Listing 与主图',
+      desc: '让点击率说话：主图假设 → AI 出图 → 上架实验 → 文案重写 → 沉淀 SOP，完整跑一次用数据判对错的图文优化闭环。每节课都是「学-讲-练」三段式：学明白、讲出来、拿真数据练。',
+      color: '#0066ff',
+      draft: true,
+      topics: [
+        {
+          id: 't-aic-img',
+          title: '主图与点击率',
+          lessons: [
+            { file: 'aic-listing-1.html', title: '买家只给你 0.3 秒：主图决定第一次点击', tag: '实战' },
+            { file: 'aic-listing-2.html', title: 'AI 出图：一次 5 版主图', tag: '实战' },
+            { file: 'aic-listing-3.html', title: '上架实验：让数据判对错', tag: '实战' },
+          ],
+        },
+        {
+          id: 't-aic-copy',
+          title: '文案与沉淀',
+          lessons: [
+            { file: 'aic-listing-4.html', title: '标题与五点：写给两个读者', tag: '实战' },
+            { file: 'aic-listing-5.html', title: '把实验变成 SOP', tag: '实战' },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'p-aic-select',
+      num: '实战二',
+      title: 'AI×选品',
+      desc: '从灵感到裁决：能做≠值得做的三问框架 → 需求验真 → 首页竞争体检 → 四刀财务账 → 串成 60 分钟人机流水线。教判断方法，不发财富密码。',
+      color: '#16a34a',
+      draft: true,
+      topics: [
+        {
+          id: 't-aic-judge',
+          title: '判断的地基',
+          lessons: [
+            { file: 'aic-select-1.html', title: '能做 ≠ 值得做：选品的第一性问题', tag: '实战' },
+            { file: 'aic-select-2.html', title: '需求验真：榜单会骗人', tag: '实战' },
+          ],
+        },
+        {
+          id: 't-aic-verdict',
+          title: '收敛与裁决',
+          lessons: [
+            { file: 'aic-select-3.html', title: '竞争强弱一眼判：给搜索首页做体检', tag: '实战' },
+            { file: 'aic-select-4.html', title: '财务底线：一单到底赚不赚钱', tag: '实战' },
+            { file: 'aic-select-5.html', title: 'AI 上岗：把三问串成 60 分钟流水线', tag: '实战' },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'p-aic-team',
+      num: '实战三',
+      title: '团队 AI 上岗',
+      desc: 'AI 上岗第一周：给没系统用过 AI 的电商团队成员——把 AI 当同事交代活、建岗位背景包、学会验证不轻信、最后把一件重复的活真交出去，用每周省下的小时数说话。适合企业内训。',
+      color: '#7c3aed',
+      draft: true,
+      topics: [
+        {
+          id: 't-aic-onboard',
+          title: 'AI 上岗第一周',
+          lessons: [
+            { file: 'aic-team-1.html', title: 'AI 是同事，不是搜索框', tag: '实战' },
+            { file: 'aic-team-2.html', title: '喂料与边界：让 AI 读懂你的业务', tag: '实战' },
+            { file: 'aic-team-3.html', title: '验证 AI 的活：不轻信，不返工', tag: '实战' },
+            { file: 'aic-team-4.html', title: '一人一流水线：把重复的活真交出去', tag: '实战' },
+          ],
+        },
+      ],
+    },
   ],
 };
 
@@ -905,6 +983,21 @@ window.TAG_STYLE = {
   '前沿':   { bg: '#f3e8ff', fg: '#7c3aed' },
   '考察':   { bg: '#fee2e2', fg: '#b91c1c' },
 };
+
+/* ── 草稿篇章开关：默认隐藏 draft 篇章；?preview=1 开启预览（粘性），?preview=0 关闭 ── */
+(function () {
+  var on = false;
+  try {
+    var m = location.search.match(/[?&]preview=(\d)/);
+    if (m) localStorage.setItem('wa_preview', m[1]);
+    on = localStorage.getItem('wa_preview') === '1';
+  } catch (e) {}
+  if (!on) {
+    window.COURSE.parts = window.COURSE.parts.filter(function (p) { return !p.draft; });
+  } else {
+    window.COURSE.parts.forEach(function (p) { if (p.draft) p.title = p.title + '（预览中）'; });
+  }
+})();
 
 /* ── 工具：扁平化所有 lesson，便于上一节/下一节导航 ── */
 window.COURSE_FLAT = (function () {

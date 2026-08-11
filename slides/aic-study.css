@@ -1,0 +1,109 @@
+/* ═══════════════════════════════════════════════════════════
+   aic-study.css —— WaytoAIC「学-讲-练」知识点页共享组件
+   叠加在 lesson.css 之上，只放三段式模板的公共件；
+   页面特有样式仍写各页 <style>。
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── 内容状态标注（AI 初稿 / 已过手 / 含实战思考） ── */
+.aic-status{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;font-weight:800;letter-spacing:.5px;
+  color:#92400e;background:#fef3c7;border:1px solid rgba(217,119,6,.35);
+  border-radius:999px;padding:5px 14px;margin-bottom:18px;
+}
+.aic-status.reviewed{color:#166534;background:#dcfce7;border-color:rgba(22,163,74,.35);}
+
+/* ── 学 / 讲 / 练 段落横幅 ── */
+.aic-stage{
+  display:flex;align-items:center;gap:12px;
+  margin:44px 0 20px;padding:14px 20px;
+  border-radius:var(--radius);font-weight:800;font-size:16px;
+  border:1.5px solid transparent;
+}
+.aic-stage .aic-stage-tag{
+  flex:none;width:34px;height:34px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;color:#fff;
+}
+.aic-stage .aic-stage-sub{font-size:12.5px;font-weight:600;color:var(--sub);margin-left:auto;text-align:right;}
+.aic-stage.learn{background:rgba(0,102,255,.05);border-color:rgba(0,102,255,.18);}
+.aic-stage.learn .aic-stage-tag{background:var(--accent);}
+.aic-stage.speak{background:rgba(124,58,237,.05);border-color:rgba(124,58,237,.18);}
+.aic-stage.speak .aic-stage-tag{background:var(--purple);}
+.aic-stage.do{background:rgba(22,163,74,.05);border-color:rgba(22,163,74,.2);}
+.aic-stage.do .aic-stage-tag{background:var(--success);}
+
+/* ── 点开揭晓卡（学：交互判断题） ── */
+.aic-opt{
+  background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);
+  box-shadow:var(--shadow-card);padding:16px 20px;margin:10px 0;cursor:pointer;
+  transition:border-color .2s;
+}
+.aic-opt:hover{border-color:rgba(0,102,255,.4);}
+.aic-opt .aic-opt-q{font-weight:700;font-size:15px;display:flex;gap:10px;align-items:flex-start;}
+.aic-opt .aic-opt-q::after{content:'点开看 ›';margin-left:auto;flex:none;font-size:12px;font-weight:700;color:var(--accent);opacity:.7;}
+.aic-opt.open .aic-opt-q::after{content:'收起';}
+.aic-opt .aic-opt-a{display:none;margin-top:12px;padding-top:12px;border-top:1px dashed var(--border);font-size:14.5px;color:var(--sub);line-height:1.8;}
+.aic-opt.open .aic-opt-a{display:block;}
+.aic-opt .aic-opt-a b{color:var(--text);}
+
+/* ── 费曼输出卡（讲） ── */
+.aic-feynman{
+  background:linear-gradient(135deg,rgba(124,58,237,.05),rgba(0,102,255,.04));
+  border:1.5px solid rgba(124,58,237,.25);border-radius:var(--radius);
+  padding:22px 26px;margin:8px 0 6px;
+}
+.aic-feynman .aic-fy-title{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--purple);margin-bottom:10px;}
+.aic-feynman p{font-size:15px;line-height:1.85;}
+.aic-feynman .aic-fy-tips{margin-top:12px;font-size:13.5px;color:var(--sub);}
+.aic-feynman .aic-fy-check{
+  margin-top:14px;border-top:1px dashed rgba(124,58,237,.3);padding-top:14px;
+}
+.aic-feynman .aic-fy-check-btn{
+  background:none;border:1.5px solid var(--purple);color:var(--purple);
+  border-radius:999px;padding:7px 18px;font-size:13px;font-weight:800;cursor:pointer;
+}
+.aic-feynman .aic-fy-check-body{display:none;margin-top:14px;font-size:14.5px;line-height:1.85;color:var(--text);}
+.aic-feynman.open .aic-fy-check-body{display:block;}
+.aic-feynman .aic-fy-check-body li{margin:6px 0 6px 18px;}
+
+/* ── 刻意练习任务卡（练） ── */
+.aic-practice{
+  background:var(--card);border:1.5px solid rgba(22,163,74,.3);border-radius:var(--radius);
+  box-shadow:var(--shadow-card);padding:24px 28px;margin:8px 0;
+}
+.aic-practice .aic-pr-row{display:flex;gap:12px;margin:10px 0;font-size:14.5px;line-height:1.75;}
+.aic-practice .aic-pr-k{
+  flex:none;width:86px;font-size:12px;font-weight:800;letter-spacing:.5px;
+  color:var(--success);padding-top:2px;
+}
+.aic-practice .aic-pr-v b{color:var(--text);}
+.aic-practice .aic-pr-v{color:var(--sub);}
+.aic-practice .aic-pr-metric{
+  background:rgba(22,163,74,.06);border-radius:var(--radius-sm);
+  padding:12px 16px;font-size:14px;color:#166534;font-weight:700;margin:12px 0 4px;
+}
+
+/* ── 练习清单（本地保存勾选状态） ── */
+.aic-check{list-style:none;margin:12px 0 0;}
+.aic-check li{
+  display:flex;align-items:flex-start;gap:10px;padding:9px 4px;
+  font-size:14.5px;cursor:pointer;border-radius:8px;transition:background .15s;
+}
+.aic-check li:hover{background:rgba(22,163,74,.05);}
+.aic-check li::before{
+  content:'';flex:none;width:18px;height:18px;margin-top:2px;border-radius:6px;
+  border:2px solid rgba(22,163,74,.5);
+}
+.aic-check li.done{color:var(--sub);text-decoration:line-through;}
+.aic-check li.done::before{
+  background:var(--success);border-color:var(--success);
+  content:'✓';color:#fff;font-size:12px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;
+}
+
+@media (max-width:600px){
+  .aic-stage{flex-wrap:wrap;}
+  .aic-stage .aic-stage-sub{margin-left:0;text-align:left;width:100%;}
+  .aic-practice .aic-pr-row{flex-direction:column;gap:4px;}
+}

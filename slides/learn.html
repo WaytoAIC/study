@@ -967,6 +967,7 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
     doLoadLesson(f, L);
   }
   function doLoadLesson(f, L){
+    var _wm = document.getElementById('waLoginMask'); if(_wm) _wm.remove();
     iframe.src = L.file + (L.file.indexOf('?')>=0 ? '&' : '?') + 'embed=1';
 
     var tagStyle = TAGS[L.tag] || {bg:'#f3f4f6', fg:'#4b5563'};

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI 上岗：把三问串成流水线 | WaytoAIC</title>
+<style>@keyframes _si{from{opacity:0}to{opacity:1}}body{opacity:0;animation:_si 0.15s ease 0.08s forwards}</style>
+<link rel="stylesheet" href="lesson.css">
+<link rel="stylesheet" href="aic-study.css">
+<style>
+.split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0;}
+.split-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px 22px;}
+.split-card h4{font-size:15.5px;font-weight:800;margin-bottom:10px;}
+.split-card.ai h4{color:var(--accent);} .split-card.human h4{color:var(--purple);}
+.split-card li{font-size:13.5px;color:var(--sub);line-height:1.8;margin-left:18px;}
+.pipe{display:flex;gap:8px;margin:20px 0;flex-wrap:wrap;}
+.pipe-step{flex:1;min-width:130px;background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;font-size:12.5px;line-height:1.6;}
+.pipe-step b{display:block;font-size:13.5px;margin-bottom:4px;}
+.pipe-step .who{display:inline-block;margin-top:6px;font-size:11px;font-weight:800;padding:2px 8px;border-radius:999px;}
+.pipe-step .who.ai{background:rgba(0,102,255,.1);color:var(--accent);}
+.pipe-step .who.hu{background:rgba(124,58,237,.1);color:var(--purple);}
+@media(max-width:640px){.split{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<main class="lesson">
+  <div class="aic-status">AI 初稿 · 待维正过手补充实战思考</div>
+  <header class="lesson-header">
+    <div class="kicker">实战二 · AI×选品</div>
+    <h1>AI 上岗：把三问串成<em>60 分钟流水线</em></h1>
+    <p class="subtitle">前四节课每一步都能用 AI 提速——但先说清楚哪些事绝不能交给它。</p>
+  </header>
+
+  <div class="aic-stage learn"><span class="aic-stage-tag">学</span>先把这个点看明白<span class="aic-stage-sub">人机分工，先分再串</span></div>
+
+  <div class="split reveal">
+    <div class="split-card ai"><h4>AI 干得好的</h4><ul>
+      <li>批量拉数据、做表、换算（排名→月销、四刀成本表）</li>
+      <li>按你给的标准初筛一大批候选（比如三信号首页体检）</li>
+      <li>归类竞品差评、总结趋势曲线形状</li>
+      <li>当"抬杠对手"：让它专门找你结论的漏洞</li>
+    </ul></div>
+    <div class="split-card human"><h4>必须人拍板的</h4><ul>
+      <li><b>标准本身</b>：三问的门槛值收多紧，是你的风险偏好，AI 没有钱包</li>
+      <li><b>押注决策</b>：最后进不进、投多少钱，责任无法外包</li>
+      <li><b>常识否决</b>：侵权嫌疑、安全隐患、明显违背生活常识的数据——人一眼能看出的怪味，AI 常常闻不到</li>
+    </ul></div>
+  </div>
+
+  <h2 class="sec-title">60 分钟裁决流水线</h2>
+  <div class="pipe reveal">
+    <div class="pipe-step"><b>① 立标准</b>一次性把三问的判断标准写成文字（这是你的资产）<span class="who hu">人 · 一次性</span></div>
+    <div class="pipe-step"><b>② 初筛</b>AI 按标准把候选批量过一遍，标 ✓/✗/?<span class="who ai">AI · 10min</span></div>
+    <div class="pipe-step"><b>③ 验真</b>存活者逐个跑：月销换算+趋势形状+首页体检<span class="who ai">AI+工具 · 20min</span></div>
+    <div class="pipe-step"><b>④ 算账</b>四刀成本+盈亏平衡广告费+悲观情景<span class="who ai">AI 算·人核出处 · 15min</span></div>
+    <div class="pipe-step"><b>⑤ 抬杠</b>让 AI 攻击自己的结论：给我三个不该做这个品的理由<span class="who ai">AI · 5min</span></div>
+    <div class="pipe-step"><b>⑥ 裁决</b>看完全部证据，进/不进/再看，写一句话理由<span class="who hu">人 · 10min</span></div>
+  </div>
+  <div class="l-callout reveal"><p>注意第 ⑤ 步：<b>专门让 AI 唱反调</b>是整条流水线里性价比最高的一步。AI 顺着你说很容易，攻击你的结论需要明确指令——但它找出的漏洞经常是真的。</p></div>
+
+  <h2 class="sec-title">流水线最常见的翻车点，点开看</h2>
+  <div class="aic-opt"><div class="aic-opt-q">让 AI"帮我找个好产品"，它给了一堆看起来有模有样的推荐——问题出在哪？</div><div class="aic-opt-a"><b>顺序反了。</b>没有你的标准（第①步），AI 只能按"网上大家都说好"的通用逻辑推荐，那正是竞争最挤的地方；更糟的是它给的数据可能是编的。正确用法永远是：<b>你出标准 + 真实数据进 → AI 出加工结果 → 你出裁决</b>。AI 在中间，两头都是你。</div></div>
+
+  <div class="aic-stage speak"><span class="aic-stage-tag">讲</span>用自己的话讲一遍<span class="aic-stage-sub">费曼时刻</span></div>
+  <div class="aic-feynman">
+    <div class="aic-fy-title">FEYNMAN · 输出倒逼输入</div>
+    <p>用自己的话讲清楚这条流水线的设计逻辑：<b>为什么①和⑥必须是人，②③④⑤可以是 AI？如果反过来会发生什么？</b></p>
+    <div class="aic-fy-check">
+      <button class="aic-fy-check-btn" type="button">讲完了，对照要点 ›</button>
+      <div class="aic-fy-check-body"><ul>
+        <li>①是标准、⑥是押注——都绑着你的风险偏好和钱包，AI 没有可失去的东西</li>
+        <li>②③④⑤是执行密集型：快、不厌其烦、不带情绪，正是 AI 的长处</li>
+        <li>反过来 = AI 定标准人跑腿：你会在竞争最挤的地方，被编造的数据带着跑</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="aic-stage do"><span class="aic-stage-tag">练</span>拿真数据练一把<span class="aic-stage-sub">刻意练习 · 篇章收官</span></div>
+  <div class="aic-practice">
+    <div class="aic-pr-row"><div class="aic-pr-k">任务</div><div class="aic-pr-v">挑一个<b>全新的候选品</b>（不能用前几节练过的），完整跑一遍六步流水线，全程计时。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">合格标准</div><div class="aic-pr-v">产出完整裁决包：三问判定 + 验真记录 + 四刀账 + AI 的三条反方理由 + 你的最终裁决和一句话理由。目标用时 ≤60 分钟。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">诚实检验</div><div class="aic-pr-v">如果 AI 的三条反方理由里有一条你答不上来——<b>裁决就是"再看"，不是"进"</b>。答不上来的问题不会因为你忽略它就消失。</div></div>
+    <div class="aic-pr-metric">衡量口径：裁决包齐套 + 实际用时。第一次超 60 分钟很正常，记下最耗时的步骤，那就是你下次优化的地方。</div>
+    <ul class="aic-check">
+      <li>三问标准成文（第①步资产沉淀）</li>
+      <li>新候选品跑完六步，全程计时</li>
+      <li>裁决包五件套齐全</li>
+      <li>记录最耗时步骤与下次优化点</li>
+    </ul>
+  </div>
+
+  <div class="l-callout reveal">
+    <p><b>本页 Takeaway</b>：人出标准与裁决，AI 出执行与反方；让 AI 唱反调是性价比最高的一步；流水线的产出不只是一个裁决，还有"三问标准"这份可复用资产。<b>本篇章完：你已经有了一条自己的选品流水线。</b></p>
+  </div>
+</main>
+<script src="i18n.js?v=20260808"></script>
+<script src="lesson.js"></script>
+<script src="nav-inject.js?v=20260809q"></script>
+<script src="aic-study.js"></script>
+</body>
+</html>

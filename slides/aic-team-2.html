@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>喂料与边界 | WaytoAIC</title>
+<style>@keyframes _si{from{opacity:0}to{opacity:1}}body{opacity:0;animation:_si 0.15s ease 0.08s forwards}</style>
+<link rel="stylesheet" href="lesson.css">
+<link rel="stylesheet" href="aic-study.css">
+<style>
+.pack-list{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin:16px 0;}
+.pack-list h4{font-size:15px;font-weight:800;margin-bottom:10px;color:var(--accent);}
+.pack-list li{font-size:14px;color:var(--sub);line-height:1.85;margin-left:18px;}
+.redline{background:linear-gradient(135deg,#fef2f2,#fff1f2);border:1.5px solid #fecaca;border-radius:var(--radius);padding:20px 24px;margin:16px 0;}
+.redline h4{font-size:15px;font-weight:800;color:var(--danger);margin-bottom:10px;}
+.redline li{font-size:14px;color:#7f1d1d;line-height:1.85;margin-left:18px;}
+</style>
+</head>
+<body>
+<main class="lesson">
+  <div class="aic-status">AI 初稿 · 待维正过手补充实战思考</div>
+  <header class="lesson-header">
+    <div class="kicker">实战三 · 团队 AI 上岗</div>
+    <h1>喂料与边界：让 AI <em>读懂你的业务</em>，但别喂错东西</h1>
+    <p class="subtitle">上一课说要给背景。这一课解决两个问题：背景怎么给才省力，以及什么东西永远不能给。</p>
+  </header>
+
+  <div class="aic-stage learn"><span class="aic-stage-tag">学</span>先把这个点看明白<span class="aic-stage-sub">背景包一次建好，处处复用</span></div>
+
+  <div class="l-card reveal">
+    <p>每次交代任务都手打一遍业务背景，三天就会烦。正确做法是<b>把你岗位的固定背景写成一份文档</b>（就叫它"背景包"），每次开新对话先把它贴进去（或放进 AI 工具的自定义设置里），再说今天的任务。一次投入，天天省力。</p>
+  </div>
+
+  <div class="pack-list reveal">
+    <h4>一份运营岗背景包长这样（照着搭你自己的）</h4>
+    <ul>
+      <li><b>我是谁</b>：跨境电商运营，负责美国站家居类目 12 个在售产品</li>
+      <li><b>产品清单</b>：核心产品的名称、定位、价格带（一行一个）</li>
+      <li><b>目标客群</b>：谁在买、买来干什么、最在意什么</li>
+      <li><b>写作口径</b>：对外文案的语气要求、禁用词（比如夸大疗效类词汇）</li>
+      <li><b>常用格式</b>：周报结构、Listing 结构等固定模板</li>
+    </ul>
+  </div>
+
+  <div class="redline reveal">
+    <h4>红线：这些永远不进 AI 对话框</h4>
+    <ul>
+      <li><b>账号凭证</b>：任何平台的密码、密钥、后台登录信息</li>
+      <li><b>他人隐私</b>：客户姓名+地址+电话的完整信息、员工身份证件信息</li>
+      <li><b>公司核心机密</b>：供应商底价合同、未公开的财务数据、正在申请的专利细节</li>
+      <li><b>判断不准就问</b>：拿不准某份材料能不能喂，问负责人，别自己拍板</li>
+    </ul>
+  </div>
+  <div class="l-callout reveal"><p>一个好用的判断口径：<b>"这条信息如果出现在明天的行业群里，公司会不会受损？"</b>会——不进对话框；不会——放心喂。脱敏后可用的（把客户名换成"客户A"、把底价换成区间），脱敏后再喂。</p></div>
+
+  <h2 class="sec-title">判断题：点开对答案</h2>
+  <div class="aic-opt"><div class="aic-opt-q">把竞品的公开 Listing 和差评喂给 AI 分析，可以吗？</div><div class="aic-opt-a"><b>可以，这是最值得喂的公开信息之一。</b>红线管的是"泄露自己的机密"和"侵犯他人隐私"，公开页面上的信息谁都看得到。竞品差评归类、卖点对比，都是喂料的经典用法。</div></div>
+  <div class="aic-opt"><div class="aic-opt-q">用个人账号的 AI 工具处理公司数据，和公司统一采购的账号，有区别吗？</div><div class="aic-opt-a"><b>有实质区别。</b>公司账号通常关闭了"用你的数据训练模型"，个人免费账号未必；而且公司账号的数据边界出了问题能追溯。团队规范应该明确：<b>处理业务数据用公司配的工具账号</b>，个人账号只处理个人的事。</div></div>
+
+  <div class="aic-stage speak"><span class="aic-stage-tag">讲</span>用自己的话讲一遍<span class="aic-stage-sub">费曼时刻</span></div>
+  <div class="aic-feynman">
+    <div class="aic-fy-title">FEYNMAN · 输出倒逼输入</div>
+    <p>给团队新人讲清楚两件事：<b>①为什么要建背景包而不是每次现打；②那条"行业群检验法"红线口径怎么用。</b>各配一个你们业务里的真实例子。</p>
+    <div class="aic-fy-check">
+      <button class="aic-fy-check-btn" type="button">讲完了，对照要点 ›</button>
+      <div class="aic-fy-check-body"><ul>
+        <li>背景包 = 把重复劳动一次性资产化，还能保证团队口径一致</li>
+        <li>行业群检验法：会受损→不喂；不会→喂；能脱敏→脱敏后喂</li>
+        <li>例子接地气：说得出自己业务里"能喂"和"不能喂"的具体一条</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="aic-stage do"><span class="aic-stage-tag">练</span>拿真活练一把<span class="aic-stage-sub">刻意练习</span></div>
+  <div class="aic-practice">
+    <div class="aic-pr-row"><div class="aic-pr-k">任务</div><div class="aic-pr-v">为<b>你自己的岗位</b>建一份背景包（五个部分照上面模板搭），并给其中每条材料标注：直接喂 / 脱敏后喂 / 永不喂。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">合格标准</div><div class="aic-pr-v"><b>冷启动测试</b>：开一个全新的 AI 对话，只贴背景包，然后交代一个日常任务——AI 的输出应该明显比不贴时更"懂行"（用词、口径、格式都对路）。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">迭代闭环</div><div class="aic-pr-v">接下来一周，每次发现 AI 输出暴露"它还不知道某个背景"，就把那条补进背景包——一周后你会有一份真正贴身的版本。</div></div>
+    <div class="aic-pr-metric">衡量口径：背景包成文 + 每条有喂料分级 + 冷启动测试通过；一周内至少迭代 3 处。</div>
+    <ul class="aic-check">
+      <li>背景包五部分成文</li>
+      <li>逐条标注喂料分级（直接/脱敏/永不）</li>
+      <li>冷启动测试：新对话贴包试一个任务</li>
+      <li>一周迭代 ≥3 处</li>
+    </ul>
+  </div>
+
+  <div class="l-callout reveal">
+    <p><b>本页 Takeaway</b>：背景包把交代成本一次性资产化；红线三类=凭证/隐私/核心机密；"行业群检验法"是喂不喂的快速口径；处理业务数据用公司配的账号。</p>
+  </div>
+</main>
+<script src="i18n.js?v=20260808"></script>
+<script src="lesson.js"></script>
+<script src="nav-inject.js?v=20260809q"></script>
+<script src="aic-study.js"></script>
+</body>
+</html>
