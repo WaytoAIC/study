@@ -206,9 +206,17 @@ const I18N = window.XUEAI_I18N || {
   slideTitle: function (f, zh) { return zh; }
 };
 
+// Cloudflare Pages 等托管会把 /x.html 重定向成 /x（美化 URL），
+// 所有按文件名找课的逻辑都要先把扩展名补回来。
+function WA_normFile(f) {
+  f = String(f || '').split('?')[0];
+  if (f && !/\.[a-z0-9]+$/i.test(f)) f += '.html';
+  return f;
+}
+
 (function() {
 
-  const cur = I18N.baseFile(location.pathname.split('/').pop());
+  const cur = I18N.baseFile(WA_normFile(location.pathname.split('/').pop()));
   const idx = SLIDE_ORDER.findIndex(s => s.file === cur);
 
   // 无论是否在序列中，都注入顶部栏（请教作者 + PV）
@@ -688,6 +696,69 @@ const I18N = window.XUEAI_I18N || {
     s.async = true;
     document.head.appendChild(s);
   } catch (e) { /* 加载失败不影响浏览 */ }
+})();
+
+// ── WaytoAIC 独立页登录墙：直连打开锁定课节时客户端拦截 ──
+// 原站靠 Nginx 在服务端拦，静态托管没有服务端；阅读器路径由 learn.html 的
+// 闸拦，这里补上"绕过阅读器直开课页"的口子。挡君子不挡小人（站本身开源），
+// 目标是把访客引去注册，不是保密。免费口径与 auth.js 一致：prologue 篇章
+// 整章免费，其余每篇章前 2 节免费；xa_auth=1（登录态）放行。
+(function () {
+  if (EMBED_MODE) return; // 阅读器 iframe 内由外壳闸管
+  try { if (localStorage.getItem('xa_auth') === '1') return; } catch (e) {}
+  var file = I18N.baseFile(WA_normFile(location.pathname.split('/').pop()));
+  if (!file || !/\.html$/.test(file)) return;
+
+  function onCourse() {
+    var C = window.COURSE;
+    if (!C || !C.parts) return;
+    var free = {}, known = {};
+    C.parts.forEach(function (part) {
+      var files = [];
+      (part.topics || []).forEach(function (t) {
+        (t.lessons || []).forEach(function (l) { if (l && l.file) files.push(l.file); });
+      });
+      var freeAll = !!part.prologue;
+      files.forEach(function (f, i) {
+        known[f] = 1;
+        if (freeAll || i < 2) free[f] = 1;
+      });
+    });
+    if (!known[file] || free[file]) return; // 不在课程表或本就免费
+
+    var lang = (window.XUEAI_I18N && window.XUEAI_I18N.lang) || 'zh';
+    var T = {
+      zh: { h: '本节需要登录后学习（免费）', p: '注册登录即可解锁全部课程与进度云同步，不收费。', b: '去登录，免费学习' },
+      en: { h: 'Sign in to continue (free)', p: 'Registering unlocks every lesson plus progress sync, at no cost.', b: 'Sign in free' },
+      ko: { h: '로그인 후 학습할 수 있습니다(무료)', p: '가입하면 모든 강의와 진도 동기화를 무료로 이용할 수 있습니다.', b: '무료 로그인' }
+    }[lang] || {};
+    var reader = lang === 'zh' ? 'learn.html' : 'learn.' + lang + '.html';
+
+    var st = document.createElement('style');
+    st.textContent = 'main.lesson,article.lesson,.slide-container{display:none!important}'
+      + '.wa-gatepage{min-height:70vh;display:flex;align-items:center;justify-content:center;padding:40px 20px;}'
+      + '.wa-gatepage-card{max-width:460px;text-align:center;background:#fff;border:1.5px solid rgba(120,130,150,.2);'
+      + 'border-radius:18px;padding:44px 36px;box-shadow:0 8px 28px rgba(15,23,41,.06);}'
+      + '.wa-gatepage-card img{width:64px;height:64px;border-radius:14px;margin-bottom:18px;}'
+      + '.wa-gatepage-card h2{font-size:20px;margin:0 0 10px;color:#0f1729;}'
+      + '.wa-gatepage-card p{font-size:14px;color:#5b6577;line-height:1.8;margin:0 0 24px;}'
+      + '.wa-gatepage-card a{display:inline-block;background:#1f6feb;color:#fff;text-decoration:none;'
+      + 'font-size:15px;font-weight:700;border-radius:11px;padding:12px 30px;}';
+    document.head.appendChild(st);
+    var box = document.createElement('div');
+    box.className = 'wa-gatepage';
+    box.innerHTML = '<div class="wa-gatepage-card">'
+      + '<img src="images/brand/waytoaic-mark.png" alt="WaytoAIC">'
+      + '<h2>' + T.h + '</h2><p>' + T.p + '</p>'
+      + '<a href="' + reader + '#' + encodeURIComponent(file) + '">' + T.b + '</a></div>';
+    document.body.insertBefore(box, document.body.firstChild);
+  }
+
+  if (window.COURSE) { onCourse(); return; }
+  var sc = document.createElement('script');
+  sc.src = 'course-data.js?v=20260811a';
+  sc.onload = onCourse;
+  document.head.appendChild(sc);
 })();
 
 // ── WaytoAIC 知识点关联网络：数据+渲染都在 aic-rel.js，声明单点维护、反向自动 ──

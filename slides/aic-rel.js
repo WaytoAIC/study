@@ -121,6 +121,7 @@
   };
 
   var CUR = location.pathname.split('/').pop().split('?')[0];
+  if (CUR && !/\.[a-z0-9]+$/i.test(CUR)) CUR += '.html'; // 托管美化 URL 补回扩展名
 
   /* 反向推导：谁的 needs/next/terms 指向本页 */
   function backlinks() {

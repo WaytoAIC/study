@@ -214,7 +214,8 @@
   // iframe 里跳登录要顶掉整个窗口，否则登录页被塞进阅读器的内容区。
   // 落地也该回阅读器的对应课程，而不是把人丢在裸课程页上；
   // 阅读器分语言，英韩课程要回各自那份，否则登录一趟就被切回中文站。
-  var file = location.pathname.split('/').pop();
+  var file = location.pathname.split('/').pop().split('?')[0];
+  if (file && !/\.[a-z0-9]+$/i.test(file)) file += '.html'; // 托管美化 URL 补回扩展名
   var reader = _lang === 'zh' ? 'learn.html' : 'learn.' + _lang + '.html';
   var href = reader + '#' + encodeURIComponent(file || '');
   [gate.querySelector('#xaGateBtn'), note.querySelector('.xa-note-link')]
