@@ -885,7 +885,6 @@ window.COURSE = {
       title: 'AI×Listing 与主图',
       desc: '让点击率说话：主图假设 → AI 出图 → 上架实验 → 文案重写 → 沉淀 SOP，完整跑一次用数据判对错的图文优化闭环。每节课都是「学-讲-练」三段式：学明白、讲出来、拿真数据练。',
       color: '#0066ff',
-      draft: true,
       track: 'aic',
       topics: [
         {
@@ -913,7 +912,6 @@ window.COURSE = {
       title: 'AI×选品',
       desc: '从灵感到裁决：能做≠值得做的三问框架 → 需求验真 → 首页竞争体检 → 四刀财务账 → 串成 60 分钟人机流水线。教判断方法，不发财富密码。',
       color: '#16a34a',
-      draft: true,
       track: 'aic',
       topics: [
         {
@@ -941,7 +939,6 @@ window.COURSE = {
       title: '团队 AI 上岗',
       desc: 'AI 上岗第一周：给没系统用过 AI 的电商团队成员——把 AI 当同事交代活、建岗位背景包、学会验证不轻信、最后把一件重复的活真交出去，用每周省下的小时数说话。适合企业内训。',
       color: '#7c3aed',
-      draft: true,
       track: 'aic',
       topics: [
         {
@@ -988,8 +985,8 @@ window.TAG_STYLE = {
   '考察':   { bg: '#fee2e2', fg: '#b91c1c' },
 };
 
-/* 默认轨道：实战篇章正式发布后改为 'aic'（阅读器双轨 tab 的初始落点） */
-window.COURSE_DEFAULT_TRACK = 'base';
+/* 默认轨道：电商实战三篇章已发布（2026-08-11 维正拍板），默认落电商轨 */
+window.COURSE_DEFAULT_TRACK = 'aic';
 
 /* ── 草稿篇章开关：默认隐藏 draft 篇章；?preview=1 开启预览（粘性），?preview=0 关闭 ── */
 (function () {
