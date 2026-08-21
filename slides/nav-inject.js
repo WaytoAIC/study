@@ -288,11 +288,16 @@ function WA_normFile(f) {
     if (EMBED_MODE) return;
     const style = document.createElement('style');
     style.textContent = `
+      /* z-index 必须高于 #slide-nav-trigger(同为 9998 的底部 hover 触发区，
+         它后插入所以会盖住本条，导致备案号点不动)；备案号按规必须可点转工信部。
+         容器 pointer-events:none 让触发区照常收 hover，只有链接文字这一小块拦截。 */
       #wa-icp-bar {
-        position: fixed; bottom: 6px; left: 10px; z-index: 9998;
+        position: fixed; bottom: 6px; left: 10px; z-index: 10000;
         font-size: 11px; font-family: -apple-system, "PingFang SC", sans-serif;
         opacity: 0.5; transition: opacity 0.15s;
+        pointer-events: none;
       }
+      #wa-icp-bar a { pointer-events: auto; }
       #wa-icp-bar:hover { opacity: 1; }
       #wa-icp-bar a { color: #6b6b70; text-decoration: none; }
       #wa-icp-bar a:hover { color: #0066ff; }
