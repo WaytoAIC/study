@@ -281,6 +281,40 @@ function WA_normFile(f) {
     /* WaytoAIC: 浏览量角标（/pv）随上游统计后端一并下线 */
   })();
 
+  // 备案号：工信部要求网站底部悬挂备案号并链接备案平台。内容页被直连访问或被搜索引擎
+  // 收录时它就是一张独立网页，所以跟顶栏同样条件注入；嵌在壳页里时由壳页统一显示，不重复。
+  // 位置贴左下角，避开底部居中的 #slide-nav 翻页条。
+  (function injectIcpBar() {
+    if (EMBED_MODE) return;
+    const style = document.createElement('style');
+    style.textContent = `
+      #wa-icp-bar {
+        position: fixed; bottom: 6px; left: 10px; z-index: 9998;
+        font-size: 11px; font-family: -apple-system, "PingFang SC", sans-serif;
+        opacity: 0.5; transition: opacity 0.15s;
+      }
+      #wa-icp-bar:hover { opacity: 1; }
+      #wa-icp-bar a { color: #6b6b70; text-decoration: none; }
+      #wa-icp-bar a:hover { color: #0066ff; }
+      /* 窄屏下 #slide-nav 几乎占满整行，左下角避不开，只能垂直错到它上方；
+         叠在内容上，所以补一层半透明底保证可读 */
+      @media (max-width: 768px) {
+        #wa-icp-bar {
+          bottom: 92px; left: 6px; font-size: 10px; opacity: 0.75;
+          background: rgba(255,255,255,0.78); backdrop-filter: blur(6px);
+          padding: 2px 7px; border-radius: 7px;
+        }
+      }
+      @media print { #wa-icp-bar { display: none; } }
+    `;
+    document.head.appendChild(style);
+
+    const bar = document.createElement('div');
+    bar.id = 'wa-icp-bar';
+    bar.innerHTML = '<a href="https://beian.miit.gov.cn" target="_blank" rel="noopener">粤ICP备2026120136号-1</a>';
+    document.body.appendChild(bar);
+  })();
+
   // 嵌入模式 或 不在序列中：不注入底部翻页条（外层 Wiki 已有上一节/下一节）
   if (EMBED_MODE || idx < 0) return;
 
