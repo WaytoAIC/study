@@ -681,6 +681,7 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
 .lang-btn.active{background:var(--accent);color:#fff;}
 @media(max-width:900px){.lang-switcher{display:none;}}
 </style>
+<style>.pv-badge{font-size:12px;color:var(--sub,#9ca3af);white-space:nowrap;margin:0 8px;}@media(max-width:960px){.pv-badge{display:none;}}</style>
 </head>
 <body>
 
@@ -695,6 +696,7 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
   </a>
   <div class="crumb" id="crumb"></div>
   <div class="topbar-space"></div>
+  <span class="pv-badge" id="pvBadge" title="访问人数，按天去重"></span>
   <div class="prog-wrap">
     <div class="prog-bar"><i id="progBar"></i></div>
     <span id="progText">0 / 0</span>
@@ -1529,5 +1531,18 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
 })();
 </script>
 <script src="i18n.js?v=20260808"></script>
+<script>
+/* 顶栏访问人数：数字由内容页（nav-inject.js 调 pv_hit）postMessage 上来，外壳只显示 */
+(function(){
+  var L = ["访客 累计", "本月", "今日"];
+  window.addEventListener('message', function(e){
+    if(e.origin !== location.origin) return;
+    var d = e.data; if(!d || d.type !== 'wa-pv' || !d.stats) return;
+    var el = document.getElementById('pvBadge'); if(!el) return;
+    var s = d.stats;
+    el.textContent = L[0]+' '+Number(s.total).toLocaleString()+' · '+L[1]+' '+Number(s.month).toLocaleString()+' · '+L[2]+' '+Number(s.today).toLocaleString();
+  });
+})();
+</script>
 </body>
 </html>
