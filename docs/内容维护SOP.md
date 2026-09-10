@@ -57,15 +57,20 @@ open "http://localhost:8809/slides/learn.html?preview=1"
 # 撤回：保持 draft（永不可见）或整段移除（目录消失，文件保留）
 ```
 
-## 七、发布到火山引擎（2026-08-11 起）
+## 七、发布（2026-08-21 起：push 即发布）
 
-站点托管在火山引擎 Pages（IGA，项目 `study`/5ohsyrm18a，绑定 waytoaic-study 工作区，与账号后端同厂）。每次内容达到"可以了"节点：
+站点托管在火山引擎 IGA Pages，项目 `study-site`/`b9r1vxappv`，**已关联 GitHub 仓 `WaytoAIC/study` 自动部署**，绑定 waytoaic-study Supabase（8 个环境变量自动注入）。
 
 ```bash
-# commit + push 之后，一条命令发布：
-bash scripts/deploy-volc.sh
+# 就这一步，没有别的
+git push
 ```
 
-- 脚本输出的预览链接带令牌、短时效，适合验收分享，不适合当正式入口
-- **正式公开域名（study.waytoaic.com）前置 = ICP 备案**：国内 scope 的自定义域名绑定按规必须备案；备案办妥后在火山控制台绑定域名即为正式入口
-- 备案期间若需要免备案的正式入口，走 Cloudflare Pages 连 GitHub 仓（见项目计划 Phase E），备案后切回火山
+push 到 main 后火山自动拉代码、构建、上线，纯静态站约 1 分钟。看构建状态：
+控制台 → 全站加速 → IGA Pages → study-site → 部署记录
+
+- **`deploy-volc.sh` 已删除**：那是 zip 上传时代的产物，Git 集成后不再需要
+- **正式域名** `study.waytoaic.com` 已绑定并走火山（灰云 CNAME 直连，不经 Cloudflare 代理）
+- **证书**：与主站共用一张 Let's Encrypt 通配符证书，**2026-11-19 到期**，续签见 `~/Desktop/火山引擎/scripts/renew-cert.sh`
+- **回滚**：部署记录里选历史版本「重新部署」。注意单项目**只保留最近 10 次部署**，更早的自动删除
+
