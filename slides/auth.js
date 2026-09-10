@@ -263,7 +263,7 @@
       (part.topics || []).forEach(function(t){
         (t.lessons || []).forEach(function(l){ if(l && l.file) files.push(l.file); });
       });
-      var freeAll = !!part.prologue;
+      var freeAll = !!part.prologue || !!part.freeAll;
       files.forEach(function(f, i){ if(freeAll || i < 2) _freeSet[f] = 1; });
     });
   }

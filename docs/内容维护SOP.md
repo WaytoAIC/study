@@ -44,7 +44,7 @@
 
 | 周期 | 动作 |
 |---|---|
-| 季度 | `git fetch upstream && git merge upstream/main`（冲突只会落在架构速记第三节的清单文件上）→ `bash scripts/upstream-diff.sh` 出派生巡检清单 → 按台账口径处置 |
+| 季度 | `bash scripts/upstream-sync.sh`（合并上游：框架文件保留我们的、考试页与课程数据取上游再重打补丁、剔除繁中/爸妈版，停在提交前供人工核验；首跑 2026-09-10，口径见脚本头注释）→ 本地验证 → commit+push → `bash scripts/upstream-diff.sh` 派生巡检 → 按台账处置 |
 | 月度 | 死链/品牌词/口径冲突巡检（可把改动页+口径台账喂 AI 扫）；`progress`/`profile` 表 dump 备份 |
 | 随时 | 发布/撤回草稿篇章；发布首个电商篇章时把 `COURSE_DEFAULT_TRACK` 改为 `'aic'` |
 

@@ -5,9 +5,11 @@
        lsKey     刷题进度的 localStorage 键（每个题库必须唯一）
        examId    考试标识，随成绩上报（服务端暂不消费，先带上）
        pickPlan  模拟考试抽题数 { single, multi, judge }，在整个题库里抽
-       pickPerPart 改为按篇章均摊，每章各抽 { single, multi, judge } 道，
-                 篇章由考点组编号的百位推导（1xx 是第一篇章，依此类推）。
-                 全站综合卷用它保证七章都考到，不会整章漏掉。设了它就不看 pickPlan
+       pickPerPart 改为按卷均摊，每卷各抽 { single, multi, judge } 道，
+                 卷子由考点组编号的百位推导（1xx 是大模型原理篇，依此类推；
+                 7xx 是协作方法论篇 Vibe Coding，6xx 是 Grok Build 专题——
+                 百位与篇章序号对不上是篇章重排留下的，详见 exam-data.js 的说明）。
+                 全站综合卷用它保证七套卷都考到，不会整卷漏掉。设了它就不看 pickPlan
        drill     false 表示这份卷子不提供顺序刷题（全站综合卷用不上，
                  想逐题刷解析该去各篇章自测页）
        verdicts  判分文案 [{ min, tier, title, desc }]，按 min 降序匹配 */
@@ -35,6 +37,38 @@ var EX_STR_ALL = {
     reportEmpty: '请先描述一下问题，哪怕一句话也行。',
     reportOk: '✓ 已收到，感谢反馈！我们会尽快核实这道题。',
     reportFail: '提交失败，请确认已登录后重试。'
+  },
+  hk: {
+    typeSingle: '單選題', typeMulti: '多選題（錯選漏選不得分）', typeJudge: '判斷題',
+    examLabel: '模擬考試 · 交卷後統一判分', drillLabel: '順序刷題 · 即時判定',
+    drillContinue: function(n, total){ return '繼續 · 第 ' + n + ' / ' + total + ' 題'; },
+    drillFromStart: '從頭開始',
+    btnSubmit: '交卷 →', btnFinish: '完成 →', btnNext: '下一題 →',
+    optTrue: '正確', optFalse: '錯誤',
+    fbRight: '✓ 回答正確', fbWrong: '✗ 回答錯誤 · 正確答案：',
+    expLabel: '解析',
+    resultExam: '考試結果', resultDrill: '刷題總結',
+    yourAns: '你的答案：', rightAns: '｜ 正確答案：',
+    reportBtn: '⚑ 這道題有問題？點此報錯',
+    reportEmpty: '請先描述一下問題，哪怕一句話也行。',
+    reportOk: '✓ 已收到，感謝反饋！我們會盡快核實這道題。',
+    reportFail: '提交失敗，請確認已登入後重試。'
+  },
+  tw: {
+    typeSingle: '單選題', typeMulti: '多選題（錯選漏選不得分）', typeJudge: '判斷題',
+    examLabel: '模擬考試 · 交卷後統一判分', drillLabel: '順序刷題 · 即時判定',
+    drillContinue: function(n, total){ return '繼續 · 第 ' + n + ' / ' + total + ' 題'; },
+    drillFromStart: '從頭開始',
+    btnSubmit: '交卷 →', btnFinish: '完成 →', btnNext: '下一題 →',
+    optTrue: '正確', optFalse: '錯誤',
+    fbRight: '✓ 回答正確', fbWrong: '✗ 回答錯誤 · 正確答案：',
+    expLabel: '解析',
+    resultExam: '考試結果', resultDrill: '刷題總結',
+    yourAns: '你的答案：', rightAns: '｜ 正確答案：',
+    reportBtn: '⚑ 這道題有問題？點此報錯',
+    reportEmpty: '請先描述一下問題，哪怕一句話也行。',
+    reportOk: '✓ 已收到，感謝回饋！我們會盡快核實這道題。',
+    reportFail: '提交失敗，請確認已登入後重試。'
   },
   en: {
     typeSingle: 'Single choice', typeMulti: 'Multiple choice (no partial credit)', typeJudge: 'True / False',
@@ -119,7 +153,7 @@ function pickByGroup(type, n){
   return sample(oneFromEachGroup(window.EXAM_BANK, type), n);
 }
 /* 按篇章均摊：每章各抽固定题数，再把同题型的题跨章打乱，
-   避免出现前几题清一色第一篇章 */
+   避免出现前几题清一色大模型原理篇 */
 function pickPerPart(plan){
   var parts = {};
   window.EXAM_BANK.forEach(function(q){
