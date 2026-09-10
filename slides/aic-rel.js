@@ -13,6 +13,31 @@
   'use strict';
 
   var REL = {
+    /* ── 电商视角卡（三期）：biz = {scene 这节对卖家意味着什么, example 你什么时候会用到, skip 哪些可以跳过} ── */
+    'zero-0.html': {
+      biz: { scene: '卖家每天做的事里，至少一半是"人学软件"的活：填表、抠图、写文案、翻评论。这节告诉你这些活正在反过来"听人话"。',
+             example: '下次让 AI 帮你把一段差评归类、把英文评论翻成中文要点、给主图写 5 版标题——这就是六个现场里的三个。',
+             skip: '演示里的编程类现场（写小工具）可以先跳过，不影响后面的课。' } },
+    'zero-q-prompt.html': {
+      biz: { scene: '提示词写得好不好，直接决定 Listing 文案、客服回复、选品分析的产出能不能一次可用。',
+             example: '写 Listing 五点、回差评邮件、让 AI 拆解竞品评论时——先用"五要素"把背景交代清楚，再让它动手。',
+             skip: '关于模型内部机制的解释段落可以略读，记住"交代清楚比重抽十次有用"就够。' } },
+    'learn-1.html': {
+      biz: { scene: '把 AI 当老师用，是卖家学新平台、新广告工具、新类目规则最快的方式。',
+             example: '开一个 Walmart 新店、第一次投 TikTok 广告、研究一个陌生类目的合规要求——先让 AI 给你出学习大纲再逐项追问。',
+             skip: '本节对学生/职场通用场景的例子可以快速扫过，替换成你自己的平台和类目。' } },
+    'aic-d-5-1.html': {
+      needs: [{ file: '5-1.html', why: '通用版：上下文窗口的机制详解（本页为电商场景版）' }],
+      next: [{ file: 'aic-team-2.html', why: '结论落背景包的完整做法' }],
+      terms: [{ t: '上下文溢出的三种处理策略', file: '5-2.html' }],
+      biz: { scene: '同一个对话聊太久 AI 就忘事，是运营在用 AI 做选品复盘、写周报时最常踩的坑。',
+             example: '选品讨论、Listing 优化、广告复盘分开开对话；重要结论落进你的背景包，下次冷启动直接贴。',
+             skip: '无需理解模型的技术细节，会"一事一对话 + 结论搬家"就够用。' } },
+    '1-2-hallucination.html': {
+      biz: { scene: 'AI 一本正经编数据，在选品（编月销）、合规（编条款）、报表（编费率）三个场景最危险。',
+             example: '让 AI 给出任何具体数字、平台规则条款、竞品数据时——一律去官方来源核一遍，再写进你的决策表。',
+             skip: '演示的技术原理部分可跳过，记住"高发区=数字/出处/私有信息"。' } },
+
     /* ── 实战一 · Listing 与主图 ── */
     'aic-listing-1.html': {
       next: [
@@ -90,11 +115,6 @@
       needs: [{ file: '1-2-hallucination.html', why: '先看幻觉现场演示，再学验证' }],
       next: [{ file: 'aic-select-2.html', why: '实战应用：选品数据的验真' }],
       terms: [{ t: '缓解幻觉的 Prompt 手段', file: '1-2-mitigation-prompt.html' }],
-    },
-    'aic-d-5-1.html': {
-      needs: [{ file: '5-1.html', why: '通用版：上下文窗口的机制详解（本页为电商场景版）' }],
-      next: [{ file: 'aic-team-2.html', why: '结论落背景包的完整做法' }],
-      terms: [{ t: '上下文溢出的三种处理策略', file: '5-2.html' }],
     },
     'aic-team-4.html': {
       needs: [
@@ -180,6 +200,32 @@
     main.parentNode.insertBefore(box, main.nextSibling);
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', render);
-  else render();
+  /* ── 电商视角卡：三问定型，插在课页标题区之后（阅读器内与独立打开都渲染） ── */
+  function renderBiz() {
+    var rel = REL[CUR]; if (!rel || !rel.biz) return;
+    var b = rel.biz;
+    var lang = (window.XUEAI_I18N && window.XUEAI_I18N.lang) || 'zh';
+    var T = ({ zh: ['跨境卖家这样用', '这节对卖家意味着什么', '你什么时候会用到', '哪些可以跳过'],
+               en: ['For cross-border sellers', 'What it means for sellers', 'When you will use it', 'What you can skip'],
+               ko: ['크로스보더 셀러를 위해', '셀러에게 의미하는 것', '언제 쓰게 되나', '건너뛰어도 되는 부분'] })[lang] || ['跨境卖家这样用', '这节对卖家意味着什么', '你什么时候会用到', '哪些可以跳过'];
+    var st = document.createElement('style');
+    st.textContent = '.aic-biz{margin:18px 0 8px;border:1.5px solid rgba(22,163,74,.3);border-left:5px solid #16a34a;border-radius:12px;background:rgba(22,163,74,.05);padding:16px 20px;}' +
+      '.aic-biz-h{font-size:12px;font-weight:800;letter-spacing:1px;color:#15803d;margin-bottom:10px;}' +
+      '.aic-biz-row{display:flex;gap:10px;font-size:14px;line-height:1.75;margin:6px 0;}' +
+      '.aic-biz-k{flex:none;width:126px;font-size:12px;font-weight:800;color:#15803d;padding-top:3px;}' +
+      '.aic-biz-v{color:var(--text,#1c1c1e);}' +
+      '@media(max-width:600px){.aic-biz-row{flex-direction:column;gap:2px;}}';
+    document.head.appendChild(st);
+    var box = document.createElement('div'); box.className = 'aic-biz';
+    box.innerHTML = '<div class="aic-biz-h">🧭 ' + T[0] + '</div>' +
+      '<div class="aic-biz-row"><div class="aic-biz-k">' + T[1] + '</div><div class="aic-biz-v">' + b.scene + '</div></div>' +
+      '<div class="aic-biz-row"><div class="aic-biz-k">' + T[2] + '</div><div class="aic-biz-v">' + b.example + '</div></div>' +
+      (b.skip ? '<div class="aic-biz-row"><div class="aic-biz-k">' + T[3] + '</div><div class="aic-biz-v">' + b.skip + '</div></div>' : '');
+    var head = document.querySelector('main.lesson > header, article.lesson > header, .lesson-header');
+    if (head && head.parentNode) head.parentNode.insertBefore(box, head.nextSibling);
+    else { var m = document.querySelector('main.lesson, article.lesson, .slide-container') || document.body; m.insertBefore(box, m.firstChild); }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { renderBiz(); render(); });
+  else { renderBiz(); render(); }
 })();

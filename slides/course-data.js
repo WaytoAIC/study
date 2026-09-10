@@ -2004,6 +2004,40 @@ window.TAG_STYLE = {
 /* 默认轨道：电商实战三篇章已发布（2026-08-11 维正拍板），默认落电商轨 */
 window.COURSE_DEFAULT_TRACK = 'aic';
 
+/* ── 优先级分层（三期 2026-09-10，维正拍板：结构不动，只分必学/建议/选修） ──
+   默认由上游路线标签判定（季度同步后自动更新）：主题或篇章 routes 含 use → 必学 must；
+   含 pro → 建议 should；其余 → 选修 opt；电商轨全部必学。人工覆盖表优先，按 篇章/主题/课节 三级。 */
+window.COURSE_PRIORITY_OVERRIDE = {
+  parts:   { 'p9': 'opt', 'p8': 'opt' },   // 一人公司 OPC、雷军创业课 → 选修（维正 09-10）
+  topics:  {},
+  lessons: {}
+};
+window.priorityOf = function (part, topic, lesson) {
+  var o = window.COURSE_PRIORITY_OVERRIDE || {};
+  if (lesson && o.lessons && o.lessons[lesson.file]) return o.lessons[lesson.file];
+  if (topic && o.topics && o.topics[topic.id]) return o.topics[topic.id];
+  if (o.parts && o.parts[part.id]) return o.parts[part.id];
+  if ((part.track || 'base') === 'aic') return 'must';
+  var r = (topic && topic.routes) || part.routes || [];
+  if (r.indexOf('use') >= 0) return 'must';
+  if (r.indexOf('pro') >= 0) return 'should';
+  return 'opt';
+};
+(function () {
+  window.COURSE.parts.forEach(function (p) {
+    var hasMust = false, allOpt = true;
+    p.topics.forEach(function (t) {
+      var tp = 'opt';
+      t.lessons.forEach(function (l) { l.priority = window.priorityOf(p, t, l); if (l.priority === 'must') tp = 'must'; else if (l.priority === 'should' && tp !== 'must') tp = 'should'; });
+      t.priority = tp;
+      if (tp === 'must') hasMust = true;
+      if (tp !== 'opt') allOpt = false;
+    });
+    var po = (window.COURSE_PRIORITY_OVERRIDE.parts || {})[p.id];
+    p.priority = po || (hasMust ? 'must' : (allOpt ? 'opt' : 'should'));
+  });
+})();
+
 /* ── 草稿篇章开关：默认隐藏 draft 篇章；?preview=1 开启预览（粘性），?preview=0 关闭 ── */
 (function () {
   var on = false;

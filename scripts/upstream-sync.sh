@@ -70,6 +70,7 @@ for r in sorted(refs):
 missing = [f for f in set(re.findall(r"file: '([^']+)'", up)) if not os.path.exists('slides/' + f)]
 print('课程数据引用缺失页:', missing)
 PY
+UPTIP=$(git rev-parse --short upstream/main); sed -i "" -E "s/上次同步上游: [0-9a-f]+/上次同步上游: $UPTIP/" docs/派生台账.md
 git add -A slides/ docs/ scripts/ 2>/dev/null || true
 for f in slides/course-data.js slides/course-data.en.js slides/course-data.ko.js slides/nav-inject.js slides/auth.js; do node --check "$f"; done
 echo "合并已就绪（未提交）。接下来：本地起服务验证阅读器/登录墙/双轨 → git commit → git push → bash scripts/upstream-diff.sh"

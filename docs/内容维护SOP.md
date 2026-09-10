@@ -57,6 +57,13 @@ open "http://localhost:8809/slides/learn.html?preview=1"
 # 撤回：保持 draft（永不可见）或整段移除（目录消失，文件保留）
 ```
 
+## 八、优先级分层与电商视角卡（三期 2026-09-10）
+
+- **档位**：必学 / 建议 / 选修，默认由上游路线标签算出（`course-data.js` 嫁接区 `priorityOf`），人工覆盖表 `COURSE_PRIORITY_OVERRIDE` 按篇章/主题/课节三级优先；季度同步时嫁接区整段重打，覆盖表不丢
+- **呈现**：目录结构不动；选修篇章默认在原位折叠（点篇章头展开）；侧栏"只看必学"开关；进度条主口径=必学（全站进度在悬停提示），结课/证书仍按全站
+- **电商视角卡**：`slides/aic-rel.js` 里给课节加 `biz: {scene, example, skip}`，页面自动在标题下渲染"跨境卖家这样用"三问卡；写法按口径台账"写给卖家"规范；`scripts/upstream-diff.sh` 会报带卡源页的上游变更
+- **改造分支流程**：三期在分支 `v3`（worktree `~/dev/study-v3`，预览 :8810）进行，线上只跟 `main`；上游同步照旧在 `main` 做完后 `git merge main` 进 `v3`；维正验收后由其确认合回 `main` 一次上线
+
 ## 七、发布（2026-08-21 起：push 即发布）
 
 站点托管在火山引擎 IGA Pages，项目 `study-site`/`b9r1vxappv`，**已关联 GitHub 仓 `WaytoAIC/study` 自动部署**，绑定 waytoaic-study Supabase（8 个环境变量自动注入）。

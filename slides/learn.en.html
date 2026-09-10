@@ -844,25 +844,36 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
 
   var navTree = document.getElementById('navTree');
 
+  /* ── 优先级分层（三期 2026-09-10）：结构不动，只分档呈现 ── */
+  var PR_LABEL = { must:'Core', should:'Suggested', opt:'Optional', all:'All', only:'Core only' };
+  var PART_PRIORITY = {};
+  var collapsedParts = {};
+  window.COURSE.parts.forEach(function(p){ PART_PRIORITY[p.id] = p.priority || 'must'; if((p.priority||'must') === 'opt') collapsedParts[p.id] = true; });
+  var mustOnly = false;
+  try{ mustOnly = localStorage.getItem('wa_must_only') === '1'; }catch(e){}
+
   function buildTree(){
     var html = '';
     window.COURSE.parts.forEach(function(part){
-      html += '<div class="part-divider">'
+      var pPr = part.priority || 'must';
+      html += '<div class="part-divider pr-'+pPr+(collapsedParts[part.id]?' part-collapsed':'')+'" data-part="'+part.id+'">'
             + '<div class="part-bar" style="background:'+part.color+'"></div>'
             + '<div class="part-info">'
-            + '<div class="part-num" style="color:'+part.color+'">'+part.num+'</div>'
+            + '<div class="part-num" style="color:'+part.color+'">'+part.num+' <span class="pr-tag pr-'+pPr+'">'+PR_LABEL[pPr]+'</span></div>'
             + '<div class="part-name">'+part.title+'</div>'
-            + '</div></div>';
+            + '<div class="part-must" data-part="'+part.id+'"></div>'
+            + '</div><span class="part-caret">›</span></div>';
       part.topics.forEach(function(topic){
-        html += '<div class="topic-block collapsed" data-topic="'+topic.id+'">';
+        html += '<div class="topic-block collapsed pr-'+(topic.priority||'must')+'" data-topic="'+topic.id+'" data-part="'+part.id+'">';
         html += '<div class="topic-head">'
               + '<span class="caret"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>'
               + '<span class="ttitle">'+topic.title+'</span>'
+              + '<span class="pr-tag pr-'+(topic.priority||'must')+'">'+PR_LABEL[topic.priority||'must']+'</span>'
               + '<span class="tcount">'+topic.lessons.length+'</span>'
               + '</div>';
         html += '<div class="lesson-list">';
         topic.lessons.forEach(function(ls){
-          html += '<a class="lesson-item" data-file="'+ls.file+'" href="#'+encodeURIComponent(ls.file)+'">'
+          html += '<a class="lesson-item pr-'+(ls.priority||'must')+'" data-file="'+ls.file+'" href="#'+encodeURIComponent(ls.file)+'">'
                + '<span class="check"></span>'
                + '<span class="ltitle">'+ls.title+'</span>'
                + '<span class="hit-tag">'+HIT_TAG_TEXT+'</span></a>';
@@ -871,6 +882,13 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
       });
     });
     navTree.innerHTML = html;
+    navTree.querySelectorAll('.part-divider').forEach(function(d){
+      d.addEventListener('click', function(){
+        var id = d.dataset.part; collapsedParts[id] = !collapsedParts[id];
+        d.classList.toggle('part-collapsed', !!collapsedParts[id]);
+        applySearch();
+      });
+    });
     /* Sidebar width is limited, so fall back to a tooltip when titles get clipped */
     navTree.querySelectorAll('.part-name,.ttitle,.ltitle').forEach(function(el){
       el.title = el.textContent;
@@ -887,8 +905,18 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
     var total = FLAT.length;
     var done = 0;
     FLAT.forEach(function(l){ if(progress[l.file]) done++; });
-    document.getElementById('progText').textContent = done + ' / ' + total;
-    document.getElementById('progBar').style.width = (total ? (done/total*100) : 0) + '%';
+    /* 主进度口径=必学（三期）；全站进度进 title；结课/证书判定仍按全站 */
+    var mustAll = FLAT.filter(function(l){ return l.priority === 'must'; });
+    var mustDone = mustAll.filter(function(l){ return progress[l.file]; }).length;
+    var pt = document.getElementById('progText');
+    pt.textContent = mustDone + ' / ' + mustAll.length;
+    pt.title = PR_LABEL.must + ' ' + mustDone + '/' + mustAll.length + ' · ' + PR_LABEL.all + ' ' + done + '/' + total;
+    document.getElementById('progBar').style.width = (mustAll.length ? (mustDone/mustAll.length*100) : 0) + '%';
+    navTree.querySelectorAll('.part-must').forEach(function(el){
+      var pid = el.dataset.part, pm = 0, pd = 0;
+      FLAT.forEach(function(l){ if(l.partId === pid && l.priority === 'must'){ pm++; if(progress[l.file]) pd++; } });
+      el.textContent = pm ? (PR_LABEL.must + ' ' + pd + '/' + pm) : '';
+    });
     var allDone = total > 0 && done >= total;
     var certLink = document.getElementById('certLink');
     if(certLink) certLink.classList.toggle('show', allDone);
@@ -990,6 +1018,12 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
     var _wm = document.getElementById('waLoginMask'); if(_wm) _wm.remove();
     var _tk = PART_TRACK[L.partId] || 'base';
     if(_tk !== curTrack) switchTrack(_tk);
+    if(collapsedParts[L.partId]){
+      collapsedParts[L.partId] = false;
+      var _dv = navTree.querySelector('.part-divider[data-part="'+L.partId+'"]');
+      if(_dv) _dv.classList.remove('part-collapsed');
+      applySearch();
+    }
     var iframeSrc = L.file.replace(/\.html$/, '.en.html');
     iframe.src = iframeSrc + (iframeSrc.indexOf('?')>=0 ? '&' : '?') + 'embed=1';
 
@@ -1158,11 +1192,13 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
         /* 双轨：无搜索词时只显示当前轨；有搜索词时跨轨命中 */
         var trackOk = !!q || !L || (PART_TRACK[L.partId] || 'base') === curTrack;
         var hit = (titleHit || bodyHit) && trackOk;
+        if(!q && mustOnly && L && L.priority !== 'must') hit = false;   /* 只看必学（搜索时不限） */
         item.style.display = hit ? '' : 'none';
         item.classList.toggle('body-hit', bodyHit);
         if(hit) any = true;
       });
       block.style.display = any ? '' : 'none';
+      if(!q && collapsedParts[block.dataset.part]) block.style.display = 'none';   /* 选修章默认折叠 */
       if(q && any) block.classList.remove('collapsed');
     });
     navTree.querySelectorAll('.part-divider').forEach(function(d){
@@ -1173,7 +1209,9 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
         next = next.nextElementSibling;
       }
       /* 双轨后：无论有无搜索词，没有可见主题块的篇章头都藏（轨道过滤也走这条） */
-      d.style.display = anyVisible ? '' : 'none';
+      var pid = d.dataset.part;
+      var keepHead = !q && collapsedParts[pid] && (PART_TRACK[pid] || 'base') === curTrack && !(mustOnly && PART_PRIORITY[pid] !== 'must');
+      d.style.display = (anyVisible || keepHead) ? '' : 'none';
     });
   }
 
@@ -1315,7 +1353,7 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
   /* ── 双轨切换：AI Fundamentals / AI × E-commerce（维正 2026-08-11 拍板）──
      过滤走 applySearch 统一管道：无搜索词只显当前轨，搜索时跨轨命中；
      电商轨无可见篇章（草稿未发布且非预览）时不渲染 tab。 */
-  var TRACK_LABELS = { base:'AI Fundamentals', aic:'AI × E-commerce' };
+  var TRACK_LABELS = { base:'AI Basics · Seller view', aic:'AI × E-commerce' };
   var PART_TRACK = {};
   window.COURSE.parts.forEach(function(p){ PART_TRACK[p.id] = p.track || 'base'; });
   var hasAic = window.COURSE.parts.some(function(p){ return (p.track||'base') === 'aic'; });
@@ -1355,6 +1393,33 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
     var sw = document.querySelector('.search-wrap');
     sw.parentNode.insertBefore(bar, sw);
     applySearch();
+  })();
+
+  /* ── 优先级分层：样式 + 只看必学开关 ── */
+  (function initPriorityUI(){
+    var st = document.createElement('style');
+    st.textContent = '.pr-tag{display:inline-block;font-size:10px;font-weight:800;line-height:1;padding:2px 6px;border-radius:999px;margin-left:6px;vertical-align:middle;}'
+      + '.pr-tag.pr-must{background:var(--accent,#0066ff);color:#fff;}'
+      + '.pr-tag.pr-should{border:1px solid var(--accent,#0066ff);color:var(--accent,#0066ff);}'
+      + '.pr-tag.pr-opt{background:var(--tcount-bg,#f3f4f6);color:var(--tcount-fg,#9ca3af);}'
+      + '.topic-block.pr-opt .ttitle,.lesson-item.pr-opt .ltitle{opacity:.62;}'
+      + '.part-divider{cursor:pointer;}'
+      + '.part-caret{flex:none;font-size:18px;line-height:1;color:var(--tcount-fg,#9ca3af);transition:transform .15s;transform:rotate(90deg);padding:0 2px;}'
+      + '.part-divider.part-collapsed .part-caret{transform:rotate(0);}'
+      + '.part-must{font-size:10.5px;color:var(--tcount-fg,#9ca3af);margin-top:2px;}'
+      + '.pr-toggle{display:flex;align-items:center;gap:8px;padding:8px 14px 0;font-size:12px;color:var(--sub,#6b7280);cursor:pointer;user-select:none;}'
+      + '.pr-toggle input{accent-color:var(--accent,#0066ff);margin:0;}';
+    document.head.appendChild(st);
+    var lab = document.createElement('label'); lab.className = 'pr-toggle';
+    var cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = mustOnly;
+    cb.addEventListener('change', function(){
+      mustOnly = cb.checked;
+      try{ localStorage.setItem('wa_must_only', mustOnly ? '1' : '0'); }catch(e){}
+      applySearch();
+    });
+    lab.appendChild(cb); lab.appendChild(document.createTextNode(PR_LABEL.only));
+    var sw2 = document.querySelector('.search-wrap');
+    sw2.parentNode.insertBefore(lab, sw2);
   })();
   refreshProgress();
   loadLesson(currentFile());
