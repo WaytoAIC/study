@@ -34,21 +34,21 @@
           toSignup:'没有账号？注册一个', toLogin:'已有账号？去登录',
           submitLogin:'登录', submitSignup:'注册并登录', close:'关闭',
           errCred:'邮箱或密码不对', errExists:'这个邮箱已经注册过了，直接登录即可',
-          errWeak:'密码至少 6 位', errNet:'网络不给力，稍后再试',
+          errWeak:'密码至少 6 位', errNet:'网络不给力，稍后再试', errSvc:'登录服务暂时不可用，请稍后再试',
           legal:'注册或登录即表示同意 <a href="/terms.html" target="_blank">《用户协议》</a>与 <a href="/privacy.html" target="_blank">《隐私政策》</a>' },
     en: { login:'Sign in', logout:'Sign out', signup:'Sign up', email:'Email', password:'Password (6+ chars)',
           title:'Sign in to WaytoAIC Study', sub:'Your learning progress syncs across devices.',
           toSignup:'No account? Sign up', toLogin:'Have an account? Sign in',
           submitLogin:'Sign in', submitSignup:'Sign up & sign in', close:'Close',
           errCred:'Wrong email or password', errExists:'Already registered — just sign in',
-          errWeak:'Password needs 6+ characters', errNet:'Network error, try again',
+          errWeak:'Password needs 6+ characters', errNet:'Network error, try again', errSvc:'Sign-in service is temporarily unavailable, try again later',
           legal:'By signing up or in, you agree to the <a href="/terms.html" target="_blank">Terms</a> and <a href="/privacy.html" target="_blank">Privacy Policy</a>' },
     ko: { login:'로그인', logout:'로그아웃', signup:'가입', email:'이메일', password:'비밀번호(6자 이상)',
           title:'WaytoAIC Study 로그인', sub:'학습 진도가 기기 간에 동기화됩니다.',
           toSignup:'계정이 없나요? 가입하기', toLogin:'계정이 있나요? 로그인',
           submitLogin:'로그인', submitSignup:'가입 후 로그인', close:'닫기',
           errCred:'이메일 또는 비밀번호가 올바르지 않습니다', errExists:'이미 가입된 이메일입니다. 로그인해 주세요',
-          errWeak:'비밀번호는 6자 이상이어야 합니다', errNet:'네트워크 오류입니다. 다시 시도해 주세요',
+          errWeak:'비밀번호는 6자 이상이어야 합니다', errNet:'네트워크 오류입니다. 다시 시도해 주세요', errSvc:'로그인 서비스를 일시적으로 사용할 수 없습니다. 잠시 후 다시 시도해 주세요',
           legal:'가입 또는 로그인 시 <a href="/terms.html" target="_blank">이용약관</a> 및 <a href="/privacy.html" target="_blank">개인정보 처리방침</a>에 동의하는 것으로 간주됩니다' }
   };
   var T = _T[_lang] || _T.zh;
@@ -89,6 +89,12 @@
     try{ localStorage.setItem('xa_auth', on ? '1' : '0'); }catch(e){}
   }
 
+  function markLoggedIn(){
+    state.loggedIn = true;
+    state.nickname = nickFromEmail(session.user && session.user.email);
+    setPaywallFlag(true);
+  }
+
   function setFromTokenResp(d){
     session = {
       access_token: d.access_token,
@@ -97,22 +103,26 @@
       user: { id: (d.user && d.user.id) || '', email: (d.user && d.user.email) || '' }
     };
     saveSession(session);
-    state.loggedIn = true;
-    state.nickname = nickFromEmail(session.user.email);
-    setPaywallFlag(true);
+    markLoggedIn();
   }
 
   function refreshIfNeeded(){
     if(!session) return Promise.resolve();
     if(session.expires_at && session.expires_at > Date.now()) {
-      state.loggedIn = true;
-      state.nickname = nickFromEmail(session.user && session.user.email);
-      setPaywallFlag(true);
+      markLoggedIn();
       return Promise.resolve();
     }
     return req('/auth/v1/token?grant_type=refresh_token', { method:'POST', body:{ refresh_token: session.refresh_token } })
       .then(setFromTokenResp)
-      .catch(function(){ session = null; saveSession(null); state.loggedIn = false; state.nickname = ''; setPaywallFlag(false); });
+      .catch(function(e){
+        /* 只有服务端明确拒绝续期（refresh_token 失效）才登出；断网或后端 5xx（如工作区被关停）
+           时保留会话与解锁标记，下次打开页面再续——否则一次后端故障会把所有已登录用户踢下线并锁课 */
+        if(e && (e.status === 400 || e.status === 401)){
+          session = null; saveSession(null); state.loggedIn = false; state.nickname = ''; setPaywallFlag(false);
+        }else{
+          markLoggedIn();
+        }
+      });
   }
 
   /* ── 进度同步（契约与上游 /auth/progress 对齐：{file:1,...,__last}） ── */
@@ -215,10 +225,11 @@
         location.reload();   /* 让锁课/进度同步逻辑按登录态重跑 */
       }).catch(function(e){
         $('waSubmit').disabled = false;
-        var msg = String((e && e.message) || '');
-        if(e && e.status === 400 && /already|registered/i.test(msg)) $('waErr').textContent = T.errExists;
-        else if(e && (e.status === 400 || e.status === 401)) $('waErr').textContent = T.errCred;
+        var st = (e && e.status) || 0, msg = String((e && e.message) || '');
+        if((st === 400 || st === 422) && /already|registered|exists/i.test(msg)) $('waErr').textContent = T.errExists;
+        else if(st === 400 || st === 401) $('waErr').textContent = T.errCred;
         else if(/password/i.test(msg)) $('waErr').textContent = T.errWeak;
+        else if(st === 429 || st >= 500) $('waErr').textContent = T.errSvc;   /* 后端关停/限流，不是用户网络问题 */
         else $('waErr').textContent = T.errNet;
       });
     };
