@@ -581,7 +581,7 @@ function WA_normFile(f) {
 
     const bar = document.createElement('div');
     bar.id = 'wa-icp-bar';
-    bar.innerHTML = '<a href="https://beian.miit.gov.cn" target="_blank" rel="noopener">粤ICP备2026120136号-1</a>';
+    bar.innerHTML = '<a href="https://beian.miit.gov.cn" target="_blank" rel="noopener">粤ICP备2026120136号-1</a><br><a href="https://beian.mps.gov.cn/#/query/webSearch?code=44030002017077" target="_blank" rel="noopener">粤公网安备44030002017077号</a>';
     document.body.appendChild(bar);
   })();
 
