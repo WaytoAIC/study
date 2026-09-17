@@ -836,11 +836,21 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
   }
   var progress = loadProgress();
 
+  /* 默认落点：当前轨（wa_track || COURSE_DEFAULT_TRACK）的第一节。不能直接用 FLAT[0]——
+     它恒属基础轨，doLoadLesson 会跟着把轨道切回去并写进 wa_track，默认轨配置就失效了。
+     PART_TRACK / curTrack 在下方「双轨切换」段初始化，早于首次调用。 */
+  function defaultFile(){
+    for(var i=0;i<FLAT.length;i++){
+      if((PART_TRACK[FLAT[i].partId] || 'base') === curTrack) return FLAT[i].file;
+    }
+    return FLAT[0].file;
+  }
+
   function currentFile(){
     var h = decodeURIComponent((location.hash||'').replace(/^#/,'')).trim();
     if(h && FLAT.some(function(l){return l.file===h;})) return h;
     return (progress.__last && FLAT.some(function(l){return l.file===progress.__last;}))
-      ? progress.__last : FLAT[0].file;
+      ? progress.__last : defaultFile();
   }
 
   var navTree = document.getElementById('navTree');
@@ -976,12 +986,13 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
   function loadLesson(file){
     var f = findLesson(file);
     var L = f.data;
-    /* 登录墙：非免费节未登录不加载，弹登录；首屏落在锁定节时退回第一节 */
+    /* 登录墙：非免费节未登录不加载，弹登录；首屏落在锁定节时退回默认落点（不切轨、不改 wa_track）。
+       先垫底课再弹窗：doLoadLesson 会顺手关掉登录弹窗，顺序反了弹窗一闪就没。 */
     if(window.XueaiAuth && !window.XueaiAuth.isFree(L.file)){
       window.XueaiAuth.ready.then(function(){
         if(window.XueaiAuth.state.loggedIn){ doLoadLesson(f, L); return; }
+        if(!iframe.src){ var ff = findLesson(defaultFile()); doLoadLesson(ff, ff.data); }
         window.XueaiAuth.openLoginModal();
-        if(!iframe.src){ var ff = findLesson(FLAT[0].file); doLoadLesson(ff, ff.data); }
       });
       return;
     }
