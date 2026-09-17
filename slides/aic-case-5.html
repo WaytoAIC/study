@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>把业务 SOP 转 Skills | WaytoAIC</title>
+<style>@keyframes _si{from{opacity:0}to{opacity:1}}body{opacity:0;animation:_si 0.15s ease 0.08s forwards}</style>
+<link rel="stylesheet" href="lesson.css">
+<link rel="stylesheet" href="aic-study.css">
+<style>
+.src-line{font-size:12.5px;color:var(--sub);margin-top:10px;}
+.chain{display:flex;gap:8px;margin:20px 0;flex-wrap:wrap;align-items:stretch;}
+.chain-node{flex:1;min-width:130px;background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;font-size:12.5px;line-height:1.6;color:var(--sub);text-align:center;}
+.chain-node b{display:block;font-size:14px;color:var(--text);margin-bottom:3px;}
+.tbl-wrap{overflow-x:auto;margin:18px 0;}
+.sift{width:100%;border-collapse:collapse;font-size:13px;min-width:600px;}
+.sift th,.sift td{border:1px solid var(--border);padding:10px 12px;text-align:left;line-height:1.65;vertical-align:top;}
+.sift th{background:rgba(234,88,12,.06);font-weight:800;font-size:12.5px;}
+.sift td:first-child{font-weight:800;white-space:nowrap;}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0;}
+.split-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 20px;}
+.split-card h4{font-size:14.5px;font-weight:800;margin-bottom:8px;}
+.split-card.a h4{color:var(--sub);} .split-card.b h4{color:#c2410c;}
+.split-card p,.split-card li{font-size:13.5px;color:var(--sub);line-height:1.8;}
+.split-card ul{margin-left:18px;}
+.mods{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:18px 0 8px;}
+.mod{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:12px 8px;font-size:12.5px;font-weight:800;text-align:center;line-height:1.5;}
+.mods-out{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;font-size:13px;font-weight:800;margin-bottom:18px;}
+.mods-out span{border-radius:999px;padding:6px 16px;}
+.mods-out .card{background:rgba(234,88,12,.1);color:#c2410c;}
+.mods-out .hu{background:rgba(124,58,237,.1);color:var(--purple);}
+.rules3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0;}
+.rule3{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;font-size:12.5px;color:var(--sub);line-height:1.65;}
+.rule3 b{display:block;font-size:14px;color:var(--text);margin-bottom:4px;}
+@media(max-width:640px){.split,.rules3{grid-template-columns:1fr;}.mods{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<main class="lesson">
+  <div class="aic-status">AI 整理自维正 9·16 直播 · 待维正过手</div>
+  <header class="lesson-header">
+    <div class="kicker">实战四 · 案例拆解</div>
+    <h1>把业务 SOP 转 <em>Skills</em></h1>
+    <p class="subtitle">团队已经有 SOP 的，不用从对话里慢慢攒，可以直接转。难的不是写，是把人脑里的"我知道怎么做"，变成 AI 能读懂、执行和验证的规则。</p>
+    <p class="src-line">整理自维正 2026-09-16 直播《任务设计：把工作交给 AI》· 系列课《从0打造，AI Native 跨境电商》第②讲</p>
+  </header>
+
+  <div class="aic-stage learn"><span class="aic-stage-tag">学</span>先把这个点看明白<span class="aic-stage-sub">筛选 → 拆解 → 显化 → 封装 → 验证 → 迭代</span></div>
+
+  <div class="l-callout reveal"><p><b>核心：不是把 SOP 交给 AI，而是把业务能力，拆成机器可执行、可验证、可迭代的规则。</b></p></div>
+  <div class="chain reveal">
+    <div class="chain-node"><b>人的经验</b>隐性的做事方式</div>
+    <div class="chain-node"><b>SOP</b>结构化流程文档</div>
+    <div class="chain-node"><b>Skill</b>可调用的能力模块</div>
+    <div class="chain-node"><b>业务资产</b>可复用、可进化</div>
+  </div>
+  <p style="font-size:14px;color:var(--sub);text-align:center;margin:-6px 0 14px;">对应三次本质变化：<b style="color:var(--text);">经验显性化 → 规则自动化 → 能力资产化</b></p>
+
+  <h2 class="sec-title">六步，每一步只回答一个核心问题</h2>
+  <div class="tbl-wrap reveal"><table class="sift">
+    <tr><th>步骤</th><th>核心问题</th><th>做什么</th><th>过关标准</th></tr>
+    <tr><td>① 筛选</td><td>什么能力值得沉淀？</td><td>把 SOP 切成一个个能独立交付的任务，按<b>重复</b>（常做、多人做）、<b>代价</b>（做错亏钱或返工）、<b>隐性</b>（靠某个人的经验）三项打分</td><td>选定一个主任务。三项里占两项才值得做；整条 SOP 别当成一个 Skill，第一次只做最痛的那一段</td></tr>
+    <tr><td>② 拆解</td><td>每一步是 Data / Code / Rule / LLM / Action 的哪一种？</td><td>数据（事实从哪里来）、计算（哪些交给代码）、规则（什么情况怎么处理）、判断（哪些交给模型）、动作（最终改变什么）</td><td>每步只有一种主类型；对外有副作用的动作都标出来，不可撤销的一律留人工闸</td></tr>
+    <tr><td>③ 显化</td><td>指标、条件、阈值、动作分别是什么？</td><td>把隐性经验写成显性规则：指标定义、条件明确、阈值写清、动作写死。例："ACOS 太高" → "ACOS &gt; 2×利润率"</td><td>每条规则，一个没参与过的人拿着数据能复核出同样的结论</td></tr>
+    <tr><td>④ 封装</td><td>Goal / Context / Rules / Action / Eval 怎么写？</td><td>Skill = 要解决什么问题 + 需要哪些信息 + 按什么规则执行 + 输出什么结果或动作 + 如何评估与校验</td><td>找一个没参与的人，只读 Skill 包，能独立跑完一个案例</td></tr>
+    <tr><td>⑤ 验证</td><td>是否比人工基线更稳定、更好？</td><td>用真实案例检验：正常的、优秀的、失败的、边界的都要有；和人按原 SOP 做的结果并排比</td><td>人工当时做错的那个案例，Skill 能拦住；同一案例多跑几次，结论基本一致</td></tr>
+    <tr><td>⑥ 迭代</td><td>错误和反馈如何回流？</td><td>版本记录、错误沉淀、反馈回流、更新规则。错误分三类回写：规则缺失 → 补规则；规则错误 → 改阈值；执行偏差 → 补检查项</td><td>任何一条错误，都能追溯到一次具体的规则改动</td></tr>
+  </table></div>
+  <div class="l-callout reveal"><p>开工之前还有个"第 0 步"：<b>收料</b>。把 SOP 的视频、文档、口述都收齐，整理成一份原文档案，每句话标清楚是<b>事实</b>（原文明说的）、<b>推断</b>（整理时补的）还是<b>缺口</b>（原文没说、但执行时必须知道的）。视频里演示的和文档写的不一致时，以视频为准——视频才是实际做法。</p></div>
+
+  <div class="rules3 reveal">
+    <div class="rule3"><b>能算死的，交给代码</b>确定性、规则化的问题，用代码最可靠</div>
+    <div class="rule3"><b>高风险动作，保留人工确认</b>涉及资金、合规、对外决策的，必须有人把关</div>
+    <div class="rule3"><b>AI 放大 SOP，不替代判断</b>让 AI 做更多、更快、更好的执行，关键判断仍需要人的经验与责任</div>
+  </div>
+
+  <h2 class="sec-title">核心难点：隐性经验显性化</h2>
+  <div class="split reveal">
+    <div class="split-card a"><h4>SOP 里通常这么写</h4><p>"检查竞品情况，判断竞争是否激烈。"</p><p style="margin-top:8px;">写给懂行的人看，足够了。老手一眼就知道该看什么。</p></div>
+    <div class="split-card b"><h4>Skill 里必须写到这个程度</h4><ul><li>看哪个数（指标）</li><li>什么情况下（条件）</li><li>具体到数字或几个明确的档位（阈值）</li><li>过、卡、还是拒；卡住了找谁（动作）</li></ul></div>
+  </div>
+  <div class="l-card reveal"><p><b>碰到"凭经验"的步骤，这样追问：</b>你上次说"不行"，当时看到的是什么数字或现象？有没有例外，例外是怎么判断的？数据缺了一项，你是按 0 算、按最坏算，还是停下来？两个候选都及格，你怎么排先后？</p>
+  <p style="margin-top:10px;">实在写不成数字的，可以留给模型裁量，但必须配一张<b>判级表</b>（比如严重 / 一般 / 轻微各自是什么意思）和固定的几个输出选项，不许自由发挥。阈值写成"合理""明显"的，一律打回。</p></div>
+
+  <h2 class="sec-title">实例：大单品配件选品 Skills（只讲结构）</h2>
+  <div class="l-card reveal"><p>直播里演示的是维正自己的一套选品 SOP：围绕一个卖得好的大单品，找值得做的配件。整套 SOP 被封装成 Skills 之后，结构是这样的——五块能力依次跑完，产出一张「配件机会卡」，<b>交给人验收</b>。</p></div>
+  <div class="mods reveal">
+    <div class="mod">大单品<br>生命周期</div><div class="mod">用户需求<br>挖掘</div><div class="mod">配件类型<br>划分</div><div class="mod">盈利<br>测算</div><div class="mod">合规<br>校验</div>
+  </div>
+  <div class="mods-out reveal"><span class="card">→ 配件机会卡</span><span class="hu">→ 人工验收</span></div>
+  <div class="l-callout reveal" style="border-color:rgba(220,38,38,.35);"><p>本页<b>只讲方法与结构</b>。这套选品的具体阈值、裁决口径与数据不在学习站公开。要看的重点是形态：哪怕封装得这么完整，最后一步仍然是人——<b>Skills 交的是"有证据的候选"，要不要投入，是人拍板。</b></p></div>
+  <p style="font-size:13px;color:var(--sub);">顺带一提：直播里画流程图用的是开源的 <a href="https://github.com/tt-a1i/archify" target="_blank" rel="noopener">archify</a>。把 SOP 先画成图，拆解那一步会容易很多。</p>
+
+  <h2 class="sec-title">两个容易想错的地方，点开看</h2>
+  <div class="aic-opt"><div class="aic-opt-q">老员工说"这个我看一眼就知道行不行"，这种经验怎么转成规则？</div><div class="aic-opt-a"><b>别让他"总结"，让他边做边说。</b>人总结自己的经验时，说出来的往往是教科书版本，真正起作用的那些判断他自己都没意识到。拿几个真实案例让他当场判，你在旁边追问上面那四个问题，尤其是"你刚才为什么直接跳过了这个"。被他跳过的地方，往往就是最值钱的那条隐性规则。</div></div>
+  <div class="aic-opt"><div class="aic-opt-q">Skills 跑出来的结果从来不出错，是不是说明它已经很好了？</div><div class="aic-opt-a"><b>不一定，要看它是不是什么都不敢推荐。</b>只测"不犯错"、不测"找得到"，很容易养出一个永远说"再看看"的 Skills——它确实不会错，但也没用。验证的时候两头都要看：该拦的拦住了没有，该找出来的找出来了没有。</div></div>
+
+  <div class="aic-prompt">
+    <div class="aic-pm-head">🤖 AI 实战 · 带我把一份 SOP 转成 Skills<button class="aic-pm-copy" type="button">复制</button></div>
+    <pre>我要把一份业务 SOP 转成可稳定复用的 Skill。材料在这里：
+<span class="ph">【SOP 文档 / 录屏转写 / 口述要点】</span>
+
+请带我走六步：筛选 → 拆解 → 显化 → 封装 → 验证 → 迭代。
+规则：每一步只回答一个核心问题；每一步有过关标准，不过关不进下一步；
+你负责结构和追问，我负责拍板。
+
+开始之前先做"收料"：把材料整理成一份原文档案，
+每句标明是【事实】【推断】还是【缺口】，然后问我三个问题：
+这个 SOP 谁在执行、多久做一次？上一次做错的代价是什么？
+有没有哪一步是"老手一眼就知道、新手要教很久"的？
+
+拆解时，每一步只归一种类型：Data / Code / Rule / LLM / Action。
+凡是我回答"凭感觉""看经验"的步骤，请追问到能写出
+「指标 / 条件 / 阈值 / 动作」为止；实在写不出的，标为"模型裁量"
+并要求我给出判级表。
+
+凡是对外有副作用的动作，标出能不能撤销；不可撤销的一律加人工确认。
+不要替我编阈值，我没给的数字写「待定」。</pre>
+    <div class="aic-pm-note">示例模板 · 待维正替换为实战版素材。典型节奏是两次会话：第一次走到"显化"，第二次从"封装"走完，再加一周试用。</div>
+  </div>
+
+  <div class="aic-stage speak"><span class="aic-stage-tag">讲</span>用自己的话讲一遍<span class="aic-stage-sub">费曼时刻</span></div>
+  <div class="aic-feynman">
+    <div class="aic-fy-title">FEYNMAN · 输出倒逼输入</div>
+    <p>老板说："我们那份 3 页的选品 SOP 写得很清楚了，直接喂给 AI 不就行了？"<br>请解释<b>为什么不行</b>，以及六步里<b>哪一步最难、难在哪</b>。</p>
+    <div class="aic-fy-check">
+      <button class="aic-fy-check-btn" type="button">讲完了，对照要点 ›</button>
+      <div class="aic-fy-check-body"><ul>
+        <li>SOP 是写给懂行的人看的，省略掉的那些隐性判断，恰恰是 AI 最缺的</li>
+        <li>最难的是"显化"：要把"我觉得不行"追问成指标、条件、阈值、动作，做到第三个人拿着数据能复核</li>
+        <li>封装完不算完：用历史真实案例和人工结果并排比，对外有副作用的动作留人工确认，最后拍板的仍然是人</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="aic-stage do"><span class="aic-stage-tag">练</span>拿真 SOP 练一把<span class="aic-stage-sub">直播作业 4 · 篇章收官</span></div>
+  <div class="aic-practice">
+    <div class="aic-pr-row"><div class="aic-pr-k">任务</div><div class="aic-pr-v"><b>选择你的一个 SOP，按六步改造为 Skills。</b>别挑整条流程，挑其中最痛的一段。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">合格标准</div><div class="aic-pr-v">"重复 / 代价 / 隐性"三项里至少占两项；六步每一步都有产出；显化出不少于 3 条原 SOP 里没写的判断；用至少 1 个历史真实案例回测，和当时的人工结论并排对比；对外有副作用的动作留了人工确认。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">反馈闭环</div><div class="aic-pr-v">每次人工验收打回，就按"规则缺失 / 规则错误 / 执行偏差"归一类，回写一条。每次用完留一句反馈：对、错、还是哪里别扭。</div></div>
+    <div class="aic-pr-metric">衡量口径：历史案例回测里，Skills 和人工结论一致的比例；单次用时从 __ 到 __。这些线都是起步值，按你的业务调。</div>
+    <ul class="aic-check">
+      <li>选定一段 SOP，三项打分过关</li>
+      <li>六步每一步都有产出物</li>
+      <li>用历史真实案例回测，和人工结论并排比</li>
+      <li>建好错误回写表，第一条反馈已回写</li>
+    </ul>
+  </div>
+
+  <div class="l-callout reveal">
+    <p><b>本页 Takeaway</b>：SOP 转 Skills 走六步，最难的是把隐性经验显化成"指标、条件、阈值、动作"；能算死的交给代码，高风险动作保留人工确认，AI 放大 SOP、不替代判断。直播的收尾也放在这里：<b>不存在你什么都不懂还能用 AI 把事做成，但你可以用 AI 学会任何事情。</b></p>
+    <p style="margin-top:8px;"><b>本篇章完</b>：两个接入真实数据的 Agent，三条把工作沉淀成 Skills 的路。Skill 不是写出来的，是在业务里养出来的。</p>
+  </div>
+  <div class="l-callout reveal" style="border-color:rgba(234,88,12,.35);">
+    <p><b>直播原文与录屏</b>：<a href="https://yiritongfeng.feishu.cn/wiki/OXhgwSxfwirFgqk25iPclrNznne" target="_blank" rel="noopener">2️⃣ 任务设计：把工作交给 AI（飞书文档）</a>。想和更多卖家一起把 AI 用进业务，入口见 <a href="https://www.waytoaic.com" target="_blank" rel="noopener">waytoaic.com</a>。</p>
+  </div>
+</main>
+<script src="i18n.js?v=20260808"></script>
+<script src="lesson.js"></script>
+<script src="nav-inject.js?v=20260809q"></script>
+<script src="aic-study.js"></script>
+</body>
+</html>

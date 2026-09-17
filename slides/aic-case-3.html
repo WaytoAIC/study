@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>把重复任务变成 Skills | WaytoAIC</title>
+<style>@keyframes _si{from{opacity:0}to{opacity:1}}body{opacity:0;animation:_si 0.15s ease 0.08s forwards}</style>
+<link rel="stylesheet" href="lesson.css">
+<link rel="stylesheet" href="aic-study.css">
+<style>
+.src-line{font-size:12.5px;color:var(--sub);margin-top:10px;}
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0;}
+.quad-cell{border:1.5px solid var(--border);border-radius:var(--radius);padding:16px 18px;background:var(--card);}
+.quad-cell h4{font-size:15px;font-weight:800;margin-bottom:4px;}
+.quad-cell .cond{font-size:12px;font-weight:700;color:var(--sub);margin-bottom:8px;}
+.quad-cell ul{margin:0 0 10px 18px;font-size:13px;line-height:1.75;color:var(--sub);}
+.quad-cell .do{font-size:12.5px;font-weight:800;border-radius:8px;padding:6px 10px;}
+.quad-cell.best{border-color:rgba(22,163,74,.45);background:rgba(22,163,74,.05);} .quad-cell.best h4{color:#15803d;} .quad-cell.best .do{background:rgba(22,163,74,.12);color:#166534;}
+.quad-cell.auto{border-color:rgba(0,102,255,.35);background:rgba(0,102,255,.04);} .quad-cell.auto h4{color:var(--accent);} .quad-cell.auto .do{background:rgba(0,102,255,.1);color:#1d4ed8;}
+.quad-cell.human{border-color:rgba(220,38,38,.3);background:rgba(220,38,38,.04);} .quad-cell.human h4{color:#b91c1c;} .quad-cell.human .do{background:rgba(220,38,38,.1);color:#b91c1c;}
+.quad-cell.redo .do{background:rgba(0,0,0,.06);color:var(--sub);}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0;}
+.split-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px 22px;}
+.split-card h4{font-size:15px;font-weight:800;margin-bottom:10px;}
+.split-card.a h4{color:var(--sub);} .split-card.b h4{color:#c2410c;}
+.split-card p,.split-card li{font-size:13.5px;color:var(--sub);line-height:1.8;}
+.split-card ol{margin-left:18px;}
+.pipe{display:flex;gap:8px;margin:20px 0;flex-wrap:wrap;}
+.pipe-step{flex:1;min-width:104px;background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;font-size:12.5px;font-weight:700;line-height:1.5;text-align:center;}
+.tree{background:#0f172a;color:#e2e8f0;border-radius:var(--radius);padding:16px 18px;margin:16px 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.85;overflow-x:auto;white-space:pre;}
+.tree .c{color:#94a3b8;}
+@media(max-width:640px){.quad,.split{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<main class="lesson">
+  <div class="aic-status">AI 整理自维正 9·16 直播 · 待维正过手</div>
+  <header class="lesson-header">
+    <div class="kicker">实战四 · 案例拆解</div>
+    <h1>把重复任务变成 <em>Skills</em>：一顿饱 → 顿顿饱</h1>
+    <p class="subtitle">同一个活，第三次交代给 AI，还在从头纠错？该把它沉淀成 Skills 了。用 Listing 生成这个例子，看一份 Skills 怎么从一次次纠错里长出来。</p>
+    <p class="src-line">整理自维正 2026-09-16 直播《任务设计：把工作交给 AI》· 系列课《从0打造，AI Native 跨境电商》第②讲</p>
+  </header>
+
+  <div class="aic-stage learn"><span class="aic-stage-tag">学</span>先把这个点看明白<span class="aic-stage-sub">先判该不该交，再谈怎么沉淀</span></div>
+
+  <h2 class="sec-title">什么样的工作适合交给 AI</h2>
+  <div class="l-card reveal"><p>所有工作都应该用 AI、事事问 AI；这里说的是<b>分工和价值</b>。判断只看两个维度：<b>是否需要智能</b>（智能的本质是处理不确定性：需要理解、生成、判断、决策）× <b>结果是否可验证</b>（有明确的目标、约束、验收标准，能判断做对没有）。</p></div>
+  <div class="quad reveal">
+    <div class="quad-cell human"><h4>人主导 + AI 辅助</h4><div class="cond">需要智能，但结果不可验证</div><ul><li>战略规划、创意发散</li><li>复杂谈判、组织管理</li><li>新业务探索</li></ul><div class="do">AI 给思路、资料和建议，最终由人判断和决策</div></div>
+    <div class="quad-cell best"><h4>AI 最佳场景</h4><div class="cond">需要智能，且结果可验证</div><ul><li>评论 / 用户反馈分析</li><li>Listing 生成与优化</li><li>广告异常诊断、选品分析</li></ul><div class="do">优先交给 AI，并沉淀为 Skill / Workflow / Agent</div></div>
+    <div class="quad-cell redo"><h4>重新定义问题</h4><div class="cond">不需要智能，且结果不可验证</div><ul><li>没有明确目标的日常工作</li><li>职责不清、标准模糊的任务</li><li>不知道什么叫"做好"</li></ul><div class="do">先把问题拆清楚，定义清晰的目标和标准</div></div>
+    <div class="quad-cell auto"><h4>自动化</h4><div class="cond">不需要智能，但结果可验证</div><ul><li>算利润、两列相加</li><li>下载报表、格式转换</li><li>定时任务、固定规则的审核</li></ul><div class="do">用代码 / 公式，更便宜、更稳定，别浪费 token</div></div>
+  </div>
+  <div class="l-callout reveal"><p>一句话：<b>存在不确定性、需要智能处理，同时结果可以被验证。</b>再进一步——<b>高频重复</b>，决定要不要沉淀成 Skill；<b>多步骤协作</b>，决定要不要做成 Workflow；<b>需要持续感知、决策、行动</b>，决定要不要做成 Agent。</p>
+  <p style="margin-top:8px;font-size:13px;">和「团队 AI 上岗」里的挑活三筛不打架：三筛回答"这活值不值得交出去"，这两个维度回答"交给 AI，还是交给脚本"。</p></div>
+
+  <h2 class="sec-title">什么是 Skills</h2>
+  <div class="l-card reveal">
+    <p><b>Skills 就是 Agent 的工作手册</b>：业务流程、操作规则、判断边界、工具和验收标准的集合。如果说 Agent 是一名员工，Skill 就是他做某一类工作时用的标准作业手册，告诉他：什么情况下用这套能力、开工前检查什么、按什么顺序做、哪些步骤调脚本、哪些必须自己判断、遇到异常是继续还是停、最终交什么、达到什么标准才算完成。</p>
+    <p style="margin-top:10px;">一个 Skill 通常是一个独立文件夹，以 SKILL.md 为入口：</p>
+  </div>
+  <div class="tree reveal">my-skill/
+├── SKILL.md      <span class="c"># 入口：什么时候用、怎么做、怎么算做完</span>
+├── references/   <span class="c"># 参考资料：规则、输出结构、异常处理</span>
+├── scripts/      <span class="c"># 能算死的步骤，写成脚本</span>
+├── templates/    <span class="c"># 固定的输出模板</span>
+└── examples/     <span class="c"># 做对的案例和做错的案例</span></div>
+  <div class="l-callout reveal"><p><b>Skill 不是"设计"出来的，而是从真实任务的执行、纠错、验证中逐渐演化出来的。</b></p></div>
+
+  <h2 class="sec-title">案例：一份 Listing 生成 Skill 是怎么长出来的</h2>
+  <div class="split reveal">
+    <div class="split-card a"><h4>第一次，你只说了一句</h4><p>"读取产品资料，分析关键词，然后生成 Title、Bullet Points、Description 和 Search Terms。"</p><p style="margin-top:8px;">Agent 交了活，你发现一堆问题，于是开始一条条补要求 →</p></div>
+    <div class="split-card b"><h4>补出来的 7 条</h4><ol>
+      <li>标题不要堆词，核心关键词放在前面（直播里的经验值：大致 75 字符以内）</li>
+      <li>不要只根据搜索量选词，还要判断关键词和产品的真实相关性</li>
+      <li>写卖点之前，先读 Review / VOC，确认消费者真正关心什么</li>
+      <li>竞品里出现的卖点不能直接照搬，必须确认我们的产品确实具备</li>
+      <li>尺寸、材质、兼容型号，只能从产品档案读取，不能自己推测</li>
+      <li>生成后先检查敏感词、商标词和夸大表述，通过后才输出最终版</li>
+      <li>最终必须同时输出 Listing、关键词埋词表和修改依据</li>
+    </ol></div>
+  </div>
+  <p style="font-size:14px;color:var(--sub);margin:6px 0;">于是，一条真正可用的任务流程逐渐形成：</p>
+  <div class="pipe reveal">
+    <div class="pipe-step">读取产品档案</div><div class="pipe-step">分析竞品</div><div class="pipe-step">分析 VOC</div><div class="pipe-step">筛选关键词</div><div class="pipe-step">提炼卖点</div><div class="pipe-step">生成 Listing</div><div class="pipe-step">合规检查</div><div class="pipe-step">埋词检查</div><div class="pipe-step">输出最终结果</div>
+  </div>
+  <div class="l-card reveal"><p>这些规则最初都散落在一次次聊天和纠错里。当这套流程已经过多个新品验证、以后每次上新都会重复用，就不该继续依赖聊天记录——把经过验证的流程、规则、工具和验收标准沉淀成一个「Amazon Listing 生成 Skill」。以后换一个产品、换一个对话、甚至换一个 Agent，都不用重新教一遍。它只要加载这个 Skill，就知道：<b>拿什么资料 → 用什么工具 → 按什么顺序做 → 遵守什么规则 → 如何自检 → 最终交付什么。</b></p></div>
+  <div class="l-callout reveal"><p><b>一顿饱 → 顿顿饱</b>：从一次对话，到稳定执行的任务。直播里给的经验线：<b>一个任务你做了 3 次以上，就应该写成 Skills。</b></p></div>
+
+  <h2 class="sec-title">三个容易想错的地方，点开看</h2>
+  <div class="aic-opt"><div class="aic-opt-q">我这周末抽时间，把手上所有工作从 0 写成 Skills，行不行？</div><div class="aic-opt-a"><b>直播原话：第一种千万别干。</b>上面那 7 条规则，没有一条是坐在那儿想出来的，每一条背后都是一次真实的翻车。从 0 手写，等于凭想象替未来的自己纠错——写出来的多半是正确的废话。<b>先跑通真实任务，再把反复验证有效的做法沉淀下来。</b></div></div>
+  <div class="aic-opt"><div class="aic-opt-q">第 5 条"尺寸、材质、兼容型号只能从产品档案读取"，为什么值得单独立一条？</div><div class="aic-opt-a"><b>因为这正是 AI 最容易编的地方。</b>具体数字、规格、型号属于幻觉高发区，而 Listing 上写错一个兼容型号，换来的是退货和差评。所以这类信息不让它"分析"，只让它"照抄指定来源"——这就是手册里的<b>判断边界</b>：哪些它可以发挥，哪些一个字都不许动。</div></div>
+  <div class="aic-opt"><div class="aic-opt-q">Skills 反复改了几轮，效果反而越来越差，怎么办？</div><div class="aic-opt-a"><b>别在原来的对话里继续修，直接新开会话重来。</b>旧对话里堆满了互相打架的修改指令，越补越乱。把已经确认有效的规则带走，换个干净的会话重新搭，比在原地反复修正快得多。</div></div>
+
+  <div class="aic-prompt">
+    <div class="aic-pm-head">🤖 AI 实战 · 把这次对话沉淀成 Skills<button class="aic-pm-copy" type="button">复制</button></div>
+    <pre>我们刚才一起把「<span class="ph">【任务名，如：为新品生成可上架的 Listing】</span>」做完了。
+这类任务我以后会反复做，请把这次对话沉淀成一个 Skill。
+
+请这样做：
+1. 回看整段对话，把我每一次纠正你的地方，逐条改写成规则。
+   每条规则后面注明它来自哪一次纠错，方便我以后判断要不要保留。
+2. 把最终跑通的做法写成有顺序的步骤。
+   能用脚本或公式算死的步骤单独标出来，不要交给模型判断。
+3. 写清判断边界：哪些信息只能从我指定的来源读取、不许推测；
+   哪些地方你可以自己发挥。
+4. 写清验收标准：交付哪几样东西，达到什么程度才算完成，你如何自检。
+5. 按 SKILL.md + references/ + scripts/ + templates/ + examples/ 的结构组织，
+   把这次的成品放进 examples/ 当作做对的案例。
+
+拿不准的地方标「待确认」，不要替我编。
+先给我看 SKILL.md 的草稿，我确认后再生成其余文件。</pre>
+    <div class="aic-pm-note">示例模板 · 待维正替换为实战版素材。适用于你已经和 AI 把一件事完整做完、纠过错的那次对话。</div>
+  </div>
+
+  <div class="aic-stage speak"><span class="aic-stage-tag">讲</span>用自己的话讲一遍<span class="aic-stage-sub">费曼时刻</span></div>
+  <div class="aic-feynman">
+    <div class="aic-fy-title">FEYNMAN · 输出倒逼输入</div>
+    <p>同事说："Skills 不就是长一点的提示词吗？我周末把我所有的活都写出来。"<br>请你劝住他，并告诉他<b>什么时候才该动手写</b>。</p>
+    <div class="aic-fy-check">
+      <button class="aic-fy-check-btn" type="button">讲完了，对照要点 ›</button>
+      <div class="aic-fy-check-body"><ul>
+        <li>Skills 是工作手册，值钱的部分是判断边界和验收标准，不是字数</li>
+        <li>每条规则背后都是一次真实纠错；从 0 手写等于凭想象，所以"千万别干"</li>
+        <li>动手的时机：同一任务做了 3 次以上（经验值）、对业务有价值；其中不需要智能的环节交给脚本，不交给模型</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="aic-stage do"><span class="aic-stage-tag">练</span>拿真活练一把<span class="aic-stage-sub">直播作业 1</span></div>
+  <div class="aic-practice">
+    <div class="aic-pr-row"><div class="aic-pr-k">任务</div><div class="aic-pr-v"><b>梳理近三个月的工作，找出重复 3 次以上的</b>，再从里面挑对业务有价值的（增收、降本、增效）。每一项过一遍上面的四象限。选 1 个落在"AI 最佳场景"的，做成你的第一份 Skills。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">合格标准</div><div class="aic-pr-v">清单不少于 5 项，每项标了象限和业务价值；选中的那一项有成型的步骤、至少 3 条来自真实纠错的规则、一条写得清的验收标准。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">反馈闭环</div><div class="aic-pr-v">用这份 Skills 再跑 2 次同类任务。每纠一次错，就补一条规则进去——它就是这么长大的。</div></div>
+    <div class="aic-pr-metric">衡量口径：同类任务里你需要纠错的次数，从 __ 次降到 __ 次；单次用时从 __ 到 __。</div>
+    <ul class="aic-check">
+      <li>近三个月的重复工作清单（不少于 5 项），逐项过四象限</li>
+      <li>选定 1 个标的</li>
+      <li>第一份 Skills 成稿（步骤 + 规则 + 验收标准）</li>
+      <li>再跑 2 次，把新的纠错补进去</li>
+    </ul>
+  </div>
+
+  <div class="l-callout reveal">
+    <p><b>本页 Takeaway</b>：先过两个维度，再决定交不交、交给谁；Skills 是从纠错里演化出来的工作手册，不是设计出来的；同一任务做了 3 次以上（经验值）且有业务价值就沉淀，别从 0 手写。</p>
+  </div>
+  <div class="l-callout reveal" style="border-color:rgba(234,88,12,.35);">
+    <p><b>直播原文与录屏</b>：<a href="https://yiritongfeng.feishu.cn/wiki/OXhgwSxfwirFgqk25iPclrNznne" target="_blank" rel="noopener">2️⃣ 任务设计：把工作交给 AI（飞书文档）</a></p>
+  </div>
+</main>
+<script src="i18n.js?v=20260808"></script>
+<script src="lesson.js"></script>
+<script src="nav-inject.js?v=20260809q"></script>
+<script src="aic-study.js"></script>
+</body>
+</html>

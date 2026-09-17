@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>多店铺巡检 Agent | WaytoAIC</title>
+<style>@keyframes _si{from{opacity:0}to{opacity:1}}body{opacity:0;animation:_si 0.15s ease 0.08s forwards}</style>
+<link rel="stylesheet" href="lesson.css">
+<link rel="stylesheet" href="aic-study.css">
+<style>
+.src-line{font-size:12.5px;color:var(--sub);margin-top:10px;}
+.pipe{display:flex;gap:8px;margin:20px 0;flex-wrap:wrap;}
+.pipe-step{flex:1;min-width:130px;background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;font-size:12.5px;line-height:1.6;}
+.pipe-step b{display:block;font-size:13.5px;margin-bottom:4px;}
+.pipe-step .who{display:inline-block;margin-top:6px;font-size:11px;font-weight:800;padding:2px 8px;border-radius:999px;}
+.pipe-step .who.ai{background:rgba(0,102,255,.1);color:var(--accent);}
+.pipe-step .who.hu{background:rgba(124,58,237,.1);color:var(--purple);}
+.pipe-step.on{border-color:rgba(234,88,12,.55);background:rgba(234,88,12,.05);}
+.tbl-wrap{overflow-x:auto;margin:18px 0;}
+.sift{width:100%;border-collapse:collapse;font-size:13.5px;min-width:520px;}
+.sift th,.sift td{border:1px solid var(--border);padding:10px 13px;text-align:left;line-height:1.65;vertical-align:top;}
+.sift th{background:rgba(234,88,12,.06);font-weight:800;font-size:12.5px;}
+.aic-prompt.long pre{max-height:420px;overflow:auto;}
+.rpt{border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:18px 0;background:var(--card);}
+.rpt-head{background:linear-gradient(135deg,#6366f1,#7c3aed);color:#fff;padding:14px 18px;font-weight:800;font-size:15px;}
+.rpt-head small{display:block;font-weight:600;font-size:12px;opacity:.85;margin-top:3px;}
+.rpt-row{display:flex;gap:10px;align-items:center;padding:10px 18px;border-top:1px solid var(--border);font-size:13.5px;}
+.rpt-row .k{flex:1;font-weight:700;}
+.rpt-row .v{flex:1;color:var(--sub);}
+.rpt-tag{flex:none;font-size:11px;font-weight:800;padding:2px 10px;border-radius:999px;}
+.rpt-tag.lo{background:#dcfce7;color:#15803d;} .rpt-tag.mid{background:#fef3c7;color:#92400e;} .rpt-tag.hi{background:#fee2e2;color:#b91c1c;}
+.rpt-note{padding:10px 18px;border-top:1px solid var(--border);font-size:12.5px;color:var(--sub);background:rgba(0,0,0,.02);}
+</style>
+</head>
+<body>
+<main class="lesson">
+  <div class="aic-status">AI 整理自维正 9·15 直播 · 待维正过手</div>
+  <header class="lesson-header">
+    <div class="kicker">实战四 · 案例拆解</div>
+    <h1>多店铺巡检 Agent：<em>店铺绩效 &amp; 健康监控</em></h1>
+    <p class="subtitle">每天挨个登后台看绩效，是典型的重复活。这个案例把它交给 Agent：拉数据、逐项判风险、出一份 HTML 报告，你只看标红的几项。</p>
+    <p class="src-line">整理自维正 2026-09-15 直播《AI 基础设施：让 AI 接入真实业务》· 系列课《从0打造，AI Native 跨境电商》第①讲</p>
+  </header>
+
+  <div class="aic-stage learn"><span class="aic-stage-tag">学</span>先把这个点看明白<span class="aic-stage-sub">业务逻辑 → 实操步骤 → 输出结果</span></div>
+
+  <div class="l-card reveal">
+    <p>这一讲开头的问题是：<b>为什么 AI 越来越强，我们的业务却没有同步变好？</b>执行能力越来越容易获得，稀缺的是你能不能给出<b>上下文 × 目标 × 评估标准</b>，并让工作形成闭环：明确目标 → 执行 → 评估结果 → 反馈 → 再执行。</p>
+    <p style="margin-top:10px;">要让 AI 进到这个闭环里，先得让它<b>接得上你的真实业务数据</b>。基础设施分两类：让一个 Agent（能自己思考、调工具、交结果的 AI 执行者）能完成工作的<b>Agent 运行基础设施</b>，和让一项业务能持续运转的<b>业务工作台基础设施</b>。合起来是五个台阶：</p>
+  </div>
+  <div class="pipe reveal">
+    <div class="pipe-step on"><b>① 基础执行</b>让 AI 完成一次具体任务</div>
+    <div class="pipe-step on"><b>② 业务知识+任务</b>同类工作每次都按标准完成</div>
+    <div class="pipe-step"><b>③ 持续运行 Agent</b>定时触发、持续干活的数字员工</div>
+    <div class="pipe-step"><b>④ 业务工作台</b>多个任务统一管理和交接</div>
+    <div class="pipe-step"><b>⑤ 团队业务系统</b>多人多店铺长期使用</div>
+  </div>
+  <div class="l-callout reveal"><p>本案例走的是 <b>① → ②</b>：先让 Agent 跑通一次巡检，再让它每次都按同一套标准出报告。直播原话：<b>今天的核心是跑通。</b></p></div>
+
+  <h2 class="sec-title">业务逻辑</h2>
+  <div class="l-card reveal"><p>拉取当前店铺状态绩效数据，生成 HTML 可视化报告。逐项判定风险等级，重点标注合规风险项，给出优先处理建议。</p></div>
+  <div class="pipe reveal">
+    <div class="pipe-step"><b>拉数据</b>经紫鸟 CLI 读取店铺绩效与账户健康<span class="who ai">AI + 工具</span></div>
+    <div class="pipe-step"><b>判风险</b>按指标逐项给出风险等级<span class="who ai">AI · 按你的标准</span></div>
+    <div class="pipe-step"><b>出报告</b>生成 HTML 可视化报告<span class="who ai">AI</span></div>
+    <div class="pipe-step"><b>处理</b>看标红项，决定先动哪个<span class="who hu">人</span></div>
+  </div>
+  <div class="tbl-wrap reveal"><table class="sift">
+    <tr><th>报告覆盖的指标</th><th>白话</th><th>为什么盯</th></tr>
+    <tr><td>账户健康评分</td><td>平台给店铺的总体体检分</td><td>分数掉到警戒区，账户有被限制的风险</td></tr>
+    <tr><td>近 7 天销量与销售额、总金额</td><td>最近卖得怎么样</td><td>和健康问题放一起看，先救正在出单的店</td></tr>
+    <tr><td>ODR（订单缺陷率），卖家配送 / 亚马逊配送分开</td><td>出问题的订单占比</td><td>平台的硬考核项</td></tr>
+    <tr><td>准时交货率、有效追踪率</td><td>自发货订单发得准不准、查不查得到</td><td>只对自发货订单有意义</td></tr>
+    <tr><td>上架政策违规 / 受限商品违规 / 知识产权投诉</td><td>三类合规风险</td><td>报告里重点标注，优先处理</td></tr>
+  </table></div>
+  <div class="l-callout reveal"><p>各项指标的达标线<b>以你后台当期政策为准</b>，平台会调；别把任何一份报告里写的目标值当成永久标准。</p></div>
+
+  <h2 class="sec-title">实操步骤</h2>
+  <div class="l-card reveal">
+    <p><b>前置工具</b>：一个本地 Coding Agent（能在你电脑上读文件、跑命令的 AI，例如 Codex、WorkBuddy）+ 公司在用的紫鸟浏览器与紫鸟 CLI（命令行工具，让 Agent 能通过它读取店铺数据；自带亚马逊 SP-API 与 Ads-API 接入）。</p>
+    <p style="margin-top:10px;"><b>新工具接入方法：把官方文档链接直接发给 Coding Agent。</b>它会自己读文档、装工具、做验证。你要做的是先把边界讲清楚。下面这份提示词就是"边界 + 步骤"的完整写法，分七节：</p>
+  </div>
+  <div class="pipe reveal">
+    <div class="pipe-step on"><b>一、授权与安全边界</b>先立规矩再动手</div>
+    <div class="pipe-step"><b>二、检查本机环境</b></div>
+    <div class="pipe-step"><b>三、安装两个 CLI</b></div>
+    <div class="pipe-step"><b>四、安装并检查 Skills</b></div>
+    <div class="pipe-step"><b>五、检查并复用授权</b></div>
+    <div class="pipe-step"><b>六、最终验证</b></div>
+    <div class="pipe-step"><b>七、必须继续新手引导</b>选平台 → 选场景 → 看示例 → 移交正式工作流</div>
+  </div>
+
+  <div class="aic-prompt long">
+    <div class="aic-pm-head">🤖 AI 实战 · 维正的安装与新手引导提示词（原文）<button class="aic-pm-copy" type="button">复制</button></div>
+    <pre># 帮我安装、初始化紫鸟两个 CLI，并完成新手引导
+
+请实际执行安装与验证。安装成功后必须继续进入新手引导，不能只汇报“安装完成”就结束。
+
+## 一、授权与安全边界
+
+- 全局安装前，先说明将安装两个 CLI 和配套 Skills，获得用户明确批准；本次会话已有明确批准则复用，不重复询问。
+- 安装、配置授权及打开授权页必须在本机真实环境执行。
+- 当前处于沙盒且需要提权时，先申请本机完整权限；用户拒绝则停止。已经具有完整权限时无需重复申请。
+- Windows 使用 PowerShell，不使用 Git Bash。
+- 不输出完整 API Key，不将 Key 放入命令参数、Shell 管道、环境变量、临时文件或日志。
+- 安装授权不等于业务操作授权；安装和引导期间不执行店铺业务写操作或付费请求。
+- 保留已有有效配置，避免重复创建授权。
+- 后续本机紫鸟浏览器页面操作使用 ziniao-cli；平台技能发现及远程能力使用 zn-open-eco。若具体工作流要求另一条浏览器路线，先说明冲突，不静默切换。
+- 命令以本机 --help 和实际安装版本为准，不猜测不存在的子命令。
+
+参考文档：
+- https://ziniao-open-prod.s3.cn-northwest-1.amazonaws.com.cn/ziniao-cli/SETUP.md
+- https://cdn-znai-agent-swarm-resources-prod.ziniao.com/ai-agent-public-resources/agent-skill/install.md
+
+## 二、检查本机环境
+
+1. 确认操作系统和真实用户环境。
+2. 执行：
+   node -v
+   npm -v
+3. 要求 Node.js ≥18；缺失或版本不足时安装或升级，再次验证。
+4. 不使用项目本地或 npx 临时 Node 代替本机安装。
+
+## 三、安装两个 CLI
+
+获得安装批准后执行：
+
+npm install -g @ziniao-open/cli@latest @ziniao-agent/cli@latest
+
+验证：
+
+ziniao-cli --version
+zn-open-eco version
+zn-open-eco --help
+zn-open-eco capabilities --json
+
+命令失败时先排查安装结果、全局 npm 前缀和 PATH，不把启动失败判断成授权失败。
+
+## 四、安装并检查两套 Skills
+
+执行：
+
+ziniao-cli skills install --copy
+zn-open-eco skills install --help
+
+若当前版本支持，执行：
+
+zn-open-eco skills install --copy
+
+仅当原生 Skills 安装命令不可用，且最新官方文档仍提供以下兼容方式时，使用：
+
+npx -y skills@1.5.23 add "https://cdn-znai-agent-swarm-resources-prod.ziniao.com/ai-agent-public-resources/agent-skill/skills.zip" --skill "*" -g -y
+
+检查安装结果，并确认能发现和读取以下 Skills：
+
+- ziniao-shared
+- ziniao-ai-agent-onboarding
+- ziniao-cross-border-workflow
+
+不要仅凭安装命令退出成功就声称引导已就绪。
+如需刷新 Skills 发现机制，按宿主实际方式处理；仍无法加载时明确说明阻塞点。
+
+检查 Agent 实际读取的用户级、项目级和已加载 Skill 根目录：
+- 若发现目录名或 frontmatter name 为 ziniao-assistant 的旧技能，将其移至可恢复位置。
+- 若为符号链接，仅移除链接，不操作目标源码。
+- 不扫描无关目录，不删除其他技能，不覆盖项目自定义工作流。
+
+## 五、检查并复用授权
+
+先执行：
+
+ziniao-cli doctor
+
+逐项读取结果，不只看退出码：
+
+- 配置与 API Key 有效：复用当前配置，不执行新建授权。
+- 配置或 API Key 不可用：进入下面的授权引导。
+- 只有客户端或 Bridge 失败：单独处理，不重复创建 Key，也不阻塞可用的远程 API 引导。
+
+两个 CLI 是否共用授权，以当前版本说明和 capabilities 为准。
+不要预设 zn-open-eco 存在 auth status；只有 --help 明确支持时才使用。
+
+### 缺少有效授权时
+
+一次只问一个问题，提供两种方式：
+1. 打开浏览器创建授权。
+2. 使用已有 API Key。
+
+#### 方式 1：浏览器创建授权
+
+先检查 ziniao-cli config init --help，确认支持 --new。
+
+客户端已运行且已登录时复用。
+需要启动时：
+- Shell 能解析 ziniao：执行一次 ziniao start。
+- macOS 启动失败或无反应，且存在 /Applications/ziniao.app：
+  执行一次 open -a "/Applications/ziniao.app"。
+- 其他情况提示用户手动启动。
+
+启动成功不代表已登录。
+
+后台启动：
+ziniao-cli config init --new
+
+保持进程运行并及时读取输出。
+发现包含 memberAuth?cliRequestId= 的授权链接后，立即使用系统默认浏览器打开：
+
+- macOS：open "&lt;实际链接&gt;"
+- Windows：Start-Process "&lt;实际链接&gt;"
+- Linux：xdg-open "&lt;实际链接&gt;"
+
+不得只使用无头、内置或沙盒浏览器。
+打开后提示用户完成登录、授权或管理员审批。
+打开失败时展示可点击的完整授权链接，并说明失败情况。
+
+若提示客户端未登录：
+- 请用户在紫鸟客户端登录。
+- 等用户确认后重试初始化，不重复启动客户端。
+
+等待通过、拒绝或超时，如实汇报结果。
+拒绝或超时后不自动重复创建应用。
+
+#### 方式 2：使用已有 API Key
+
+优先让用户在本机终端交互输入，具体命令先核对 --help。
+
+若用户主动提供 Key 并要求代配：
+- 说明聊天中提供的 Key 会保留在聊天记录中。
+- 使用完整命令：
+  ziniao-cli config init --api-key-stdin --member
+- 仅通过可安全写入且不回显的进程 stdin 传入 Key 和换行，再关闭 stdin。
+- 不使用命令参数、Shell 管道、环境变量或临时文件。
+- 工具无法安全写入 stdin 时，说明原因，改由用户在本机终端输入。
+- 不猜测或修改 Key 字符，不轮流尝试不同 Key。
+
+初始化完成后重新运行 ziniao-cli doctor。
+只有配置与 API Key 检查通过，才进入后续引导。
+
+## 六、最终验证
+
+执行：
+
+ziniao-cli --version
+zn-open-eco version
+ziniao-cli doctor
+zn-open-eco agent skills browse
+
+用简体中文简要汇报：
+
+- 两个 CLI 的版本及安装结果。
+- 两套本地 Skills 的安装结果。
+- 新手引导与总控工作流是否可加载。
+- 旧版 ziniao-assistant 的处理结果。
+- 授权为复用还是新建，是否有效。
+- doctor 各项失败或警告，尤其终端绑定检查是否实际完成。
+- 平台技能目录是否可读取。
+
+目录读取成功不代表每个业务技能都可执行。
+不展示完整 Key、内部店铺 ID 或完整原始响应。
+
+## 七、必须继续新手引导
+
+验证完成后加载并遵守：
+ziniao-ai-agent-onboarding
+
+同时确认：
+ziniao-cross-border-workflow
+可以加载，供用户确认任务后移交执行。
+
+不要停在安装总结，也不要一次把全部菜单抛给用户。
+
+### 第一步：选择平台
+
+用户尚未给出平台或具体需求时，安装总结后立即询问：
+
+“你主要经营哪个平台？
+
+1. 亚马逊
+2. TikTok Shop
+3. 其他平台
+
+回复编号即可，也可以直接描述你的需求。”
+
+然后等待回复。
+
+用户已给出平台时，跳过这一步。
+用户已给出具体任务时，直接移交正式工作流，不强制走菜单。
+
+### 第二步：选择场景
+
+根据用户选择的平台，按已安装的新手引导 Skill 展示场景。
+例如亚马逊：
+
+1. 竞品调研
+2. Listing 优化
+3. 店铺健康分析
+
+一次只问当前场景选择，然后等待回复。
+场景是推荐，实际可用性须由总控工作流核验。
+
+### 第三步：展示一条示例
+
+用户选择场景后，展示对应的一条示例。
+例如店铺健康分析：
+
+“示例任务：分析店铺最近 7 天的经营情况，找出库存、Listing 和销售异常，并按优先级给出建议。
+
+回复‘开始’或‘继续’即可进入任务流程；也可以指定店铺或调整时间范围。”
+
+然后等待，不提前查询店铺或执行业务操作。
+
+### 第四步：移交正式工作流
+
+用户确认开始后，加载 ziniao-cross-border-workflow，
+传入已确认的平台、场景、具体目标及鉴权状态。
+
+由正式工作流继续核对必要的店铺、站点、时间范围和能力条件。
+缺少信息时一次只问一个必要问题，已确认的信息不重复询问。
+
+“开始”或“继续”表示进入当前任务流程，
+不构成对未说明的店铺写操作、费用或全部店铺范围的授权。
+
+若工作流无法加载、能力不可用或权限不足，
+明确说明实际阻塞点和下一步，不编造结果。
+
+完成标准：
+安装与验证完成，并且新手引导的第一个适用问题已经呈现；
+用户继续回复后，沿同一流程推进到正式任务。</pre>
+    <div class="aic-pm-note">维正直播原文，可滚动查看、一键复制全文。命令与参数以你本机 <code>--help</code> 和实际安装版本为准。</div>
+  </div>
+
+  <h2 class="sec-title">三个容易想错的地方，点开看</h2>
+  <div class="aic-opt"><div class="aic-opt-q">提示词第一节为什么不是"安装"，而是"授权与安全边界"？</div><div class="aic-opt-a"><b>因为权限给小了能加，给大了收不回。</b>原文里三条最要紧：<b>安装授权不等于业务操作授权</b>——让它装工具，不代表让它动店铺；<b>不输出完整 API Key</b>，也不把 Key 放进命令参数、环境变量、临时文件或日志；<b>安装和引导期间不执行店铺业务写操作或付费请求</b>。先只读，跑顺了再谈别的。</div></div>
+  <div class="aic-opt"><div class="aic-opt-q">工具自带 <code>doctor</code> 自检，显示通过就算装好了？</div><div class="aic-opt-a"><b>不算。</b>原文写的是"逐项读取结果，不只看退出码"，还有一句"目录读取成功不代表每个业务技能都可执行"。任何工具的自检都只能说明"检查过的那几项没问题"，说明不了你要用的那个能力一定能跑。判断能不能用，<b>让它真跑一次只读的业务查询，看返回的是不是你店铺的真数据</b>。</div></div>
+  <div class="aic-opt"><div class="aic-opt-q">紫鸟 CLI 自带成熟的巡检 Skills，直接用就行？</div><div class="aic-opt-a"><b>能直接调用，但要按你的业务迭代。</b>它不知道你哪个店是主力、哪类违规对你最致命、你能接受的风险线在哪。先用现成的跑通，再把"报告哪里不合我用"一条条改回去——标准是你的，执行才是它的。</div></div>
+
+  <h2 class="sec-title">输出结果</h2>
+  <div class="rpt reveal">
+    <div class="rpt-head">店铺状态绩效分析报告<small>示意结构 · 数据为虚构，非任何真实店铺</small></div>
+    <div class="rpt-row"><div class="k">账户健康评分</div><div class="v">分数 + 所处区间</div><span class="rpt-tag mid">需关注</span></div>
+    <div class="rpt-row"><div class="k">ODR（亚马逊配送）</div><div class="v">缺陷订单 / 订单总数</div><span class="rpt-tag lo">低风险</span></div>
+    <div class="rpt-row"><div class="k">准时交货率</div><div class="v">当前值 vs 后台目标</div><span class="rpt-tag lo">低风险</span></div>
+    <div class="rpt-row"><div class="k">知识产权投诉</div><div class="v">未结案件数</div><span class="rpt-tag hi">高风险</span></div>
+    <div class="rpt-note">报告末尾：优先处理建议，按风险等级排序。多个店铺各出一份，或汇总成一张总览。</div>
+  </div>
+
+  <div class="aic-stage speak"><span class="aic-stage-tag">讲</span>用自己的话讲一遍<span class="aic-stage-sub">费曼时刻</span></div>
+  <div class="aic-feynman">
+    <div class="aic-fy-title">FEYNMAN · 输出倒逼输入</div>
+    <p>同事问你："不就是看后台吗，为啥要搞个 Agent？而且你那提示词怎么一上来先写一堆'不许'？"<br>用"明确目标 → 执行 → 评估结果 → 反馈 → 再执行"这个闭环，讲清 Agent 替你做了哪一段、哪一段还是你的；再讲为什么先立边界。</p>
+    <div class="aic-fy-check">
+      <button class="aic-fy-check-btn" type="button">讲完了，对照要点 ›</button>
+      <div class="aic-fy-check-body"><ul>
+        <li>Agent 做的是"拉数 → 判定 → 出报告"这段重复执行；风险标准和处理动作仍在人手里</li>
+        <li>每天跑、标准跟着业务迭代，才叫"接入真实业务"；跑一次截个图不算</li>
+        <li>先只读、Key 不进对话、安装期不做写操作——权限给小了能加，给大了收不回</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="aic-stage do"><span class="aic-stage-tag">练</span>拿真店铺练一把<span class="aic-stage-sub">刻意练习</span></div>
+  <div class="aic-practice">
+    <div class="aic-pr-row"><div class="aic-pr-k">任务</div><div class="aic-pr-v">把官方安装指引链接和上面的提示词交给你的 Coding Agent，对自己的店铺<b>跑一次只读巡检</b>。没有紫鸟的，挑一个你在用、有官方文档的工具，练"丢链接让 Agent 装、先立边界"这个动作。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">合格标准</div><div class="aic-pr-v">报告覆盖上表全部指标，每项有风险等级，三类合规风险单列，末尾有优先处理建议；全程没把 Key 贴进对话。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">抽查</div><div class="aic-pr-v"><b>抽 3 个数字回后台核对。</b>再专门看一眼标成"不适用"的指标：纯 FBA 店铺没有自发货订单，准时交货率、有效追踪率本来就该是"不适用"——如果报告把它们标成了高风险，那是 AI 判错了，把这条写回你的标准里。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">反馈闭环</div><div class="aic-pr-v">连跑一周，每天记一条"报告哪里不合我用"，周末统一改回提示词或 Skills。</div></div>
+    <div class="aic-pr-metric">衡量口径：每天看店铺健康的时间从 __ 分钟降到 __ 分钟；一周内按自己业务改了 __ 处。</div>
+    <ul class="aic-check">
+      <li>安装与最终验证通过（看真实查询结果，不只看 doctor）</li>
+      <li>跑出第一份只读巡检报告</li>
+      <li>抽 3 个数字回后台核对，检查"不适用"项有没有被误标</li>
+      <li>跑满一周，迭代出第二版标准</li>
+    </ul>
+  </div>
+
+  <div class="l-callout reveal">
+    <p><b>本页 Takeaway</b>：接新工具 = 把官方文档链接直接发给 Coding Agent；先立边界再安装，安装授权不等于业务操作授权；交出去的是"拉数-判定-出报告"，标准和处理留给自己；现成的 Skills 能用，但要按你的业务迭代。</p>
+  </div>
+  <div class="l-callout reveal" style="border-color:rgba(234,88,12,.35);">
+    <p><b>直播原文与录屏</b>：<a href="https://yiritongfeng.feishu.cn/wiki/GrkswlHVeiBqN7k0b6DcaGAInwb" target="_blank" rel="noopener">1️⃣ AI 基础设施：让 AI 接入真实业务（飞书文档）</a></p>
+  </div>
+</main>
+<script src="i18n.js?v=20260808"></script>
+<script src="lesson.js"></script>
+<script src="nav-inject.js?v=20260809q"></script>
+<script src="aic-study.js"></script>
+</body>
+</html>

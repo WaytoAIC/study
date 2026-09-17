@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>如何复刻+改造别人的 Skills | WaytoAIC</title>
+<style>@keyframes _si{from{opacity:0}to{opacity:1}}body{opacity:0;animation:_si 0.15s ease 0.08s forwards}</style>
+<link rel="stylesheet" href="lesson.css">
+<link rel="stylesheet" href="aic-study.css">
+<style>
+.src-line{font-size:12.5px;color:var(--sub);margin-top:10px;}
+.pipe{display:flex;gap:8px;margin:20px 0;flex-wrap:wrap;}
+.pipe-step{flex:1;min-width:150px;background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;font-size:12.5px;line-height:1.65;color:var(--sub);}
+.pipe-step b{display:block;font-size:13.5px;margin-bottom:4px;color:var(--text);}
+.tbl-wrap{overflow-x:auto;margin:18px 0;}
+.sift{width:100%;border-collapse:collapse;font-size:13px;min-width:640px;}
+.sift th,.sift td{border:1px solid var(--border);padding:10px 12px;text-align:left;line-height:1.65;vertical-align:top;}
+.sift th{background:rgba(234,88,12,.06);font-weight:800;font-size:12.5px;}
+.sift td:first-child{font-weight:700;white-space:nowrap;}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0;}
+.split-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 20px;}
+.split-card h4{font-size:14.5px;font-weight:800;margin-bottom:8px;}
+.split-card.a h4{color:var(--sub);} .split-card.b h4{color:#c2410c;}
+.split-card p{font-size:13.5px;color:var(--sub);line-height:1.8;}
+.credit{font-size:12.5px;color:var(--sub);line-height:1.8;margin:8px 0 0;}
+@media(max-width:640px){.split{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<main class="lesson">
+  <div class="aic-status">AI 整理自维正 9·16 直播 · 待维正过手</div>
+  <header class="lesson-header">
+    <div class="kicker">实战四 · 案例拆解</div>
+    <h1>如何复刻 + 改造<em>别人的 Skills</em></h1>
+    <p class="subtitle">天下武功一大抄，抄的是底层逻辑。别人的 Skills 装上就用，几乎不会有你想要的效果。这一节讲先拆清楚、再结合自身业务改造、化为己用的做法。</p>
+    <p class="src-line">整理自维正 2026-09-16 直播《任务设计：把工作交给 AI》· 系列课《从0打造，AI Native 跨境电商》第②讲</p>
+  </header>
+
+  <div class="aic-stage learn"><span class="aic-stage-tag">学</span>先把这个点看明白<span class="aic-stage-sub">先拆清楚，再化为己用</span></div>
+
+  <h2 class="sec-title">为啥要做我们自己的 Skills</h2>
+  <div class="l-card reveal"><p>因为 Skills 是<b>业务流程、操作规则、判断边界、工具和验收标准</b>的集合——这五样，别人的和你的都不一样。</p></div>
+  <div class="split reveal">
+    <div class="split-card a"><h4>别人的 Skills 里装的是</h4><p>他的<b>目标</b>（他想解决的问题）<br>他的<b>上下文</b>（他的品类、平台、资源）<br>他的<b>验收标准</b>（他眼里的"做好了"）</p></div>
+    <div class="split-card b"><h4>你需要的是</h4><p>你的目标、你的上下文、你的验收标准。<br>所以值得拿走的不是那份文件，而是它<b>背后的做事逻辑</b>。</p></div>
+  </div>
+
+  <h2 class="sec-title">四步：拆别人 → 拿自己去验 → 独立画自己 → 合成新版本</h2>
+  <div class="pipe reveal">
+    <div class="pipe-step"><b>① 拆别人</b>提取流程、判断条件和隐含假设</div>
+    <div class="pipe-step"><b>② 拿自己去验</b>结合自己的业务、资源和约束，判断哪些沿用、哪些改、哪些删</div>
+    <div class="pipe-step"><b>③ 独立画自己</b>从真实业务出发，画出现有做法，避免被原方案框住</div>
+    <div class="pipe-step"><b>④ 合成新版本</b>吸收适用部分，保留自己的独有判断，列出落地还缺什么</div>
+  </div>
+  <p class="credit">这套四步做法参考自开源项目「吸星大法」：<a href="https://github.com/gmggyyds/xxoo" target="_blank" rel="noopener">github.com/gmggyyds/xxoo</a>。本页只做转述，工具与原始说明请看原仓库。</p>
+
+  <h2 class="sec-title">三个可以拿来练手的公开 Skills</h2>
+  <div class="tbl-wrap reveal"><table class="sift">
+    <tr><th>Skill</th><th>值得拆的底层逻辑</th><th>结合自己业务怎么改</th><th>怎么验收</th></tr>
+    <tr><td>电商视觉策划</td><td>产品资料 → 购买理由 → 视觉策划 → 分镜确认 → 执行稿 → 自审</td><td>原版主要面向国内平台。改成自己的 Amazon 副图 / A+ 策划 Skill：加入品牌规范、产品事实、用户顾虑，重新定义图片分工、英文文案和平台约束</td><td>同一个产品，对比改造前后：每张图解决什么顾虑、卖点有什么证据、是否符合品牌风格</td></tr>
+    <tr><td>Review Analyzer<br>（评论分析）</td><td>评论原文 → 结构化标签 → 统计 → 洞察 → 改进建议；<b>AI 做理解，脚本做统计</b></td><td>把通用评论分析改成自己品类的产品改进 Skill。例如 3C 配件重点看兼容性、安装难度、连接稳定性；输出改为"问题—原文证据—影响—改进动作"</td><td>用同一份评论数据，检查是否发现了通用报告遗漏的品类问题；每条建议能否追回原评论</td></tr>
+    <tr><td>搜索词报告分析</td><td>脚本清洗和计算 → AI 判断词根相关性 → 规则生成操作建议</td><td>改成公司的广告诊断 SOP：区分新品期与成熟期，把目标 ACOS、样本门槛、止损条件做成可配置项，加入团队的人工复核规则</td><td>同一份报表，切换经营目标后建议应合理变化；点击、花费等基础计算保持一致</td></tr>
+  </table></div>
+  <p class="credit">原作者与仓库：Review Analyzer — <a href="https://github.com/buluslan/review-analyzer-skill" target="_blank" rel="noopener">buluslan/review-analyzer-skill</a>；搜索词报告分析 — <a href="https://github.com/zach22-1999/amazon-skills" target="_blank" rel="noopener">zach22-1999/amazon-skills</a>。电商视觉策划 Skill 的原作者与链接待补。表格内容整理自维正直播文档，对原作品只描述其思路。</p>
+
+  <h2 class="sec-title">实例一：评论分析，我是怎么改的</h2>
+  <div class="l-card reveal"><p>通用的评论分析会告诉你"用户在抱怨什么"。维正自己的版本按他的业务目标重做了主线：<b>先判断评论置信度，再按「人群 → 场景 → 需求 → 解决方案」拆解</b>，把证据连接到产品机会、产品迭代、Listing、广告搜索词这几类决策上。仓库是公开的：<a href="https://github.com/WaytoAIC/waytoaic-review-to-opportunity" target="_blank" rel="noopener">WaytoAIC/waytoaic-review-to-opportunity</a>。</p>
+  <p style="margin-top:10px;">注意它的署名写法，这就是"抄底层逻辑"的样子：<b>借鉴了 Review Analyzer 的分批处理与可恢复工作方式，没有复制其脚本或模板。</b>它也写明了自己验证过什么、没验证什么——结构检查和工作流验证过，评论真实性、市场需求、业务效果没有证明。</p></div>
+
+  <h2 class="sec-title">实例二：侵权检测，从固定规则到接最新数据</h2>
+  <div class="split reveal">
+    <div class="split-card a"><h4>原来的版本</h4><p>维正之前公开的合规审查 Skills（<a href="https://github.com/WaytoAIC/ecommerce-content-compliance-review" target="_blank" rel="noopener">ecommerce-content-compliance-review</a>）是<b>基于固定规则</b>的：检查标题、五点、详情页文案里的违规风险。短板他自己说了——<b>没有最新数据</b>。</p></div>
+    <div class="split-card b"><h4>升级的方向</h4><p>接入外部工具拿<b>最新的</b>专利、商标、案件数据，再和原有规则合在一起。直播里用的是开源的 <a href="https://github.com/easyamz/trohub-skills" target="_blank" rel="noopener">easyamz/trohub-skills</a>。</p></div>
+  </div>
+  <div class="tbl-wrap reveal"><table class="sift">
+    <tr><th>能力</th><th>能完成什么</th><th>范围与限制</th></tr>
+    <tr><td>外观专利筛查</td><td>产品图匹配相似专利，返回权利人、日期、相似度等</td><td>美国、欧盟外观专利</td></tr>
+    <tr><td>图形商标筛查</td><td>检查 Logo、图案及图片中的分割元素</td><td>当前支持美国商标</td></tr>
+    <tr><td>版权溯源</td><td>查找相似图片、来源页面及潜在权利人，给出风险分析</td><td>官方称全球版权检索，不能据此认定覆盖全部作品</td></tr>
+    <tr><td>Listing 文字检查</td><td>检查标题、短描述、长描述中的商标关键词</td><td>支持尼斯分类过滤</td></tr>
+    <tr><td>专利引用反查</td><td>查询在先引用和在后被引用专利</td><td>美国外观专利</td></tr>
+    <tr><td>TRO 案件查询</td><td>获取近期案件、案卷条目、附件及证据图片</td><td>只回看近期</td></tr>
+  </table></div>
+  <div class="l-callout reveal"><p>能力范围以该工具官方当期说明为准。<b>任何检测结果都是初筛，不是法律意见</b>：没查到不等于没风险，查到了也要人来判断像不像、要不要避。</p></div>
+
+  <h2 class="sec-title">三个容易想错的地方，点开看</h2>
+  <div class="aic-opt"><div class="aic-opt-q">GitHub 上星标很高的 Skills，装上为什么总觉得不对味？</div><div class="aic-opt-a"><b>因为它是按别人的目标、上下文和验收标准长出来的。</b>上一节讲过，Skills 里每条规则都来自一次真实纠错——那是别人翻过的车，不是你的。他的毛利要求、他的品类、他眼里的"合格"，和你都不一样。直接套用，得到的是一份在别人业务里正确的答案。</div></div>
+  <div class="aic-opt"><div class="aic-opt-q">第 ③ 步"独立画自己"，为什么要特意先不看对方的方案？</div><div class="aic-opt-a"><b>为了不被框住。</b>先看了别人的流程，再来画自己的，你画出来的多半是对方流程的变体，你自己业务里独有的环节会被不知不觉漏掉。先把自己现在真实在做的画出来，再拿去和对方比，才看得见"他有我没有"和"我有他没有"。后者往往才是你的优势所在。</div></div>
+  <div class="aic-opt"><div class="aic-opt-q">合规检测跑完，结果写着"未发现风险"，是不是就可以放心上架了？</div><div class="aic-opt-a"><b>不是。</b>"未发现"只说明在它覆盖的库、覆盖的国家、覆盖的时间里没匹配上。上表每一行都有范围与限制。把它当成一道便宜的初筛闸：筛掉明显有问题的，剩下的、尤其是你打算重投入的品，仍然要人来看，必要时找专业人士。</div></div>
+
+  <div class="aic-prompt">
+    <div class="aic-pm-head">🤖 AI 实战 · 四步改造别人的 Skills<button class="aic-pm-copy" type="button">复制</button></div>
+    <pre>我想参考这个公开的 Skill，改造成适合我自己业务的版本：
+<span class="ph">【对方 Skill 的仓库链接或 SKILL.md 全文】</span>
+
+请分四步做，每一步做完停下来等我确认，再进下一步：
+
+① 拆别人：提取它的流程、判断条件，以及它没明说但默认成立的假设。
+   只描述，不评价好坏。
+② 拿自己去验：我的业务情况是 <span class="ph">【品类 / 平台 / 阶段 / 资源 / 约束】</span>。
+   逐条告诉我：哪些可以沿用，哪些要改，哪些该删，理由是什么。
+③ 独立画自己：先不要参考对方的方案。
+   向我提问，把我现在真实的做法画成流程。
+④ 合成新版本：吸收适用的部分，保留我独有的判断，
+   列出一张「借鉴 / 修改 / 新增」清单，以及落地还缺什么。
+
+要求：保留原作者的署名与许可证信息；
+验收标准必须用我的，不能沿用对方的。</pre>
+    <div class="aic-pm-note">示例模板 · 待维正替换为实战版素材。也可以直接使用上文提到的开源工具来走这四步。</div>
+  </div>
+
+  <div class="aic-stage speak"><span class="aic-stage-tag">讲</span>用自己的话讲一遍<span class="aic-stage-sub">费曼时刻</span></div>
+  <div class="aic-feynman">
+    <div class="aic-fy-title">FEYNMAN · 输出倒逼输入</div>
+    <p>朋友丢给你一个很火的评论分析 Skills，说："装上就行，人家大卖都在用。"<br>你怎么回他？讲清<b>为什么不能直接用</b>，以及<b>该拿走的到底是什么</b>。</p>
+    <div class="aic-fy-check">
+      <button class="aic-fy-check-btn" type="button">讲完了，对照要点 ›</button>
+      <div class="aic-fy-check-body"><ul>
+        <li>对方的目标、上下文、验收标准和你不同；直接套用得到的是别人业务里的正确答案</li>
+        <li>该拿走的是底层逻辑（比如"AI 做理解，脚本做统计"），不是那份文件</li>
+        <li>四步里"独立画自己"是为了不被对方框住；合成版要署名原作者，而验收标准必须是你自己的</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="aic-stage do"><span class="aic-stage-tag">练</span>拿真东西练一把<span class="aic-stage-sub">直播作业 2 / 作业 3，二选一</span></div>
+  <div class="aic-practice">
+    <div class="aic-pr-row"><div class="aic-pr-k">作业 2</div><div class="aic-pr-v"><b>搜索词报告分析改造</b>：用四步法，把上表里公开的搜索词报告分析 Skill 改成你自己的——可以改成广告诊断 SOP，也可以改成新品验证流程。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">作业 3</div><div class="aic-pr-v"><b>侵权检测 Skills 改造</b>：以固定规则版的合规审查 Skills 为底，结合能拿到最新数据的外部工具，升级成你自己的版本。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">合格标准</div><div class="aic-pr-v">四步记录齐全（拆解 / 对照 / 自己的流程 / 合成版）；有「借鉴 / 修改 / 新增」清单和原作者署名；用一份你的真实数据跑通；按上表"怎么验收"那一列自查一遍。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">反馈闭环</div><div class="aic-pr-v">跑 3 次之后回头看：哪几条规则是只有你的业务才有的？那几条就是这份 Skills 真正属于你的部分。</div></div>
+    <div class="aic-pr-metric">衡量口径：同一份输入，改造版比原版多给出 __ 条你真的会去执行的结论。</div>
+    <ul class="aic-check">
+      <li>四步记录齐全</li>
+      <li>「借鉴 / 修改 / 新增」清单 + 原作者署名</li>
+      <li>用一份真实数据跑通，按验收列自查</li>
+      <li>跑 3 次后，标出只属于自己业务的规则</li>
+    </ul>
+  </div>
+
+  <div class="l-callout reveal">
+    <p><b>本页 Takeaway</b>：别人的 Skills 直接套用几乎没价值，因为目标、上下文、验收标准不同；抄的是底层逻辑，走四步：拆别人 → 拿自己去验 → 独立画自己 → 合成新版本；借鉴要署名，验收标准必须是自己的。</p>
+  </div>
+  <div class="l-callout reveal" style="border-color:rgba(234,88,12,.35);">
+    <p><b>直播原文与录屏</b>：<a href="https://yiritongfeng.feishu.cn/wiki/OXhgwSxfwirFgqk25iPclrNznne" target="_blank" rel="noopener">2️⃣ 任务设计：把工作交给 AI（飞书文档）</a></p>
+  </div>
+</main>
+<script src="i18n.js?v=20260808"></script>
+<script src="lesson.js"></script>
+<script src="nav-inject.js?v=20260809q"></script>
+<script src="aic-study.js"></script>
+</body>
+</html>

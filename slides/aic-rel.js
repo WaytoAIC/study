@@ -103,6 +103,35 @@
       ],
       next: [{ file: 'aic-listing-5.html', why: '实战应用：图文实验 SOP 交给 AI 跑' }],
     },
+
+    /* ── 实战四 · 案例拆解（草稿期：只在 aic-case-* 之间互链）──
+     * 本文件的反链不认草稿：只要这里指向任何已发布页，那一页线上立刻冒出指向草稿的死链。
+     * 所以草稿期一条都不许指出去（维正 2026-09-17 拍板）。篇章发布（删 draft:true）的同一次提交再补：
+     *   case-1  needs aic-team-2（凭证永不进对话框）      next aic-team-3（报告里的数字抽查着用）
+     *   case-2  needs aic-select-4（CPA 上限接"盈亏平衡广告费"这本账）
+     *   case-3  needs aic-team-4（先会挑活，再谈沉淀）     terms zero-q-skill / aic-listing-4
+     *   case-5  needs aic-listing-5 + 10-1（Workflow vs Agent）   next aic-team-4
+     *   并在 TITLES 补 10-1.html、zero-q-skill.html 的标题（从 course-data.js 抄，别手写）。 */
+    'aic-case-1.html': {
+      next: [{ file: 'aic-case-2.html', why: '同一套接入，换一个经营问题：复购' }],
+    },
+    'aic-case-2.html': {
+      needs: [{ file: 'aic-case-1.html', why: '先把紫鸟 CLI 接好，复购分析用的是同一套接入' }],
+      next: [{ file: 'aic-case-3.html', why: '同一个分析跑了 3 次以上？该沉淀成 Skills' }],
+    },
+    'aic-case-3.html': {
+      next: [
+        { file: 'aic-case-4.html', why: '不想从头攒？复刻 + 改造别人的' },
+        { file: 'aic-case-5.html', why: '团队已有 SOP？直接转' },
+      ],
+    },
+    'aic-case-4.html': {
+      needs: [{ file: 'aic-case-3.html', why: 'Skills 是演化出来的——别人的演化不等于你的' }],
+      next: [{ file: 'aic-case-5.html', why: '把你自己的 SOP 也封装进去' }],
+    },
+    'aic-case-5.html': {
+      needs: [{ file: 'aic-case-3.html', why: '先搞清 Skills 是什么、两个维度怎么判' }],
+    },
   };
 
   /* ── 标题表：链接显示用。原课页从 COURSE_FLAT 取不到（内容页不加载 course-data），手工登记被引用者 ── */
@@ -118,6 +147,9 @@
     'zero-q-prompt.html': '提示词到底怎么写才好？', '1-2-hallucination.html': '大模型幻觉演示',
     '1-2-mitigation-prompt.html': '应对幻觉：Prompt Engineering', '5-1.html': '上下文窗口：AI 的工作记忆', 'aic-d-5-1.html': '上下文窗口：为什么 AI 记不住你的店铺（电商场景版）',
     '5-2.html': '上下文溢出：三种处理策略',
+    'aic-case-1.html': '多店铺巡检 Agent', 'aic-case-2.html': '复购分析 Agent',
+    'aic-case-3.html': '把重复任务变成 Skills', 'aic-case-4.html': '复刻 + 改造别人的 Skills',
+    'aic-case-5.html': '把业务 SOP 转 Skills',
   };
 
   var CUR = location.pathname.split('/').pop().split('?')[0];

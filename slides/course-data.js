@@ -1970,6 +1970,34 @@ window.COURSE = {
         },
       ],
     },
+    {
+      id: 'p-aic-case',
+      num: '实战四',
+      title: '案例拆解',
+      desc: '整理自维正「从0打造，AI Native 跨境电商」系列课前两讲：两个装好就能跑的 Agent 案例，三种把工作交给 AI 的 Skills 场景。每节都带直播里留的作业。',
+      color: '#ea580c',
+      track: 'aic',
+      draft: true,
+      topics: [
+        {
+          id: 't-aic-case-infra',
+          title: 'AI 基础设施：让 AI 接入真实业务',
+          lessons: [
+            { file: 'aic-case-1.html', title: '多店铺巡检 Agent：店铺绩效&健康监控', tag: '案例' },
+            { file: 'aic-case-2.html', title: '复购分析 Agent：从复购报告算到 CPA', tag: '案例' },
+          ],
+        },
+        {
+          id: 't-aic-case-skill',
+          title: '任务设计：把工作交给 AI',
+          lessons: [
+            { file: 'aic-case-3.html', title: '把重复任务变成 Skills', tag: '案例' },
+            { file: 'aic-case-4.html', title: '如何复刻+改造别人的 Skills', tag: '案例' },
+            { file: 'aic-case-5.html', title: '把业务 SOP 转 Skills', tag: '案例' },
+          ],
+        },
+      ],
+    },
   ],
 };
 
