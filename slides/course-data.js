@@ -1977,7 +1977,6 @@ window.COURSE = {
       desc: '整理自维正「从0打造，AI Native 跨境电商」系列课前两讲：两个装好就能跑的 Agent 案例，三种把工作交给 AI 的 Skills 场景。每节都带直播里留的作业。',
       color: '#ea580c',
       track: 'aic',
-      draft: true,
       topics: [
         {
           id: 't-aic-case-infra',
