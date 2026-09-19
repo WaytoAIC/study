@@ -67,11 +67,18 @@ a{color:inherit;text-decoration:none;}
   background:radial-gradient(60% 55% at 50% 0%,rgba(37,99,235,.32),transparent 70%),linear-gradient(180deg,rgba(30,58,138,.2),transparent 65%);}
 .hero .container{position:relative;text-align:center;}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;border:1px solid rgba(96,165,250,.32);background:rgba(37,99,235,.14);color:#93c5fd;font-size:13px;font-weight:600;}
-.eyebrow i{width:6px;height:6px;border-radius:50%;background:#34d399;box-shadow:0 0 0 4px rgba(52,211,153,.18);}
+.eyebrow i{width:6px;height:6px;border-radius:50%;background:#60a5fa;box-shadow:0 0 0 4px rgba(96,165,250,.2);}
 .hero h1{margin:24px auto 0;font-size:clamp(34px,5.6vw,60px);line-height:1.14;font-weight:800;letter-spacing:-.02em;}
 .hero h1 .hl{color:var(--blue-2);}
 .hero .lead{max-width:660px;margin:22px auto 0;font-size:18px;color:#cbd5e1;}
 .hero .actions{margin-top:36px;display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
+/* 学习人数：绿点呼吸 = 此刻有人在学；没人在学时只显示累计，不挂绿点 */
+.live{margin-top:24px;display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;font-size:14px;color:var(--faint);}
+.live b{color:#fff;font-weight:700;font-variant-numeric:tabular-nums;}
+.live .sep{color:#475569;margin:0 4px;}
+.live .pulse{width:8px;height:8px;border-radius:50%;background:#34d399;animation:livePulse 2s ease-out infinite;}
+@keyframes livePulse{0%{box-shadow:0 0 0 0 rgba(52,211,153,.55);}70%,100%{box-shadow:0 0 0 9px rgba(52,211,153,0);}}
+@media (prefers-reduced-motion:reduce){.live .pulse{animation:none;box-shadow:0 0 0 4px rgba(52,211,153,.2);}}
 .tracks{margin:60px auto 0;max-width:900px;display:grid;grid-template-columns:1fr 1fr;gap:16px;text-align:left;}
 .track{display:flex;flex-direction:column;padding:24px 26px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);transition:background .2s,border-color .2s,transform .2s;}
 .track:hover{background:rgba(255,255,255,.07);border-color:rgba(96,165,250,.5);transform:translateY(-2px);}
@@ -173,6 +180,7 @@ footer{background:var(--ink);color:var(--faint);padding:52px 0 44px;text-align:c
       <a class="btn btn-primary" id="startBtn" href="slides/learn.html"><span id="startTxt">开始学习</span> →</a>
       <a class="btn btn-ghost" href="#map">看看课程地图</a>
     </div>
+    <p class="live" id="live" hidden></p>
     <div class="tracks">
       <a class="track" id="trackOwn" href="slides/learn.html">
         <span class="tag tag-own">WaytoAIC 原创</span>
@@ -271,6 +279,25 @@ footer{background:var(--ink);color:var(--faint);padding:52px 0 44px;text-align:c
     document.getElementById('startTxt').textContent = '从上次离开的地方继续';
     document.getElementById('startBtn').href = 'slides/learn.html#' + encodeURIComponent(last);
   }
+
+  /* 学习人数（pv_stats，见 supabase/pv_live.sql）：累计 = 打开过课程的浏览器去重人数（2026-09-10 起统计），
+     此刻 = 近 3 分钟有课程页心跳的人数；地址与公开 anon key 同 slides/nav-inject.js。取不到就整行不显示 */
+  var SB = 'https://br-swift-pike-062ca892.supabase.aidap-global.cn-beijing.volces.com';
+  var SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1wbGF0Zm9ybSIsInJvbGUiOiJhbm9uIiwiZXhwIjozNjgzNzE4MDQxfQ.OERqJGita64opa5WnjU4WjTg8nafjAeTnMUkZLwbG1U';
+  function loadLive(){
+    fetch(SB + '/rest/v1/rpc/pv_stats', {method:'POST', headers:{'apikey':SB_ANON, 'Content-Type':'application/json'}, body:'{}'})
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(st){
+        var total = st ? Number(st.total) : 0, live = st ? Number(st.live) : 0;
+        if(!(total > 0)) return;
+        var box = document.getElementById('live');
+        box.innerHTML = (live > 0 ? '<i class="pulse"></i>此刻 <b>' + live + '</b> 人正在学<span class="sep">·</span>' : '')
+          + '已有 <b>' + total.toLocaleString() + '</b> 人和你一起学';
+        box.hidden = false;
+      }).catch(function(){});
+  }
+  loadLive();
+  setInterval(function(){ if(document.visibilityState !== 'hidden') loadLive(); }, 60000);
 
   if(!window.COURSE) return;
   var PARTS = window.COURSE.parts;

@@ -1093,6 +1093,16 @@ function WA_normFile(f) {
       el.style.cssText = 'margin-left:10px;font-size:12px;color:#9ca3af;white-space:nowrap;';
       bar.appendChild(el);
     }).catch(function () {});
+
+  // 「此刻在学」心跳：课程页在前台时每 60 秒报一次（pv_ping，见 supabase/pv_live.sql），
+  // 首页读「近 3 分钟有心跳」的人数；切到后台不报，免得挂着不看的标签页也算在学
+  function ping() {
+    if (document.visibilityState === 'hidden') return;
+    fetch(BASE + '/rest/v1/rpc/pv_ping', { method: 'POST', headers: { 'apikey': ANON, 'Content-Type': 'application/json' }, body: JSON.stringify({ vid: vid }) }).catch(function () {});
+  }
+  ping();
+  setInterval(ping, 60000);
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') ping(); });
 })();
 
 // ── WaytoAIC 知识点关联网络：数据+渲染都在 aic-rel.js，声明单点维护、反向自动 ──
