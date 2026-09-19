@@ -318,7 +318,7 @@ body.sb-resizing iframe{pointer-events:none;}
 
 /* ── 侧边栏底部公众号 ── */
 .sidebar-qr{
-  flex-shrink:0;height:var(--footbar-h);padding:0 14px;
+  flex-shrink:0;min-height:var(--footbar-h);padding:8px 14px;
   border-top:1px solid var(--border);
   display:flex;align-items:center;gap:12px;
   position:relative;
@@ -336,10 +336,16 @@ body.sb-resizing iframe{pointer-events:none;}
   z-index:999;position:relative;
   border-radius:12px;
 }
-.sidebar-qr-info{display:flex;flex-direction:column;gap:2px;}
+.sidebar-qr-info{display:flex;flex-direction:column;gap:4px;min-width:0;}
 .sidebar-qr-title{font-size:13px;font-weight:700;color:var(--text-m);}
 .sidebar-qr-title b{color:var(--accent);}
-.sidebar-qr-desc{font-size:11px;color:var(--text-faint);line-height:1.4;}
+.sidebar-qr-desc{font-size:11px;color:var(--text-faint);line-height:1.5;}
+/* WaytoAIC：品牌 + 署名 + 备案三行。链接平时不带下划线，悬停才强调；原作者名字加重，保证署名一眼可见。
+   底栏用 min-height：默认宽度仍与右侧翻页栏同高对齐，侧栏拖到很窄(最小 220px)折行时才长高，不溢出 */
+.sidebar-qr-desc a{color:inherit;text-decoration:none;transition:color .15s;}
+.sidebar-qr-desc a.sidebar-author{color:var(--text-sub);font-weight:600;}
+.sidebar-qr-desc a:hover{color:var(--accent);text-decoration:underline;text-underline-offset:2px;}
+.sidebar-legal{display:flex;flex-wrap:wrap;column-gap:8px;font-size:10px;}
 
 .part-divider{
   display:flex;align-items:center;gap:10px;
@@ -746,9 +752,7 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
     <div class="sidebar-qr">
       <div class="sidebar-qr-info">
         <div class="sidebar-qr-title"><b>WaytoAIC</b> · AI 电商之路</div>
-        <div class="sidebar-qr-desc">本站开源，基于 <a href="https://github.com/itshen/learn-ai" target="_blank" rel="noopener">learn-ai</a> 二次开发 · <a href="https://github.com/WaytoAIC/study" target="_blank" rel="noopener">查看源码</a></div>
-        <div class="sidebar-qr-desc"><a href="https://beian.miit.gov.cn" target="_blank" rel="noopener">粤ICP备2026120136号-1</a></div>
-        <div class="sidebar-qr-desc"><a href="https://beian.mps.gov.cn/#/query/webSearch?code=44030002017077" target="_blank" rel="noopener">粤公网安备44030002017077号</a> · <a href="../about.html" target="_blank" rel="noopener">关于我们</a></div>
+        <div class="sidebar-qr-desc">基于 <a class="sidebar-author" href="https://luoxiaoshan.cn" target="_blank" rel="noopener">洛小山</a> 开源的 <a href="https://github.com/itshen/learn-ai" target="_blank" rel="noopener">learn-ai</a> 改编 · <a href="https://github.com/WaytoAIC/study" target="_blank" rel="noopener">源码</a> · <a href="../about.html" target="_blank" rel="noopener">关于我们</a></div>
       </div>
     </div>
   </aside>

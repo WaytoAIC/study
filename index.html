@@ -14,7 +14,8 @@
 <meta property="og:description" content="系统学习大模型原理、Prompt 工程、RAG、Agent 与 AI×跨境电商实战，免费开放学习。">
 <meta property="og:url" content="https://study.waytoaic.com/">
 <script>
-/* 语言分流：先认用户选过的语言，其次浏览器语言；meta refresh 兜底。 */
+/* 语言分流：先认用户选过的语言，其次浏览器语言；meta refresh 兜底。
+   根路径落首页 home（同上游：首页底部挂备案号，课程阅读页不再兼任主页）。 */
 (function(){
   var lang = '';
   try { lang = localStorage.getItem('xueai_lang') || ''; } catch(e) {}
@@ -24,14 +25,14 @@
     else if (nav.indexOf('zh') === 0) lang = 'zh';
     else lang = 'en';
   }
-  window.location.replace(lang === 'zh' ? 'slides/learn.html' : 'slides/learn.' + lang + '.html');
+  window.location.replace(lang === 'zh' ? 'slides/home.html' : 'slides/home.' + lang + '.html');
 })();
 </script>
-<meta http-equiv="refresh" content="0; url=slides/learn.html">
+<meta http-equiv="refresh" content="0; url=slides/home.html">
 </head>
 <body>
 <p><a href="slides/learn.html">进入课程 · WaytoAIC 学习站</a></p>
-<p style="font-size:13px;color:#888;">本站开源，基于 <a href="https://github.com/itshen/learn-ai">learn-ai</a>（AGPL-3.0）二次开发 · <a href="https://github.com/WaytoAIC/study">查看源码</a></p>
+<p style="font-size:13px;color:#888;">基于 <a href="https://luoxiaoshan.cn">洛小山</a> 开源的 <a href="https://github.com/itshen/learn-ai">learn-ai</a>（AGPL-3.0）改编 · <a href="https://github.com/WaytoAIC/study">查看源码</a> · <a href="about.html#credits">开源致谢</a></p>
 <div style="text-align:center;padding:16px 0;font-size:11px;opacity:.55;font-family:-apple-system,'PingFang SC',sans-serif;"><a href="https://beian.miit.gov.cn" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">粤ICP备2026120136号-1</a><br><a href="https://beian.mps.gov.cn/#/query/webSearch?code=44030002017077" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">粤公网安备44030002017077号</a><br><a href="about.html" style="color:inherit;text-decoration:none;">关于我们</a> · <a href="about.html#contact" style="color:inherit;text-decoration:none;">联系我们</a></div>
 </body>
 </html>
