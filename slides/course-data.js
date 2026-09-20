@@ -1997,6 +1997,27 @@ window.COURSE = {
         },
       ],
     },
+    /* 发布清单（维正过手后同一次提交做完）：①删下面的 draft 行 ②aic-rel.js「实战五」注释块里的关联与 TITLES 补上
+       ③index.html 静态兜底数字 own-parts 4→5 / own-lessons 20→22 / lessons 462→464（JS 会现算，改的是首屏兜底） */
+    {
+      id: 'p-aic-design',
+      num: '实战五',
+      title: 'AI 工程设计模式',
+      desc: '基础轨「工程进阶」的电商场景版：同一件活，是把流程写死，还是放手让 AI 自己决定下一步？决定写死之后，几步又该怎么排？原理与通用例子留在基础轨，这里只换成卖家手上的真活。',
+      color: '#0891b2',
+      track: 'aic',
+      draft: true,
+      topics: [
+        {
+          id: 't-aic-design-pattern',
+          title: 'Workflow 还是 Agent',
+          lessons: [
+            { file: 'aic-d-10-1.html', title: '写死流程还是放手：Workflow 和 Agent 怎么选', tag: '实战' },
+            { file: 'aic-d-10-2.html', title: '五种 Workflow 模式：五个电商场景', tag: '实战' },
+          ],
+        },
+      ],
+    },
   ],
 };
 

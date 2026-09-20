@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>写死流程还是放手：Workflow 和 Agent 怎么选 | WaytoAIC</title>
+<style>@keyframes _si{from{opacity:0}to{opacity:1}}body{opacity:0;animation:_si 0.15s ease 0.08s forwards}</style>
+<link rel="stylesheet" href="lesson.css">
+<link rel="stylesheet" href="aic-study.css">
+<style>
+.two-def{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0;}
+.def-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px 22px;}
+.def-card h4{font-size:15px;font-weight:800;margin-bottom:8px;}
+.def-card p{font-size:13.5px;color:var(--sub);line-height:1.8;}
+.def-card p b{color:var(--text);}
+.def-card .tagline{margin-top:10px;font-size:12.5px;font-weight:800;border-radius:8px;padding:6px 10px;display:inline-block;}
+.def-card.wf{border-color:rgba(0,102,255,.35);background:rgba(0,102,255,.04);} .def-card.wf h4{color:var(--accent);} .def-card.wf .tagline{background:rgba(0,102,255,.1);color:#1d4ed8;}
+.def-card.ag{border-color:rgba(124,58,237,.35);background:rgba(124,58,237,.04);} .def-card.ag h4{color:var(--purple);} .def-card.ag .tagline{background:rgba(124,58,237,.1);color:#6d28d9;}
+.cmp{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px;}
+.cmp th,.cmp td{border:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top;line-height:1.7;}
+.cmp thead th{background:rgba(0,0,0,.03);font-size:12.5px;font-weight:800;}
+.cmp td:first-child{font-weight:700;color:var(--text);width:30%;}
+.cmp td.w{color:#1d4ed8;} .cmp td.a{color:#6d28d9;}
+.q3{display:grid;gap:12px;margin:18px 0;}
+.q3-item{display:flex;gap:14px;background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px 18px;}
+.q3-item .n{flex:none;width:30px;height:30px;border-radius:10px;background:var(--accent);color:#fff;font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:center;}
+.q3-item h4{font-size:14.5px;font-weight:800;margin-bottom:6px;}
+.q3-item p{font-size:13.5px;color:var(--sub);line-height:1.8;}
+.q3-item p b{color:var(--text);}
+.ladder{counter-reset:lad;margin:18px 0;}
+.ladder li{list-style:none;display:flex;gap:12px;align-items:flex-start;padding:11px 14px;margin:8px 0;background:var(--card);border:1.5px solid var(--border);border-left:4px solid var(--accent);border-radius:var(--radius-sm);font-size:14px;line-height:1.75;}
+.ladder li::before{counter-increment:lad;content:counter(lad);flex:none;width:22px;height:22px;border-radius:7px;background:rgba(0,102,255,.12);color:var(--accent);font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;margin-top:2px;}
+.ladder li b{color:var(--text);}
+.ladder li.last{border-left-color:var(--purple);} .ladder li.last::before{background:rgba(124,58,237,.12);color:var(--purple);}
+.guard{background:rgba(220,38,38,.04);border:1.5px solid rgba(220,38,38,.28);border-radius:var(--radius);padding:20px 24px;margin:18px 0;}
+.guard h4{font-size:14.5px;font-weight:800;color:#b91c1c;margin-bottom:10px;}
+.guard ul{margin:0 0 0 18px;} .guard li{font-size:13.5px;color:var(--sub);line-height:1.85;margin:5px 0;}
+.guard li b{color:var(--text);}
+.mix{background:var(--card);border:1.5px solid rgba(234,88,12,.35);border-radius:var(--radius);padding:20px 24px;margin:18px 0;}
+.mix h4{font-size:14.5px;font-weight:800;color:#c2410c;margin-bottom:8px;}
+.mix p{font-size:13.5px;color:var(--sub);line-height:1.8;} .mix p b{color:var(--text);}
+.mix .rowline{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+.mix .box{flex:1;min-width:120px;border-radius:var(--radius-sm);padding:9px 12px;font-size:12.5px;font-weight:700;line-height:1.5;text-align:center;}
+.mix .box.f{background:rgba(0,102,255,.08);color:#1d4ed8;border:1px solid rgba(0,102,255,.2);}
+.mix .box.o{background:rgba(124,58,237,.08);color:#6d28d9;border:1px solid rgba(124,58,237,.2);}
+@media(max-width:640px){.two-def{grid-template-columns:1fr;}.cmp{font-size:12.5px;}}
+</style>
+</head>
+<body>
+<main class="lesson">
+  <div class="aic-status">AI 初稿 · 待维正过手补充实战思考</div>
+  <header class="lesson-header">
+    <div class="kicker">实战五 · AI 工程设计模式 · 电商场景版</div>
+    <h1>写死流程还是放手：<em>Workflow 和 Agent 怎么选</em></h1>
+    <p class="subtitle">同一件活，写成固定流程，AI 每次跑法一样、花多少钱你心里有数；交给 Agent，它自己决定下一步，能干你没想到的活，也可能绕一整圈烧掉一堆钱。选错了，要么白花钱，要么不敢用。</p>
+  </header>
+
+  <div class="aic-stage learn"><span class="aic-stage-tag">学</span>先把这个点看明白<span class="aic-stage-sub">两种干法 + 三问选法</span></div>
+
+  <div class="l-card reveal">
+    <p>把 AI 用进业务，说到底只有两种干法：<b>路线你先画好，AI 只在每个框里干活</b>（术语叫 Workflow，下文叫"固定流程"）；或者<b>你只给目标和工具，AI 自己决定先干什么、干到哪算完</b>（术语叫 Agent，下文叫"放手"）。这两个词天天被混着用，但它们对应的成本、风险和管理方式完全不同。想看机制原理与通用定义，去基础轨的通用版（页尾关联可跳）。</p>
+  </div>
+
+  <div class="two-def reveal">
+    <div class="def-card wf">
+      <h4>固定流程（Workflow）</h4>
+      <p>你把步骤写死：先拉数，再筛词，再出表。AI 是流程里的<b>工位</b>，不是司机。同样的输入进去，走的是同一条路，出来的东西可以对照上一次看。</p>
+      <div class="tagline">每次一样 · 能复盘 · 花多少钱能估</div>
+    </div>
+    <div class="def-card ag">
+      <h4>放手（Agent）</h4>
+      <p>你交代的是<b>目标</b>："查清楚这个 ASIN 的流量为什么掉了。"它自己决定先看广告还是先看排名，查到哪一步算查明白了，也由它判断。</p>
+      <div class="tagline">能应付没预想到的情况 · 每次路线可能不同 · 账不封顶</div>
+    </div>
+  </div>
+
+  <h2 class="sec-title">同样是电商的活，哪些该写死、哪些该放手</h2>
+
+  <table class="cmp reveal">
+    <thead><tr><th>你手上的活</th><th>该怎么干</th><th>为什么</th></tr></thead>
+    <tbody>
+      <tr><td>每周一的类目关键词周报：拉数 → 筛词 → 出表 → 发群</td><td class="w">固定流程</td><td>步骤早就定死了，每周不变。放手只会让它今天多查一段、明天少查一段，你还没法跟上周对比。</td></tr>
+      <tr><td>新品上架文案：卖点 → 标题五点 → 合规检查 → 多语言 → 排版</td><td class="w">固定流程</td><td>顺序本身就是质量保证，中间那道合规检查必须每次都跑，不能由 AI 心情决定跑不跑。</td></tr>
+      <tr><td>"这个 ASIN 昨天流量掉得厉害，去查原因"</td><td class="a">放手</td><td>原因可能在广告、排名、竞品降价、Listing 被改、库存断货。<b>下一步查哪里，取决于上一步看到了什么</b>——这种路线你事前画不出来。</td></tr>
+      <tr><td>"把这个类目摸一遍，告诉我值不值得做"</td><td class="a">放手 + 人裁决</td><td>调研路径随发现而变，适合放手；但"值不值得做"这句结论必须回到你手里裁（人出标准与裁决，AI 出执行与反方）。</td></tr>
+      <tr><td>每天算一次各 SKU 的实际到手利润</td><td class="w">连 AI 都不用</td><td>这是算术，不是判断。能用公式和脚本算死的，别花 token——先过一遍「把重复任务变成 Skills」那节的两个维度。</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="sec-title">选法：三个问题，问完就有答案</h2>
+
+  <div class="q3 reveal">
+    <div class="q3-item"><div class="n">1</div><div><h4>路线能不能提前画死？</h4><p>拿张纸把步骤写下来，写得出来、且下次还是这几步 → <b>固定流程</b>。写到第二步就卡住"这得看第一步查出什么" → 这块得<b>放手</b>。</p></div></div>
+    <div class="q3-item"><div class="n">2</div><div><h4>每次进来的东西是不是同一类？</h4><p>都是同一种输入（同一张报表、同一类商品）→ <b>一条固定流程吃下</b>。五花八门（客服信里什么都有）→ 先加一道分流，分完各走各的固定流程（就是下一节的「路由」模式），仍然不用放手。</p></div></div>
+    <div class="q3-item"><div class="n">3</div><div><h4>跑错了谁兜？</h4><p>出错要赔钱、要能查是哪一步错的（改价、发货、回买家）→ <b>固定流程 + 人工确认点</b>。错了顶多白跑一趟（调研、找线索、写初稿）→ <b>可以放手</b>。验证力度跟着后果走。</p></div></div>
+  </div>
+
+  <div class="l-callout reveal">
+    <p>和前面两套判断不打架，它们管的是不同层：挑活三筛问"<b>这活值不值得交出去</b>"；两个维度（需要不需要智能 × 结果能不能验证）问"<b>交给 AI 还是交给脚本</b>"；这三问问的是最后一层——"<b>交给 AI 之后，是按固定流程跑，还是让它自己定路线</b>"。</p>
+  </div>
+
+  <h2 class="sec-title">别一上来就要建 Agent：复杂度是成本，不是功能</h2>
+
+  <ol class="ladder reveal">
+    <li><span><b>先试一句话交代清楚</b>：把五要素（干什么/给谁/背景/格式/不要什么）补全，很多活到这一步就够了。</span></li>
+    <li><span><b>不够？把料喂上</b>：把你的背景包、报表、历史结论贴进去，让它有依据可查，而不是靠猜。</span></li>
+    <li><span><b>还不够？拆成固定流程</b>：把一件大活拆成几步，每步单独交代，中间设关卡（下一节讲五种排法）。</span></li>
+    <li class="last"><span><b>真的画不出路线，才放手</b>：给目标、给工具、给停止条件，让它自己决定路径。</span></li>
+  </ol>
+
+  <div class="l-card reveal">
+    <p>多数卖家的现实是：<b>第一、二级就能解决的活，被做成了第四级</b>。每往上一级，你多付的是等待时间、token 账单和"出了事查不出哪一步错"的调试成本。<b>只有在明确看到效果提升时，才往上走一级。</b></p>
+  </div>
+
+  <div class="mix reveal">
+    <h4>⚠︎ 别被名字骗了：叫 Agent 的东西，里面多半混着固定流程</h4>
+    <p>实战四那个「多店铺巡检 Agent」，拆开看是两段：<b>取数、算指标、出表这一段是写死的</b>（每天都一样，才有得比）；只有<b>"这条异常该往哪查"那一段是放手的</b>。所以"要不要上 Agent"这个问题问得太粗——正确问法是：<b>这件活的哪一段路线是画得死的，哪一段画不死。</b></p>
+    <div class="rowline">
+      <div class="box f">① 取数（写死）</div>
+      <div class="box f">② 算指标（写死）</div>
+      <div class="box o">③ 异常往哪查（放手）</div>
+      <div class="box f">④ 出报告（写死）</div>
+    </div>
+  </div>
+
+  <div class="aic-opt"><div class="aic-opt-q">别人都在做 Agent，只用固定流程是不是落后了？</div><div class="aic-opt-a"><b>反过来：能写死的活还放手，才是外行。</b>固定流程的三个好处是花钱买不来的——账可预估（调用次数固定）、能复盘（每次同一条路，错了知道错在哪一步）、能验收（结果格式一致，可以和上周比）。天天要跑的活尤其如此：每天跑一次的巡检，路线每次都不一样，你连"今天比昨天差在哪"都说不清。</div></div>
+
+  <div class="aic-opt"><div class="aic-opt-q">放手之后怎么控账、控风险？</div><div class="aic-opt-a">放手不等于撒手，给三道护栏：<b>①上限</b>——最多查几步、最多花多久，到了就停下来报告；<b>②默认只读</b>——放手的活先只给查数据的权限，别给改东西的权限；<b>③人工确认点</b>——凡是会产生实际后果的动作（改价、改库存、回买家、下架），一律停下来等人点头。安装时给了工具授权，不等于给了业务操作授权。</div></div>
+
+  <div class="aic-opt"><div class="aic-opt-q">同一件活能不能一半写死、一半放手？</div><div class="aic-opt-a"><b>这才是实际工程里最常见的样子。</b>上面巡检的例子就是：固定流程的某一个框里，塞一段放手的处理。做法是把"画得死的部分"尽量画死，把放手的范围缩到最小的那一段——<b>放手的面积越小，账越可控、越好排错</b>。</div></div>
+
+  <div class="guard reveal">
+    <h4>放手型任务的交代模板（三道护栏写进提示词）</h4>
+    <ul>
+      <li><b>目标与完成标准</b>：查什么、拿到什么算查完（不写清楚，它会一直查下去）</li>
+      <li><b>工具与权限</b>：能用哪些数据源；本次<b>只读</b>，不改任何线上内容</li>
+      <li><b>停止条件</b>：最多查 N 步 / N 分钟，到了就把当前结论和没查完的部分一起交出来</li>
+      <li><b>必须停下来问我的动作</b>：改价、改库存、回买家、下架、对外发送——列成清单</li>
+      <li><b>交付格式</b>：结论先行，每条结论后面附它是从哪看出来的（方便你抽查）</li>
+    </ul>
+  </div>
+
+  <div class="aic-prompt">
+    <div class="aic-pm-head">PROMPT · 放手型任务的护栏式交代<button class="aic-pm-copy" type="button">复制</button></div>
+<pre>目标：查清楚 <span class="ph">[ASIN / 店铺]</span> 最近 <span class="ph">[时间窗]</span> <span class="ph">[出了什么异常]</span> 的原因。
+完成标准：给出最可能的 1-3 个原因，每个原因后面附你看到的证据。查到能支持结论就停，不用穷尽。
+
+可用数据：<span class="ph">[列出它能查的报表 / 后台 / 工具]</span>
+权限：本次只读。不要修改任何线上内容。
+
+停止条件：最多查 <span class="ph">[N]</span> 步；到上限就把当前结论 + 还没查的方向一起交出来。
+必须先问我再做的动作：改价、改库存、改 Listing、回买家、下架、对外发送。
+
+输出格式：
+1) 结论（1-3 条，按可能性排序）
+2) 每条结论的证据（数据来自哪张表 / 哪个页面）
+3) 你排除掉的方向，以及为什么排除
+4) 你不确定、需要我确认的地方</pre>
+    <div class="aic-pm-note">示例模板 · 待维正替换实战版。用法：放手型任务每次都带这五段，缺一段它就会自己发挥——最常见的翻车是没写停止条件，结果绕圈到你喊停。</div>
+  </div>
+
+  <div class="aic-stage speak"><span class="aic-stage-tag">讲</span>用自己的话讲一遍<span class="aic-stage-sub">费曼时刻</span></div>
+  <div class="aic-feynman">
+    <div class="aic-fy-title">FEYNMAN · 输出倒逼输入</div>
+    <p>运营问你："既然 AI 这么聪明，周报为什么不做成 Agent 让它自己跑？"<br>用三分钟讲清：<b>周报为什么要写死，而"流量为什么掉了"为什么可以放手，以及放手要配哪几道护栏。</b></p>
+    <div class="aic-fy-check">
+      <button class="aic-fy-check-btn" type="button">讲完了，对照要点 ›</button>
+      <div class="aic-fy-check-body"><ul>
+        <li>周报：路线画得死 + 要和上周比 → 写死才有可比性，账也固定</li>
+        <li>查原因：下一步取决于上一步看到什么 → 路线画不出来，只能放手</li>
+        <li>放手三护栏：上限（步数/时间）、默认只读、有后果的动作等人点头</li>
+        <li>加一句：叫 Agent 的产品里，固定的那几段其实还是固定流程</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="aic-stage do"><span class="aic-stage-tag">练</span>拿真活练一把<span class="aic-stage-sub">刻意练习</span></div>
+  <div class="aic-practice">
+    <div class="aic-pr-row"><div class="aic-pr-k">任务</div><div class="aic-pr-v">列出你<b>本周交给 AI 的 3 件活</b>，每件过一遍三问（路线画不画得死 / 输入是不是同一类 / 错了谁兜），给出结论：写死、放手，还是其实用脚本就够。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">合格标准</div><div class="aic-pr-v">3 件活各有结论和理由；至少找出 <b>1 件被做复杂了的</b>（本来一句话提示词或一个公式就够，却做成了多步流程或放手）。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">加练</div><div class="aic-pr-v">挑其中该放手的那件，用上面的模板写一份带三道护栏的交代，实跑一次，记录它<b>实际走了几步</b>、有没有撞到你设的上限。</div></div>
+    <div class="aic-pr-metric">衡量口径：3 件活的分类结论 + 1 件"被做复杂了"的活 + 放手任务的实际步数与停止情况。</div>
+    <ul class="aic-check">
+      <li>列出本周交给 AI 的 3 件活</li>
+      <li>每件过三问，写下结论与理由</li>
+      <li>找出至少 1 件被做复杂了的</li>
+      <li>给放手那件写护栏交代并实跑一次</li>
+    </ul>
+  </div>
+
+  <div class="l-callout reveal">
+    <p><b>本页 Takeaway</b>：路线画得死就写死，画不死才放手；三问＝路线能不能画死、输入是不是同一类、错了谁兜；复杂度是成本不是功能，多数活停在"一句话+喂料"就够；放手必配三护栏（上限、默认只读、有后果的动作等人点头）；叫 Agent 的东西，里面多半混着固定流程。</p>
+  </div>
+</main>
+<script src="i18n.js?v=20260808"></script>
+<script src="lesson.js"></script>
+<script src="nav-inject.js?v=20260809q"></script>
+<script src="aic-study.js"></script>
+</body>
+</html>

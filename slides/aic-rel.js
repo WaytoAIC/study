@@ -142,6 +142,31 @@
       ],
       next: [{ file: 'aic-team-4.html', why: '回到你的周任务清单，挑下一个标的' }],
     },
+
+    /* ── 实战五 · AI 工程设计模式（草稿期：只许派生页互链）──
+     * 草稿期规则（维正 2026-09-17 拍板）：反链不认草稿，一旦指向已发布页，
+     * 那一页线上会立刻冒出指向草稿的链接。所以下面只留两张派生页互链。
+     *
+     * 【发布时（删 course-data 的 draft 行）同一次提交补上】：
+     *   'aic-d-10-1.html' 追加
+     *     needs: { file: '10-1.html', why: '通用版：Workflow 与 Agent 的定义与机制（本页为电商场景版）' }
+     *     terms: { t: '挑活三筛：这活值不值得交出去', file: 'aic-team-4.html' }
+     *     terms: { t: '交给 AI 还是交给脚本：两个维度', file: 'aic-case-3.html' }
+     *     next:  { file: 'aic-case-1.html', why: '实例：叫 Agent 的巡检里，固定的那几段仍是流程' }
+     *   'aic-d-10-2.html' 追加
+     *     needs: { file: '10-2.html', why: '通用版：五种模式的原理与通用例子（本页为电商场景版）' }
+     *     terms: { t: '挑刺清单里的标题与五点口径', file: 'aic-listing-4.html' }
+     *     terms: { t: '投票降随机，但不治编数字', file: '1-2-hallucination.html' }
+     *     next:  { file: 'aic-case-3.html', why: '把排法固化下来，就是一份 Skills' }
+     *     next:  { file: 'aic-listing-3.html', why: '文案定稿只是自检，对错交给上架实验' }
+     *   TITLES 补：'10-2.html': '五种 Workflow 模式'
+     */
+    'aic-d-10-1.html': {
+      next: [{ file: 'aic-d-10-2.html', why: '决定写死之后，这几步怎么排' }],
+    },
+    'aic-d-10-2.html': {
+      needs: [{ file: 'aic-d-10-1.html', why: '先判该不该写死，再谈怎么排' }],
+    },
   };
 
   /* ── 标题表：链接显示用。原课页从 COURSE_FLAT 取不到（内容页不加载 course-data），手工登记被引用者 ── */
@@ -161,6 +186,8 @@
     'aic-case-3.html': '把重复任务变成 Skills', 'aic-case-4.html': '复刻 + 改造别人的 Skills',
     'aic-case-5.html': '把业务 SOP 转 Skills',
     '10-1.html': 'Workflow vs Agent：先搞清楚你要什么', 'zero-q-skill.html': '最近很火的 Skill 是什么？',
+    'aic-d-10-1.html': '写死流程还是放手：Workflow 和 Agent 怎么选（电商场景版）',
+    'aic-d-10-2.html': '五种 Workflow 模式：五个电商场景（电商场景版）',
   };
 
   var CUR = location.pathname.split('/').pop().split('?')[0];

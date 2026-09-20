@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>五种 Workflow 模式：五个电商场景 | WaytoAIC</title>
+<style>@keyframes _si{from{opacity:0}to{opacity:1}}body{opacity:0;animation:_si 0.15s ease 0.08s forwards}</style>
+<link rel="stylesheet" href="lesson.css">
+<link rel="stylesheet" href="aic-study.css">
+<style>
+.pat{background:var(--card);border:1.5px solid var(--border);border-left:4px solid var(--pc);border-radius:var(--radius);padding:20px 24px;margin:18px 0;}
+.pat.p1{--pc:#0066ff;} .pat.p2{--pc:#7c3aed;} .pat.p3{--pc:#0891b2;} .pat.p4{--pc:#d97706;} .pat.p5{--pc:#16a34a;}
+.pat-head{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.pat-n{flex:none;width:30px;height:30px;border-radius:10px;background:var(--pc);color:#fff;font-size:14px;font-weight:900;display:flex;align-items:center;justify-content:center;}
+.pat-name{font-size:16px;font-weight:800;color:var(--pc);}
+.pat-name span{font-size:12px;font-weight:700;color:var(--sub);margin-left:8px;letter-spacing:.3px;}
+.pat > p{font-size:14px;line-height:1.85;color:var(--sub);} .pat > p b{color:var(--text);}
+.flow{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0;}
+.flow-box{flex:1;min-width:96px;border:1px solid var(--border);border-radius:var(--radius-sm);background:rgba(0,0,0,.02);padding:9px 10px;font-size:12.5px;font-weight:700;line-height:1.5;text-align:center;color:var(--text);}
+.flow-box.on{border-color:var(--pc);color:var(--pc);background:color-mix(in srgb,var(--pc) 7%,transparent);}
+.flow-box.gate{border-color:#d97706;color:#b45309;background:rgba(217,119,6,.07);}
+.flow-col{display:flex;flex-direction:column;gap:6px;flex:1;min-width:96px;}
+.case{background:color-mix(in srgb,var(--pc) 5%,transparent);border-radius:var(--radius-sm);padding:14px 16px;margin:12px 0;}
+.case h5{font-size:12.5px;font-weight:800;letter-spacing:.5px;color:var(--pc);margin-bottom:6px;}
+.case p{font-size:13.5px;line-height:1.85;color:var(--sub);margin:5px 0;} .case p b{color:var(--text);}
+.cost{font-size:13px;line-height:1.8;color:var(--sub);border-top:1px dashed var(--border);padding-top:10px;margin-top:12px;}
+.cost b{color:#b91c1c;}
+.sum{width:100%;border-collapse:collapse;margin:18px 0;font-size:13px;}
+.sum th,.sum td{border:1px solid var(--border);padding:9px 11px;text-align:left;vertical-align:top;line-height:1.7;}
+.sum thead th{background:rgba(0,0,0,.03);font-size:12.5px;font-weight:800;}
+.sum td:first-child{font-weight:800;width:20%;}
+.sum .lv{font-size:12px;font-weight:800;white-space:nowrap;}
+.pick{margin:18px 0;counter-reset:pk;}
+.pick li{list-style:none;display:flex;gap:12px;padding:10px 14px;margin:7px 0;background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:14px;line-height:1.75;}
+.pick li::before{counter-increment:pk;content:counter(pk);flex:none;width:22px;height:22px;border-radius:7px;background:rgba(0,102,255,.12);color:var(--accent);font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;margin-top:2px;}
+.pick li b{color:var(--text);}
+.pick li .ans{margin-left:auto;flex:none;font-size:12.5px;font-weight:800;color:var(--accent);}
+@media(max-width:640px){.flow{flex-direction:column;}.sum{font-size:12px;}.pick li .ans{margin-left:0;}}
+</style>
+</head>
+<body>
+<main class="lesson">
+  <div class="aic-status">AI 初稿 · 待维正过手补充实战思考</div>
+  <header class="lesson-header">
+    <div class="kicker">实战五 · AI 工程设计模式 · 电商场景版</div>
+    <h1>五种 Workflow 模式：<em>五个电商场景</em></h1>
+    <p class="subtitle">决定"写死流程"之后，还有第二个问题：这几步怎么排？业界验证过的排法就五种，由简到繁。这一页把五种排法各配一件你手上的活，附带每种要付的代价。</p>
+  </header>
+
+  <div class="aic-stage learn"><span class="aic-stage-tag">学</span>先把这个点看明白<span class="aic-stage-sub">五种排法 · 各配一件电商的活</span></div>
+
+  <div class="l-card reveal">
+    <p>这五种模式不是我们发明的，是业界（Anthropic 的公开工程文章）总结出来的五种编排方式，通用版那节讲的是原理和通用例子；<b>这一页只做一件事：把五种排法各换成一件跨境电商的真活</b>，并说清每种的代价。看完你应该能对着自己团队的流程说出："这件活是第几种。"</p>
+  </div>
+
+  <div class="pat p1 reveal">
+    <div class="pat-head"><div class="pat-n">1</div><div class="pat-name">一步接一步，中间设关卡<span>Prompt Chaining · 提示链</span></div></div>
+    <p>把一件大活拆成几步，<b>上一步的产出就是下一步的输入</b>；步与步之间可以插一道关卡，不合格就打回，不往下传。最简单，也最常用。</p>
+    <div class="flow">
+      <div class="flow-box on">卖点清单</div>
+      <div class="flow-box on">写标题 + 五点</div>
+      <div class="flow-box gate">关卡：核心词 / 禁用词 / 字数</div>
+      <div class="flow-box on">目标语言本地化</div>
+      <div class="flow-box on">按站点模板排版</div>
+    </div>
+    <div class="case">
+      <h5>电商场景 · 新品上架文案管道</h5>
+      <p>一件件来：先让 AI 从产品资料里抽卖点，再写标题和五点，<b>过一道关卡</b>（核心词在不在、有没有踩禁用词、字符数超没超），过了才翻成德语日语，最后按各站点模板排版。</p>
+      <p><b>关卡是这个模式的灵魂</b>：标题里漏了核心词这种错，如果不在这里拦住，后面会被原样翻译成五个语种、排进五份模板——错误会被流水线放大。</p>
+    </div>
+    <div class="cost"><b>代价</b>：步数越多越慢，token 也随步数涨。还有个隐蔽的坑——<b>下一步只看得到上一步交出来的东西</b>，所以每一步的交付格式要写死，否则信息一步步漏。<b>别用在</b>：一句话就能出结果的活，别硬拆五步。</div>
+  </div>
+
+  <div class="pat p2 reveal">
+    <div class="pat-head"><div class="pat-n">2</div><div class="pat-name">先分类，再分流<span>Routing · 路由</span></div></div>
+    <p>进来的东西不是一类，就先用一道分类，把它送进对应的专门通道。<b>每条通道有自己的提示词、自己的资料、甚至用不同的模型</b>。</p>
+    <div class="flow">
+      <div class="flow-box on">买家来信</div>
+      <div class="flow-box on">分类</div>
+      <div class="flow-col">
+        <div class="flow-box">物流查询 → 模板直回</div>
+        <div class="flow-box">退款纠纷 → 接订单数据起草，人确认</div>
+        <div class="flow-box">产品使用 → 接知识库</div>
+        <div class="flow-box gate">差评 / 投诉 → 直接转人</div>
+      </div>
+    </div>
+    <div class="case">
+      <h5>电商场景 · 客服来信分流</h5>
+      <p>物流查询占大头，用便宜快的模型套模板就够；退款纠纷要调订单数据、要斟酌措辞，用强模型起草、人点头再发；差评和侵权投诉<b>根本不进 AI 通道，直接转人</b>。</p>
+      <p>两个收益：<b>省钱</b>——大部分简单来信不需要动用贵模型；<b>各管各的</b>——一个提示词想通吃所有来信，结果是哪一类都答得不好。</p>
+      <p>同样的排法还能用在别处：新线索进来先分类，做过的类目直接调历史结论，没做过的才走完整调研。</p>
+    </div>
+    <div class="cost"><b>代价</b>：分类错了，后面全错，而且错得很自然、不容易发现。两条保险——给分类器一条"<b>拿不准就转人</b>"的出口，以及定期抽查分类结果（尤其是转人那一类有没有被误分到自动回复）。</div>
+  </div>
+
+  <div class="pat p3 reveal">
+    <div class="pat-head"><div class="pat-n">3</div><div class="pat-name">同时跑，最后合<span>Parallelization · 并行</span></div></div>
+    <p>几件互不相干的事同时跑，再把结果合起来。两种用法：<b>拆开并行</b>（一件活拆成几路，各查各的）和<b>多跑几次投票</b>（同一件事跑几遍，取多数）。</p>
+    <div class="flow">
+      <div class="flow-box on">一条竞品 Listing</div>
+      <div class="flow-col">
+        <div class="flow-box">主图看什么</div>
+        <div class="flow-box">标题五点怎么写的</div>
+        <div class="flow-box">评论里的痛点</div>
+      </div>
+      <div class="flow-box on">汇总成一页对比</div>
+    </div>
+    <div class="case">
+      <h5>电商场景 A · 拆开并行：竞品体检 / 上架前合规扫</h5>
+      <p>体检一条竞品 Listing，三路同时跑：一路只看主图、一路只看标题五点、一路只扒评论痛点，最后汇总成一页。<b>比一个提示词让它"全面分析一下"强得多</b>——那样出来的东西每项都浅。上架前的合规扫同理：商标、禁用词、类目规则三路并跑。</p>
+      <h5 style="margin-top:12px;">电商场景 B · 多跑几次投票：拿不准的判断</h5>
+      <p>同一段文案，让它独立判断三次"<b>有没有夸大宣传或违规风险</b>"，取多数意见；三次结论不一致的，恰恰说明这条是灰区，<b>挑出来给人看</b>。</p>
+    </div>
+    <div class="cost"><b>代价</b>：token 成倍。用在漏判代价大的地方（合规、侵权、要发出去的内容），别用在无所谓对错的活上。<b>还有一个常见误解</b>：投票降的是随机，不是幻觉——它把同一个数字编三遍，投票照样通过。事实类的东西，最后还得回原始数据核。</div>
+  </div>
+
+  <div class="pat p4 reveal">
+    <div class="pat-head"><div class="pat-n">4</div><div class="pat-name">先看一眼，再决定派几路活<span>Orchestrator-Workers · 编排者-工人</span></div></div>
+    <p>一个"工头"先看一遍任务，<b>当场决定拆成几件、每件交代什么</b>，再把活分给几个"工人"，最后把结果合起来。和并行的区别就一句：<b>并行是你事先写死跑哪几路，这里是它看完才知道跑几路。</b></p>
+    <div class="flow">
+      <div class="flow-box on">30 个 SKU 的改写需求</div>
+      <div class="flow-box on">工头：扫一遍，分门别类</div>
+      <div class="flow-col">
+        <div class="flow-box">服饰类：按尺码痛点改</div>
+        <div class="flow-box">家居类：按使用场景改</div>
+        <div class="flow-box">电子类：按参数与合规改</div>
+      </div>
+      <div class="flow-box on">合并 + 统一过品牌词表</div>
+    </div>
+    <div class="case">
+      <h5>电商场景 · 一批 SKU 的 Listing 按新品牌调性重写</h5>
+      <p>你只交代一句"这 30 个 SKU 按新调性改一遍"。工头先扫一遍，发现里头分属几个类目，于是决定分几路、每路带哪套规则、哪几条要先查类目词——<b>这个拆法你事前写不出来，因为它取决于这批 SKU 具体是什么。</b>同样适合季度类目调研：先扫结构，再决定拆成几个子调研。</p>
+    </div>
+    <div class="cost"><b>代价</b>：这是五种里最接近"放手"的一种，<b>账不封顶</b>——工头多拆几路，钱就多花几倍。必配两样：给上限（最多拆几路 / 最多花多久），结果按"数量对不对、有没有漏 SKU"抽查一遍。</div>
+  </div>
+
+  <div class="pat p5 reveal">
+    <div class="pat-head"><div class="pat-n">5</div><div class="pat-name">一个写，一个挑刺，循环改<span>Evaluator-Optimizer · 评估-优化</span></div></div>
+    <p>一个负责生成，另一个拿着<b>你的验收标准</b>挑刺并给出具体修改意见，生成者照着改，循环几轮直到过关或到轮数上限。</p>
+    <div class="flow">
+      <div class="flow-box on">初稿</div>
+      <div class="flow-box on">照验收清单挑刺</div>
+      <div class="flow-box on">按意见改</div>
+      <div class="flow-box gate">过关 or 到轮数上限 → 交人</div>
+    </div>
+    <div class="case">
+      <h5>电商场景 · 五点 / A+ 文案定稿前的自检循环</h5>
+      <p>挑刺的那一方手里必须有<b>写得出来的标准</b>，例如：有没有空话（放在任何竞品身上也成立的话＝零信息量，删）、核心词有没有自然融入、有没有夸大或违规表述、每条卖点对不对得上买家的顾虑。改两三轮，质量肉眼可见地往上走。</p>
+      <p><b>标准不具体，这个模式就废了</b>——两个 AI 会互相吹捧，"很好，建议保持"。</p>
+    </div>
+    <div class="cost"><b>代价与边界</b>：轮数不封顶，给个上限（比如最多三轮，还没过就交给人）。更要紧的是别搞错这一轮的性质——<b>它只是发稿前的自检，真正判对错的是上架之后的数据</b>（而且一次只动一个变量，不然你分不清是哪处改动起的作用）。</div>
+  </div>
+
+  <h2 class="sec-title">五种排法一览</h2>
+  <table class="sum reveal">
+    <thead><tr><th>排法</th><th>电商里的典型活</th><th>要付的代价</th><th>复杂度</th></tr></thead>
+    <tbody>
+      <tr><td>一步接一步</td><td>新品文案管道、周报生产线</td><td>慢；每步交付格式要写死</td><td class="lv" style="color:#15803d;">低</td></tr>
+      <tr><td>先分类再分流</td><td>客服来信、线索归类</td><td>分类错了全错，要留转人出口</td><td class="lv" style="color:#15803d;">低</td></tr>
+      <tr><td>同时跑再合并</td><td>竞品体检、合规多路扫、灰区投票</td><td>token 成倍；投票不解决编数字</td><td class="lv" style="color:#b45309;">中</td></tr>
+      <tr><td>工头派活</td><td>一批 SKU 批量改写、类目调研</td><td>账不封顶，必须给上限 + 抽查</td><td class="lv" style="color:#b91c1c;">中高</td></tr>
+      <tr><td>写-挑刺-再改</td><td>五点 / A+ / 本地化文案定稿</td><td>轮数要封顶；标准不具体就白转</td><td class="lv" style="color:#b45309;">中</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="sec-title">怎么挑：从上往下问，停在第一个"是"</h2>
+  <ol class="pick reveal">
+    <li><span>一步就能出结果吗？</span><span class="ans">→ 别排，一句话交代完事</span></li>
+    <li><span>是顺序问题吗（后一步要用前一步的结果）？</span><span class="ans">→ 一步接一步</span></li>
+    <li><span>进来的东西不是同一类吗？</span><span class="ans">→ 先分类再分流</span></li>
+    <li><span>几件事互不相干、或想多跑几遍降随机？</span><span class="ans">→ 同时跑再合并</span></li>
+    <li><span>事前不知道要拆成几件？</span><span class="ans">→ 工头派活</span></li>
+    <li><span>有写得出来的验收标准、一稿达不到？</span><span class="ans">→ 写-挑刺-再改</span></li>
+  </ol>
+
+  <div class="aic-opt"><div class="aic-opt-q">这几种能不能混着用？</div><div class="aic-opt-a"><b>实际工程里基本都是混的。</b>典型样子是：主干是"一步接一步"，其中某一步里嵌了"先分类再分流"，另一步里嵌了"同时跑再合并"。混用没问题，<b>但每加一层就问自己一次</b>：这层复杂度换来的效果，值不值它带来的等待、花费和排错难度？不值就砍掉。</div></div>
+
+  <div class="aic-opt"><div class="aic-opt-q">我不写代码，这些排法跟我有关吗？</div><div class="aic-opt-a"><b>有关，而且是你最该懂的部分。</b>三个落地口子：①<b>交代任务时</b>照着排法说清楚步骤和关卡，比"帮我全面分析一下"强一个量级；②<b>写进 Skills</b>——一份 Skills 的核心就是步骤、关卡、验收标准，等于把排法固化下来；③<b>让 Coding Agent 照这个结构搭</b>——你说"先分类，物流类走模板，纠纷类调订单数据后等我确认"，它负责实现。<b>排法是你的活，代码不是。</b></div></div>
+
+  <div class="aic-opt"><div class="aic-opt-q">投票跑三遍，是不是就能把 AI 编数据的毛病治了？</div><div class="aic-opt-a"><b>治不了。</b>投票降的是"同一个问题问三次答案飘"的随机性，属于判断题的置信度问题；而编数字是它的老毛病——三次都能编出同一个像模像样的数。凡是具体数字、出处、私有信息，仍然要回原始数据核对，验证力度跟着后果走。</div></div>
+
+  <div class="aic-prompt">
+    <div class="aic-pm-head">PROMPT · 挑刺方（Evaluator）的验收清单<button class="aic-pm-copy" type="button">复制</button></div>
+<pre>你是审稿方，不负责重写，只负责按下面的清单挑刺并给出可执行的修改意见。
+
+稿件：<span class="ph">[粘贴初稿]</span>
+产品与买家背景：<span class="ph">[粘贴背景包]</span>
+
+逐条检查，每条给「过 / 不过 + 具体位置 + 怎么改」：
+1) 空话检验：这句话放在任何竞品身上也成立吗？成立＝零信息量，删或改具体
+2) 核心词：<span class="ph">[列出必须出现的词]</span> 有没有自然出现（不是硬塞）
+3) 合规：有没有夸大、承诺疗效 / 效果、绝对化用语、平台禁用表述
+4) 买家顾虑：<span class="ph">[列出该品类买家最担心的 3 件事]</span> 是否都被回应
+5) 格式：字符数 / 条数 / 大小写是否符合站点要求
+
+最后给一句总判：过关，还是打回重改（说明最致命的那一处）。
+不要夸奖，不要重写全文，只输出清单结果。</pre>
+    <div class="aic-pm-note">示例模板 · 待维正替换实战版。用法：配合第 5 种排法用，最多循环三轮还不过就交给人。清单里的第 2、4 项必须换成你自己品类的东西，不换＝两个 AI 互相吹捧。</div>
+  </div>
+
+  <div class="aic-stage speak"><span class="aic-stage-tag">讲</span>用自己的话讲一遍<span class="aic-stage-sub">费曼时刻</span></div>
+  <div class="aic-feynman">
+    <div class="aic-fy-title">FEYNMAN · 输出倒逼输入</div>
+    <p>面试或复盘场合常见的一问："<b>五种排法你都用过吗？挑三种讲讲，各自适合什么场景、要付什么代价。</b>"<br>挑你最熟的三种，每种讲：一句话是什么、配哪件电商的活、代价在哪。</p>
+    <div class="aic-fy-check">
+      <button class="aic-fy-check-btn" type="button">讲完了，对照要点 ›</button>
+      <div class="aic-fy-check-body"><ul>
+        <li>每种都说清"一句话定义 + 一件具体的活 + 一个代价"，缺代价那条就是没用过</li>
+        <li>能说出并行和工头派活的区别：路数是事先写死的，还是它看完才定</li>
+        <li>能说出关卡的价值：错误别往下传，否则被流水线放大</li>
+        <li>结尾一句：不追求最复杂，追求最合适；能一步做完就别排五步</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="aic-stage do"><span class="aic-stage-tag">练</span>拿真活练一把<span class="aic-stage-sub">刻意练习</span></div>
+  <div class="aic-practice">
+    <div class="aic-pr-row"><div class="aic-pr-k">任务</div><div class="aic-pr-v">挑你团队<b>最花时间的那件重复活</b>，画成不超过 5 个框的流程图：每个框写清"谁干、进什么、出什么"，标出用的是哪一种排法、<b>关卡设在哪一步</b>、最后谁验收。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">合格标准</div><div class="aic-pr-v">流程图能让没做过这件活的同事照着跑一遍；能指出<b>哪一步错了后面全白做</b>（那里就是关卡该在的位置）。</div></div>
+    <div class="aic-pr-row"><div class="aic-pr-k">实跑</div><div class="aic-pr-v">照图实跑一次，记录：总用时、哪一步返工最多、关卡拦住了几次。返工最多的那步，考虑拆细或加挑刺循环。</div></div>
+    <div class="aic-pr-metric">衡量口径：流程图（≤5 框，标了排法与关卡）+ 一次实跑记录（用时、返工步、关卡拦截次数）。下一轮和这轮比。</div>
+    <ul class="aic-check">
+      <li>挑定一件最花时间的重复活</li>
+      <li>画成 ≤5 个框，标出排法与关卡</li>
+      <li>照图实跑一次并记录</li>
+      <li>把返工最多的那步改掉，再跑一次</li>
+    </ul>
+  </div>
+
+  <div class="l-callout reveal">
+    <p><b>本页 Takeaway</b>：五种排法＝一步接一步 / 先分类再分流 / 同时跑再合并 / 工头派活 / 写-挑刺-再改；挑法是从上往下问，停在第一个"是"；关卡的价值是错误别往下传；越往后越贵越难排错——<b>不追求最复杂的，追求最合适的</b>。</p>
+  </div>
+</main>
+<script src="i18n.js?v=20260808"></script>
+<script src="lesson.js"></script>
+<script src="nav-inject.js?v=20260809q"></script>
+<script src="aic-study.js"></script>
+</body>
+</html>
