@@ -14,7 +14,7 @@
     zh: {
       toc: '目录',
       tocTitle: '在课程阅读器中打开，左侧带完整目录',
-      askAuthor: '关于 WaytoAIC',
+      askAuthor: 'WaytoAIC 社群',
       today: '今日',
       total: '总学习',
       backHomeTitle: '返回首页 (Cmd+↑返回目录)',
@@ -55,7 +55,7 @@
     en: {
       toc: 'Contents',
       tocTitle: 'Open in the course reader with full table of contents',
-      askAuthor: 'About WaytoAIC',
+      askAuthor: 'WaytoAIC community',
       today: 'Today',
       total: 'All-time',
       backHomeTitle: 'Back to home (Cmd+↑ for contents)',
@@ -96,7 +96,7 @@
     ko: {
       toc: '목차',
       tocTitle: '전체 목차가 있는 코스 리더에서 열기',
-      askAuthor: 'WaytoAIC 소개',
+      askAuthor: 'WaytoAIC 커뮤니티',
       today: '오늘',
       total: '누적 학습',
       backHomeTitle: '홈으로 (Cmd+↑ 목차)',

@@ -540,7 +540,7 @@ function WA_normFile(f) {
     topBar.innerHTML = `
       <a id="nav-toc-link" href="${I18N.locFile('learn.html')}#${encodeURIComponent(cur)}" title="${I18N.t('tocTitle')}">☰ ${I18N.t('toc')}</a>
       <div class="nav-top-sep"></div>
-      <a id="nav-author-link" href="https://www.waytoaic.com" target="_blank">${I18N.t('askAuthor')}</a>
+      <a id="nav-author-link" href="https://www.waytoaic.com/community/?utm_source=study&utm_medium=cta&utm_campaign=topbar" target="_blank" rel="noopener" data-wa-cta="community" data-wa-placement="topbar">${I18N.t('askAuthor')}</a>
     `;
     document.body.appendChild(topBar);
     /* WaytoAIC: 浏览量角标（/pv）随上游统计后端一并下线 */
@@ -1056,6 +1056,7 @@ function WA_normFile(f) {
       + '<h2>' + T.h + '</h2><p>' + T.p + '</p>'
       + '<a href="' + reader + '#' + encodeURIComponent(file) + '">' + T.b + '</a></div>';
     document.body.insertBefore(box, document.body.firstChild);
+    (function waitWA(n) { if (window.WA && WA.track) { WA.track('login_shown', { from: 'gatepage' }); return; } if (n < 20) setTimeout(function () { waitWA(n + 1); }, 250); })(0);
   }
 
   if (window.COURSE) { onCourse(); return; }
@@ -1148,3 +1149,20 @@ function WA_normFile(f) {
 })();
 
 // 付费墙已停用，课程全部免费开放。
+
+// ── WaytoAIC 两站共享脚本 waytoaic-ui.js(身份三态 / PostHog 埋点 / 统一 CTA / UTM 首触):主站托管,这里外链加载,
+//    1,4xx 页零改动生效(含 iframe 内嵌模式);加载失败静默,不阻塞页面。配置 wa-config.js 由它自己拉,改配置不用改本仓。
+//    壳页(index.html / learn*.html / certificate / locked / privacy / terms)不走本文件,各自 head 里有同款一行。
+//    本机预览(localhost)可用 localStorage.wa_ui_src 指向本地构建的脚本;线上忽略该项。
+//    口径见运维仓 docs/07 D17(只发匿名 ID、默认关录屏、DNT 零事件)、docs/15 事件字典、docs/16 UTM 规范。
+(function () {
+  try {
+    if (window.WA) return;
+    var dev = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+    var override = dev ? localStorage.getItem('wa_ui_src') : null;
+    var s = document.createElement('script');
+    s.src = override || 'https://www.waytoaic.com/ui/v1/waytoaic-ui.js?v=20261103';
+    s.async = true;
+    document.head.appendChild(s);
+  } catch (e) { /* 加载失败不影响浏览 */ }
+})();

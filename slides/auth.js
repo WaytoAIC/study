@@ -203,6 +203,7 @@
       '</div>';
     document.body.appendChild(mask);
     var mode = 'login';
+    try{ if(window.WA && WA.track) WA.track('login_shown', { from: 'modal' }); }catch(e){}
     var $ = function(id){ return document.getElementById(id); };
     function setMode(m){
       mode = m;
@@ -222,6 +223,7 @@
         : req('/auth/v1/signup', { method:'POST', body:{ email:email, password:pass } });
       p.then(function(d){
         setFromTokenResp(d);
+        try{ if(window.WA && WA.track) WA.track('login_done', { mode: mode }, { send_instantly: true }); }catch(e){}
         location.reload();   /* 让锁课/进度同步逻辑按登录态重跑 */
       }).catch(function(e){
         $('waSubmit').disabled = false;
