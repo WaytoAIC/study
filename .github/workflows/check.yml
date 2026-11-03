@@ -1,0 +1,38 @@
+name: check
+# 学习站 CI(公开 AGPL 仓,日志公开,不打印任何路径与密钥)。纯静态无构建,只做红线自检。
+# 规则见运维仓 WaytoAIC/waytoaic-ops 的 AUTONOMY.md、docs/04-备案与合规.md、docs/11 §2.2。
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 备案号在首页底部(D10)
+        run: |
+          grep -q '粤ICP备2026120136号-1' index.html || { echo "ICP 备案号不在 index.html"; exit 1; }
+          grep -q '粤公网安备44030002017077号' index.html || { echo "公安备案号不在 index.html"; exit 1; }
+          echo ok
+
+      - name: 红线:无本机路径、无私钥样字符串、无精铺数据
+        run: |
+          set -e
+          if git grep -nE '/Users/[a-z]+/' -- . ':!.github/*' ; then echo "本机路径泄漏"; exit 1; fi
+          # 公开的 Supabase anon key(eyJ…)是设计上公开的,不算;这里只抓 service_role 与各家私钥前缀
+          if git grep -nE 'service_role|SERVICE_ROLE|sk-ant-[A-Za-z0-9_-]{20,}|sk-[A-Za-z0-9]{32,}|AKLT[A-Za-z0-9]{20,}' -- . ':!.github/*' ; then echo "密钥样字符串"; exit 1; fi
+          if git grep -nE 'jingpu_signals|精铺信号|fanglou_market' -- . ':!docs/*' ':!.github/*' ; then echo "精铺/防漏数据或口径进站"; exit 1; fi
+          echo ok
+
+      - name: 草稿篇章不应出现在首页课程数字里(draft:true 只能带 ?preview=1 看)
+        run: |
+          drafts=$(grep -c 'draft:true' slides/course-data.js || true)
+          echo "draft 篇章数: $drafts"
+          # 只报数,不失败:draft 的可见性由前端 course-data.js 的开关控制,这里留观测点
