@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "deny": [
+      "Bash(git push * main*)",
+      "Bash(git push origin HEAD:main*)",
+      "Bash(git push)",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git push upstream*)",
+      "Bash(git reset --hard*)",
+      "Bash(git clean -fdx*)",
+      "Bash(rm -rf *)",
+      "Bash(sudo *)",
+      "Bash(gh repo delete*)",
+      "Bash(gh repo edit * --visibility*)",
+      "Bash(gh auth *)",
+      "Bash(byted-supabase-cli * delete*)",
+      "Read(~/.config/ai-hub/**)",
+      "Read(**/secrets/**)",
+      "Read(**/*.key)",
+      "Bash(cat ~/.config/ai-hub/*)",
+      "Bash(security find-generic-password*)",
+      "Bash(curl *open.feishu.cn/open-apis/bot*)"
+    ],
+    "ask": [
+      "Bash(gh pr merge*)",
+      "Bash(byted-supabase-cli *)",
+      "Bash(lark-cli *)"
+    ],
+    "allow": [
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(gh pr view*)",
+      "Bash(gh pr list*)",
+      "Bash(gh pr create*)",
+      "Bash(gh pr checks*)",
+      "Bash(python3 scripts/seo_heads.py*)",
+      "Bash(node scripts/build-sitemap.mjs*)"
+    ]
+  }
+}

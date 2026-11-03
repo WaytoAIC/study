@@ -3,3 +3,10 @@
 start.py
 .env
 node_modules/
+
+# Supabase CLI 本地缓存
+supabase/.temp/
+
+# Claude Code:settings.json 入仓,本机私有项不入
+.claude/settings.local.json
+.claude/worktrees/
