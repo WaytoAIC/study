@@ -5,6 +5,7 @@
 #   · 框架层永不跟上游：壳/登录/付费墙/导航注入/多语言/门户/证书 = 保留我们的版本
 #   · 内容层全跟：新增课件、配图、英韩译文照单全收；考试页取上游后重打"解锁+换牌"补丁
 #   · 课程数据取上游，再嫁接我们的三块：品牌 meta、电商实战篇章、默认轨+草稿开关
+#   · 页头元数据（标题后缀/canonical/hreflang/og/JSON-LD）合并后由 seo_heads.py 统一换成本站，sitemap/llms 由 build-sitemap.mjs 重出
 #   · 不要：繁中台港版(.tw/.hk)、爸妈版(elder-*)、上游新增的英韩证书页、playground
 # 脚本停在"合并已解决、补丁已打、未提交"状态，人工按 docs/内容维护SOP.md 验证后再 commit+push。
 set -euo pipefail
@@ -15,7 +16,7 @@ git fetch upstream
 git show HEAD:slides/course-data.js > /tmp/ours-course-data.js
 git merge upstream/main --no-commit --no-ff || true
 
-OURS="README.md index.html slides/index.html slides/ask-alice.js slides/auth.js slides/i18n.js slides/nav-inject.js slides/paywall.js slides/track.js slides/watermark.js slides/lesson.js slides/certificate.html slides/home.html slides/home.en.html slides/home.ko.html slides/locked.html slides/locked.en.html slides/locked.ko.html slides/learn.html slides/learn.en.html slides/learn.ko.html"
+OURS="README.md index.html robots.txt slides/index.html slides/ask-alice.js slides/auth.js slides/i18n.js slides/nav-inject.js slides/paywall.js slides/track.js slides/watermark.js slides/lesson.js slides/certificate.html slides/home.html slides/home.en.html slides/home.ko.html slides/locked.html slides/locked.en.html slides/locked.ko.html slides/learn.html slides/learn.en.html slides/learn.ko.html"
 for f in $OURS; do git ls-files --error-unmatch "$f" >/dev/null 2>&1 && git checkout HEAD -- "$f" && git add "$f"; done
 THEIRS=$(git diff --name-only --diff-filter=U | grep -E '^slides/(exam-|course-data)' || true)
 [ -n "$THEIRS" ] && { echo "$THEIRS" | xargs git checkout --theirs -- ; echo "$THEIRS" | xargs git add -- ; }
@@ -46,10 +47,8 @@ for p in glob.glob('slides/exam-*.html'):
     s = rd(p)
     s = re.sub(r"<script>try\{if\(localStorage\.getItem\('xa_auth'\)!=='1'\)[^<]*</script>", '<!-- WaytoAIC: 考试页开放，不加锁 -->', s)
     s = s.replace('content="洛小山"', 'content="WaytoAIC"')
-    s = re.sub(r'\| (xueai\.miyang\.cn|xueai\.app)</title>', '| WaytoAIC</title>', s)
     s = re.sub(r'https://(xueai\.miyang\.cn|xueai\.app)/slides/', 'https://study.waytoaic.com/slides/', s)
-    s = re.sub(r'(<meta property="og:site_name" content=")[^"]*(")', r'\1WaytoAIC 学习站\2', s)
-    s = re.sub(r'\n<link rel="alternate" hreflang="zh-(TW|HK|MO)"[^>]*>', '', s)
+    # 标题 / og:site_name / hreflang 等页头元数据已并入 scripts/seo_heads.py（全站同一口径），这里不再单独处理
     wr(p, s)
 # 页面顺序表：取上游 SLIDE_ORDER，剔除不存在/被剔除的条目
 import subprocess
@@ -70,6 +69,10 @@ for r in sorted(refs):
 missing = [f for f in set(re.findall(r"file: '([^']+)'", up)) if not os.path.exists('slides/' + f)]
 print('课程数据引用缺失页:', missing)
 PY
+# 头部元数据 = 框架层机械补丁：标题/canonical/hreflang/og/JSON-LD 换成本站、锁定课节声明（正文不动）；再从课程数据出 sitemap/llms
+python3 scripts/seo_heads.py --all
+node scripts/build-sitemap.mjs
 git add -A slides/ docs/ scripts/ 2>/dev/null || true
+git add sitemap.xml llms.txt robots.txt
 for f in slides/course-data.js slides/course-data.en.js slides/course-data.ko.js slides/nav-inject.js slides/auth.js; do node --check "$f"; done
 echo "合并已就绪（未提交）。接下来：本地起服务验证阅读器/登录墙/双轨 → git commit → git push → bash scripts/upstream-diff.sh"
