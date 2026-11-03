@@ -1,0 +1,8 @@
+# study.waytoaic.com —— 课程页全部欢迎抓取（含 AI 引擎）；阅读器壳 slides/learn*.html 用页内 noindex 交权给独立课页
+User-agent: *
+Allow: /
+Disallow: /docs/
+Disallow: /scripts/
+Disallow: /supabase/
+
+Sitemap: https://study.waytoaic.com/sitemap.xml

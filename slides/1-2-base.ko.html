@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Base 모델: Token으로 Token을 예측하는 기계 | xueai.miyang.cn</title>
+<title>Base 모델: Token으로 Token을 예측하는 기계 | WaytoAIC 학습</title>
 <script src="../global-attn.js"></script>
 <style>@keyframes _si{from{opacity:0}to{opacity:1}}body{opacity:0;animation:_si 0.15s ease 0.08s forwards;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Apple SD Gothic Neo","Malgun Gothic",sans-serif}</style>
 <script id="xueaiThemeBridge" src="theme-bridge.js?v=20260816k"></script>
@@ -141,21 +141,18 @@
 <meta name="keywords" content="Base모델,대형언어모델원리,Token예측,자기회귀언어모델,GPT사전훈련">
 <meta name="author" content="뤄샤오산(洛小山)">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://xueai.miyang.cn/slides/1-2-base.ko.html">
-<link rel="alternate" hreflang="zh-CN" href="https://xueai.miyang.cn/slides/1-2-base.html">
-<link rel="alternate" hreflang="en" href="https://xueai.miyang.cn/slides/1-2-base.en.html">
-<link rel="alternate" hreflang="ko" href="https://xueai.miyang.cn/slides/1-2-base.ko.html">
-<link rel="alternate" hreflang="zh-TW" href="https://xueai.miyang.cn/slides/1-2-base.tw.html">
-<link rel="alternate" hreflang="zh-HK" href="https://xueai.miyang.cn/slides/1-2-base.hk.html">
-<link rel="alternate" hreflang="zh-MO" href="https://xueai.miyang.cn/slides/1-2-base.hk.html">
-<link rel="alternate" hreflang="x-default" href="https://xueai.miyang.cn/slides/1-2-base.html">
+<link rel="canonical" href="https://study.waytoaic.com/slides/1-2-base.ko.html">
+<link rel="alternate" hreflang="zh-CN" href="https://study.waytoaic.com/slides/1-2-base.html">
+<link rel="alternate" hreflang="en" href="https://study.waytoaic.com/slides/1-2-base.en.html">
+<link rel="alternate" hreflang="ko" href="https://study.waytoaic.com/slides/1-2-base.ko.html">
+<link rel="alternate" hreflang="x-default" href="https://study.waytoaic.com/slides/1-2-base.html">
 <!-- Open Graph -->
 <meta property="og:type" content="article">
-<meta property="og:site_name" content="xueai.miyang.cn · AI 프로덕트 매니저 교육">
+<meta property="og:site_name" content="WaytoAIC 학습">
 <meta property="og:title" content="Base 모델: Token으로 Token을 예측하는 기계">
 <meta property="og:description" content="대형 언어 모델의 핵심은 무엇일까요? Base 모델은 방대한 코퍼스에서 Token 시퀀스의 통계적 패턴을 학습합니다. 매번 생성 시 하나의 일만 합니다: 가장 가능성 높은 다음 Token을 예측하는 것입니다.">
-<meta property="og:url" content="https://xueai.miyang.cn/slides/1-2-base.ko.html">
-<meta property="og:image" content="https://xueai.miyang.cn/slides/og/1-2-base.jpg">
+<meta property="og:url" content="https://study.waytoaic.com/slides/1-2-base.ko.html">
+<meta property="og:image" content="https://study.waytoaic.com/slides/og/1-2-base.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="ko_KR">
@@ -163,9 +160,9 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Base 모델: Token으로 Token을 예측하는 기계">
 <meta name="twitter:description" content="대형 언어 모델의 핵심은 무엇일까요? Base 모델은 방대한 코퍼스에서 Token 시퀀스의 통계적 패턴을 학습합니다. 매번 생성 시 하나의 일만 합니다: 가장 가능성 높은 다음 Token을 예측하는 것입니다.">
-<meta name="twitter:image" content="https://xueai.miyang.cn/og-cover.jpg">
+<meta name="twitter:image" content="https://www.waytoaic.com/images/og-default.png">
 <!-- SEO End -->
-<!--seo:begin--><script type="application/ld+json">{"datePublished":"2026-08-07","dateModified":"2026-08-18","@context":"https://schema.org","@type":["Article","LearningResource"],"headline":"Base 모델: Token으로 Token을 예측하는 기계","name":"Base 모델: Token으로 Token을 예측하는 기계","url":"https://xueai.miyang.cn/slides/1-2-base.ko.html","inLanguage":"ko","author":{"@type":"Person","name":"뤄샤오산(洛小山)"},"publisher":{"@type":"Organization","name":"xueai.miyang.cn","url":"https://xueai.miyang.cn"},"learningResourceType":"강좌","educationalLevel":"입문~중급","isPartOf":{"@type":"Course","name":"AI 실전 강좌 · 기초 원리","url":"https://xueai.miyang.cn/slides/learn.ko.html"},"isAccessibleForFree":false,"description":"대형 언어 모델의 핵심은 무엇일까요? Base 모델은 방대한 코퍼스에서 Token 시퀀스의 통계적 패턴을 학습합니다. 매번 생성 시 하나의 일만 합니다: 가장 가능성 높은 다음 Token을 예측하는 것입니다.","hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywall-locked"}}</script><style>html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-locked .xa-peek{max-height:132px;overflow:hidden;pointer-events:none;user-select:none;-webkit-mask-image:linear-gradient(180deg,#000 0,#000 14%,transparent 94%);mask-image:linear-gradient(180deg,#000 0,#000 14%,transparent 94%)}</style><script>try{if(localStorage.getItem('xa_auth')!=='1')document.documentElement.classList.add('xa-locked')}catch(e){document.documentElement.classList.add('xa-locked')}</script><!--seo:end-->
+<!--seo:begin--><script type="application/ld+json">{"datePublished":"2026-08-07","dateModified":"2026-08-18","@context":"https://schema.org","@type":["Article","LearningResource"],"headline":"Base 모델: Token으로 Token을 예측하는 기계","name":"Base 모델: Token으로 Token을 예측하는 기계","url":"https://study.waytoaic.com/slides/1-2-base.ko.html","inLanguage":"ko","author":{"@type":"Person","name":"뤄샤오산(洛小山)"},"publisher":{"@type":"Organization","name":"WaytoAIC 学习站","url":"https://study.waytoaic.com"},"learningResourceType":"강좌","educationalLevel":"입문~중급","isPartOf":{"@type":"Course","name":"AI 실전 강좌 · 기초 원리","url":"https://study.waytoaic.com/slides/learn.ko.html"},"isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":"article.lesson, .paywall-locked"},"description":"대형 언어 모델의 핵심은 무엇일까요? Base 모델은 방대한 코퍼스에서 Token 시퀀스의 통계적 패턴을 학습합니다. 매번 생성 시 하나의 일만 합니다: 가장 가능성 높은 다음 Token을 예측하는 것입니다."}</script><style>html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-locked .xa-peek{max-height:132px;overflow:hidden;pointer-events:none;user-select:none;-webkit-mask-image:linear-gradient(180deg,#000 0,#000 14%,transparent 94%);mask-image:linear-gradient(180deg,#000 0,#000 14%,transparent 94%)}</style><script>try{if(localStorage.getItem('xa_auth')!=='1')document.documentElement.classList.add('xa-locked')}catch(e){document.documentElement.classList.add('xa-locked')}</script><!--seo:end-->
 <link rel="stylesheet" href="lesson-dark-compat.css?v=20260816k">
 </head>
 <body>

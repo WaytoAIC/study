@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Agent 지식 도구로서의 Milvus | xueai.miyang.cn</title>
+    <title>Agent 지식 도구로서의 Milvus | WaytoAIC 학습</title>
     <script id="xueaiThemeBridge" src="theme-bridge.js?v=20260816k"></script>
     <link rel="stylesheet" href="lesson.css?v=20260827a">
     <link rel="stylesheet" href="vector-db-course.css?v=20260825e">
@@ -12,23 +12,20 @@
     <meta name="description" content="Milvus를 search_knowledge 도구로 감싸고 Agent가 호출할 때와 호출하지 않을 때를 테스트합니다.">
     <meta name="author" content="뤄샤오산 (洛小山)">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://xueai.miyang.cn/slides/vector-db-5.ko.html">
+    <link rel="canonical" href="https://study.waytoaic.com/slides/vector-db-5.ko.html">
 <meta property="og:locale" content="ko_KR">
-<link rel="alternate" hreflang="zh-CN" href="https://xueai.miyang.cn/slides/vector-db-5.html">
-<link rel="alternate" hreflang="en" href="https://xueai.miyang.cn/slides/vector-db-5.en.html">
-<link rel="alternate" hreflang="ko" href="https://xueai.miyang.cn/slides/vector-db-5.ko.html">
-<link rel="alternate" hreflang="zh-TW" href="https://xueai.miyang.cn/slides/vector-db-5.tw.html">
-<link rel="alternate" hreflang="zh-HK" href="https://xueai.miyang.cn/slides/vector-db-5.hk.html">
-<link rel="alternate" hreflang="zh-MO" href="https://xueai.miyang.cn/slides/vector-db-5.hk.html">
-<link rel="alternate" hreflang="x-default" href="https://xueai.miyang.cn/slides/vector-db-5.html">
+<link rel="alternate" hreflang="zh-CN" href="https://study.waytoaic.com/slides/vector-db-5.html">
+<link rel="alternate" hreflang="en" href="https://study.waytoaic.com/slides/vector-db-5.en.html">
+<link rel="alternate" hreflang="ko" href="https://study.waytoaic.com/slides/vector-db-5.ko.html">
+<link rel="alternate" hreflang="x-default" href="https://study.waytoaic.com/slides/vector-db-5.html">
     <meta property="og:type" content="article">
-    <meta property="og:site_name" content="xueai.miyang.cn · AI 프로덕트 매니저 교육">
+    <meta property="og:site_name" content="WaytoAIC 학습">
     <meta property="og:title" content="Agent 지식 도구로서의 Milvus">
     <meta property="og:description" content="검색 시점, ToolMessage 활용, 불필요한 호출을 피하는 방법을 배웁니다.">
-    <meta property="og:url" content="https://xueai.miyang.cn/slides/vector-db-5.ko.html">
-    <meta property="og:image" content="https://xueai.miyang.cn/slides/og/vector-db-5.jpg">
+    <meta property="og:url" content="https://study.waytoaic.com/slides/vector-db-5.ko.html">
+    <meta property="og:image" content="https://study.waytoaic.com/slides/og/vector-db-5.jpg">
     <meta name="twitter:card" content="summary_large_image">
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":["Article","LearningResource"],"name":"Agent 지식 도구로서의 Milvus","url":"https://xueai.miyang.cn/slides/vector-db-5.ko.html","inLanguage":"ko","isAccessibleForFree":false}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":["Article","LearningResource"],"name":"Agent 지식 도구로서의 Milvus","url":"https://study.waytoaic.com/slides/vector-db-5.ko.html","inLanguage":"ko","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":"article.lesson, .paywall-locked"}}</script>
     <style>html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-locked .xa-peek{max-height:165px;overflow:hidden;pointer-events:none;user-select:none;-webkit-mask-image:linear-gradient(#000 20%,transparent);mask-image:linear-gradient(#000 20%,transparent)}</style>
     <script>try{if(localStorage.getItem('xa_auth')!=='1')document.documentElement.classList.add('xa-locked')}catch(e){document.documentElement.classList.add('xa-locked')}</script>
   </head>
