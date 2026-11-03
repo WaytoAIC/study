@@ -25,10 +25,10 @@ jobs:
       - name: 红线:无本机路径、无私钥样字符串、无精铺数据
         run: |
           set -e
-          if git grep -nE '/Users/[a-z]+/' -- . ; then echo "本机路径泄漏"; exit 1; fi
+          if git grep -nE '/Users/[a-z]+/' -- . ':!.github/*' ; then echo "本机路径泄漏"; exit 1; fi
           # 公开的 Supabase anon key(eyJ…)是设计上公开的,不算;这里只抓 service_role 与各家私钥前缀
-          if git grep -nE 'service_role|SERVICE_ROLE|sk-ant-[A-Za-z0-9_-]{20,}|sk-[A-Za-z0-9]{32,}|AKLT[A-Za-z0-9]{20,}' -- . ; then echo "密钥样字符串"; exit 1; fi
-          if git grep -nE 'jingpu_signals|精铺信号|fanglou_market' -- . ':!docs/*' ; then echo "精铺/防漏数据或口径进站"; exit 1; fi
+          if git grep -nE 'service_role|SERVICE_ROLE|sk-ant-[A-Za-z0-9_-]{20,}|sk-[A-Za-z0-9]{32,}|AKLT[A-Za-z0-9]{20,}' -- . ':!.github/*' ; then echo "密钥样字符串"; exit 1; fi
+          if git grep -nE 'jingpu_signals|精铺信号|fanglou_market' -- . ':!docs/*' ':!.github/*' ; then echo "精铺/防漏数据或口径进站"; exit 1; fi
           echo ok
 
       - name: 草稿篇章不应出现在首页课程数字里(draft:true 只能带 ?preview=1 看)
