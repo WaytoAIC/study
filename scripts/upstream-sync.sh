@@ -18,7 +18,8 @@ git merge upstream/main --no-commit --no-ff || true
 
 OURS="README.md index.html robots.txt slides/index.html slides/ask-alice.js slides/auth.js slides/i18n.js slides/nav-inject.js slides/paywall.js slides/track.js slides/watermark.js slides/lesson.js slides/certificate.html slides/home.html slides/home.en.html slides/home.ko.html slides/locked.html slides/locked.en.html slides/locked.ko.html slides/learn.html slides/learn.en.html slides/learn.ko.html"
 for f in $OURS; do git ls-files --error-unmatch "$f" >/dev/null 2>&1 && git checkout HEAD -- "$f" && git add "$f"; done
-THEIRS=$(git diff --name-only --diff-filter=U | grep -E '^slides/(exam-|course-data)' || true)
+# 内容层冲突一律取上游：课页 <head> 被 seo_heads.py 改过，上游一改同页就会撞；取上游后下面重打页头补丁即可
+THEIRS=$(git diff --name-only --diff-filter=U | grep -E '^slides/(exam-|course-data|[^/]+\.html$)' || true)
 [ -n "$THEIRS" ] && { echo "$THEIRS" | xargs git checkout --theirs -- ; echo "$THEIRS" | xargs git add -- ; }
 [ -z "$(git diff --name-only --diff-filter=U)" ] || { echo "仍有未处理冲突："; git diff --name-only --diff-filter=U; exit 1; }
 
