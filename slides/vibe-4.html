@@ -6,16 +6,13 @@
 <meta name="description" content="Vibe Coding 方法论第 4 节：注释三要素（背景、设计意图、关键约束），注释保护、代码删除声明、依赖变更声明与错误处理规范。">
 <meta name="author" content="洛小山">
 <title>第4节：注释三要素与代码保护 | AI 系统课</title>
-<link rel="canonical" href="https://xueai.miyang.cn/slides/vibe-4.html">
-<meta property="og:site_name" content="xueai.miyang.cn · AI 产品经理培训">
+<link rel="canonical" href="https://study.waytoaic.com/slides/vibe-4.html">
+<meta property="og:site_name" content="WaytoAIC 学习站">
 <meta property="og:locale" content="zh_CN">
-<link rel="alternate" hreflang="zh-CN" href="https://xueai.miyang.cn/slides/vibe-4.html">
-<link rel="alternate" hreflang="en" href="https://xueai.miyang.cn/slides/vibe-4.en.html">
-<link rel="alternate" hreflang="ko" href="https://xueai.miyang.cn/slides/vibe-4.ko.html">
-<link rel="alternate" hreflang="zh-TW" href="https://xueai.miyang.cn/slides/vibe-4.tw.html">
-<link rel="alternate" hreflang="zh-HK" href="https://xueai.miyang.cn/slides/vibe-4.hk.html">
-<link rel="alternate" hreflang="zh-MO" href="https://xueai.miyang.cn/slides/vibe-4.hk.html">
-<link rel="alternate" hreflang="x-default" href="https://xueai.miyang.cn/slides/vibe-4.html">
+<link rel="alternate" hreflang="zh-CN" href="https://study.waytoaic.com/slides/vibe-4.html">
+<link rel="alternate" hreflang="en" href="https://study.waytoaic.com/slides/vibe-4.en.html">
+<link rel="alternate" hreflang="ko" href="https://study.waytoaic.com/slides/vibe-4.ko.html">
+<link rel="alternate" hreflang="x-default" href="https://study.waytoaic.com/slides/vibe-4.html">
 <script id="xueaiThemeBridge" src="theme-bridge.js?v=20260816k"></script>
 <link rel="stylesheet" href="lesson.css?v=20260827a">
 <style>@keyframes _si{from{opacity:0}to{opacity:1}}body{opacity:0;animation:_si 0.15s ease 0.08s forwards}</style>
@@ -97,7 +94,7 @@
 }
 </style>
 <link rel="stylesheet" href="lesson-dark-compat.css?v=20260816k">
-<!--seo:begin--><script type="application/ld+json">{"@context":"https://schema.org","@type":["Article","LearningResource"],"headline":"注释三要素与代码保护","name":"注释三要素与代码保护","url":"https://xueai.miyang.cn/slides/vibe-4.html","inLanguage":"zh-CN","author":{"@type":"Person","name":"洛小山"},"publisher":{"@type":"Organization","name":"xueai.miyang.cn","url":"https://xueai.miyang.cn"},"learningResourceType":"课程","educationalLevel":"入门到进阶","isPartOf":{"@type":"Course","name":"AI 实战课 · 质量底线","url":"https://xueai.miyang.cn/slides/learn.html"},"isAccessibleForFree":false,"description":"Vibe Coding 方法论第 4 节：注释三要素（背景、设计意图、关键约束），注释保护、代码删除声明、依赖变更声明与错误处理规范。","datePublished":"2026-08-04","dateModified":"2026-08-27","hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywall-locked"}}</script><meta property="og:type" content="article"><meta property="og:title" content="注释三要素与代码保护"><meta property="og:description" content="Vibe Coding 方法论第 4 节：注释三要素（背景、设计意图、关键约束），注释保护、代码删除声明、依赖变更声明与错误处理规范。"><meta property="og:url" content="https://xueai.miyang.cn/slides/vibe-4.html"><meta property="og:image" content="https://xueai.miyang.cn/slides/og/vibe-4.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><style>.xa-tldr{margin:18px 0 4px;padding:14px 18px;background:rgba(0,102,255,0.04);border:1px solid rgba(0,102,255,0.16);border-radius:10px}.xa-tldr .xa-tldr-tag{display:block;font-size:11px;font-weight:800;letter-spacing:1px;color:var(--accent,#0066ff);margin-bottom:6px}.xa-tldr p{margin:0;font-size:15px;line-height:1.8;color:var(--text,#1f2937)}</style><style>html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-locked .xa-peek{max-height:132px;overflow:hidden;pointer-events:none;user-select:none;-webkit-mask-image:linear-gradient(180deg,#000 0,#000 14%,transparent 94%);mask-image:linear-gradient(180deg,#000 0,#000 14%,transparent 94%)}</style><script>try{if(localStorage.getItem('xa_auth')!=='1')document.documentElement.classList.add('xa-locked')}catch(e){document.documentElement.classList.add('xa-locked')}</script><!--seo:end-->
+<!--seo:begin--><script type="application/ld+json">{"@context":"https://schema.org","@type":["Article","LearningResource"],"headline":"注释三要素与代码保护","name":"注释三要素与代码保护","url":"https://study.waytoaic.com/slides/vibe-4.html","inLanguage":"zh-CN","author":{"@type":"Person","name":"洛小山"},"publisher":{"@type":"Organization","name":"WaytoAIC 学习站","url":"https://study.waytoaic.com"},"learningResourceType":"课程","educationalLevel":"入门到进阶","isPartOf":{"@type":"Course","name":"AI 实战课 · 质量底线","url":"https://study.waytoaic.com/slides/learn.html"},"isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":"article.lesson, .paywall-locked"},"description":"Vibe Coding 方法论第 4 节：注释三要素（背景、设计意图、关键约束），注释保护、代码删除声明、依赖变更声明与错误处理规范。","datePublished":"2026-08-04","dateModified":"2026-08-27"}</script><meta property="og:type" content="article"><meta property="og:title" content="注释三要素与代码保护"><meta property="og:description" content="Vibe Coding 方法论第 4 节：注释三要素（背景、设计意图、关键约束），注释保护、代码删除声明、依赖变更声明与错误处理规范。"><meta property="og:url" content="https://study.waytoaic.com/slides/vibe-4.html"><meta property="og:image" content="https://study.waytoaic.com/slides/og/vibe-4.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><style>.xa-tldr{margin:18px 0 4px;padding:14px 18px;background:rgba(0,102,255,0.04);border:1px solid rgba(0,102,255,0.16);border-radius:10px}.xa-tldr .xa-tldr-tag{display:block;font-size:11px;font-weight:800;letter-spacing:1px;color:var(--accent,#0066ff);margin-bottom:6px}.xa-tldr p{margin:0;font-size:15px;line-height:1.8;color:var(--text,#1f2937)}</style><style>html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-locked .xa-peek{max-height:132px;overflow:hidden;pointer-events:none;user-select:none;-webkit-mask-image:linear-gradient(180deg,#000 0,#000 14%,transparent 94%);mask-image:linear-gradient(180deg,#000 0,#000 14%,transparent 94%)}</style><script>try{if(localStorage.getItem('xa_auth')!=='1')document.documentElement.classList.add('xa-locked')}catch(e){document.documentElement.classList.add('xa-locked')}</script><!--seo:end-->
 </head>
 <body>
 <article class="lesson">
