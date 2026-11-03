@@ -20,7 +20,6 @@
 2. **对口径**：过一遍口径台账，别和已有观点打架；新口径先登记
 3. **写页**：新文件 `slides/aic-<篇章>-<序号>.html`，学-讲-练三段式（模板抄任意现有 aic 页），带 `AI 初稿` 状态标；prompt 演示用 `.aic-prompt` 卡
 4. **挂目录**：course-data.js 对应篇章加 lesson 行（新篇章记得 `track`+`draft`）
-   - 挂完跑 `python3 scripts/seo_heads.py --all && node scripts/build-sitemap.mjs`：新页自动补 canonical/og/JSON-LD（描述取 lesson 的 `desc`，没写就取页内副标题），并重出 `sitemap.xml` / `llms.txt`
 5. **挂关联**：aic-rel.js 声明 needs/next/terms + TITLES 补标题
 6. **预览过手**：`?preview=1` 看效果，维正过手补实战思考、换状态标
 7. **发布**：删 `draft:true`（整篇章发布）→ commit + push；撤回=保持 draft 或移除段落

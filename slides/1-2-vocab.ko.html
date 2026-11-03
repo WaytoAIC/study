@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Token과 어휘 사전: 말뭉치에서 단어 벡터 구축까지 | WaytoAIC 학습</title>
+<title>Token과 어휘 사전: 말뭉치에서 단어 벡터 구축까지 | xueai.miyang.cn</title>
 <script>
 // 전역 Token 간 어텐션 가중치 행렬 (PMI + 의미 그룹화)
 // vocab: 116개의 고유 Token (중국어 문학 말뭉치 — 토큰화 시연을 위해 의도적으로 보존)
@@ -396,18 +396,21 @@ canvas#heatmap {
 <meta name="keywords" content="Token,어휘사전,BPE토큰화,단어벡터,LLM토크나이저,Tokenizer">
 <meta name="author" content="뤄샤오산(洛小山)">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://study.waytoaic.com/slides/1-2-vocab.ko.html">
-<link rel="alternate" hreflang="zh-CN" href="https://study.waytoaic.com/slides/1-2-vocab.html">
-<link rel="alternate" hreflang="en" href="https://study.waytoaic.com/slides/1-2-vocab.en.html">
-<link rel="alternate" hreflang="ko" href="https://study.waytoaic.com/slides/1-2-vocab.ko.html">
-<link rel="alternate" hreflang="x-default" href="https://study.waytoaic.com/slides/1-2-vocab.html">
+<link rel="canonical" href="https://xueai.miyang.cn/slides/1-2-vocab.ko.html">
+<link rel="alternate" hreflang="zh-CN" href="https://xueai.miyang.cn/slides/1-2-vocab.html">
+<link rel="alternate" hreflang="en" href="https://xueai.miyang.cn/slides/1-2-vocab.en.html">
+<link rel="alternate" hreflang="ko" href="https://xueai.miyang.cn/slides/1-2-vocab.ko.html">
+<link rel="alternate" hreflang="zh-TW" href="https://xueai.miyang.cn/slides/1-2-vocab.tw.html">
+<link rel="alternate" hreflang="zh-HK" href="https://xueai.miyang.cn/slides/1-2-vocab.hk.html">
+<link rel="alternate" hreflang="zh-MO" href="https://xueai.miyang.cn/slides/1-2-vocab.hk.html">
+<link rel="alternate" hreflang="x-default" href="https://xueai.miyang.cn/slides/1-2-vocab.html">
 <!-- Open Graph -->
 <meta property="og:type" content="article">
-<meta property="og:site_name" content="WaytoAIC 학습">
+<meta property="og:site_name" content="xueai.miyang.cn · AI 프로덕트 매니저 교육">
 <meta property="og:title" content="말뭉치에서 단어 벡터까지: Token과 어휘 사전은 어떻게 만들어지는가">
 <meta property="og:description" content="대형 언어 모델의 어휘 사전 구축 원리 심층 분석: BPE 토크나이저 알고리즘, Token과 단어의 관계, 중·영문 Token 효율 차이, 단어 벡터 행렬의 의미.">
-<meta property="og:url" content="https://study.waytoaic.com/slides/1-2-vocab.ko.html">
-<meta property="og:image" content="https://study.waytoaic.com/slides/og/1-2-vocab.jpg">
+<meta property="og:url" content="https://xueai.miyang.cn/slides/1-2-vocab.ko.html">
+<meta property="og:image" content="https://xueai.miyang.cn/slides/og/1-2-vocab.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="ko_KR">
@@ -415,9 +418,9 @@ canvas#heatmap {
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="말뭉치에서 단어 벡터까지: Token과 어휘 사전은 어떻게 만들어지는가">
 <meta name="twitter:description" content="대형 언어 모델의 어휘 사전 구축 원리 심층 분석: BPE 토크나이저 알고리즘, Token과 단어의 관계, 중·영문 Token 효율 차이, 단어 벡터 행렬의 의미.">
-<meta name="twitter:image" content="https://www.waytoaic.com/images/og-default.png">
+<meta name="twitter:image" content="https://xueai.miyang.cn/og-cover.jpg">
 <!-- SEO End -->
-<!--seo:begin--><script type="application/ld+json">{"datePublished":"2026-08-07","dateModified":"2026-08-18","@context":"https://schema.org","@type":["Article","LearningResource"],"headline":"어휘 사전과 훈련","name":"어휘 사전과 훈련","url":"https://study.waytoaic.com/slides/1-2-vocab.ko.html","inLanguage":"ko","author":{"@type":"Person","name":"뤄샤오산(洛小山)"},"publisher":{"@type":"Organization","name":"WaytoAIC 学习站","url":"https://study.waytoaic.com"},"learningResourceType":"강의","educationalLevel":"입문~중급","isPartOf":{"@type":"Course","name":"AI 실전 강의 · 기초 원리","url":"https://study.waytoaic.com/slides/learn.ko.html"},"isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".slide-container"},"description":"대형 언어 모델의 어휘 사전 구축 원리 심층 분석: BPE 토크나이저 알고리즘, Token과 단어의 관계, 중·영문 Token 효율 차이, 단어 벡터 행렬의 의미."}</script><!--seo:end-->
+<!--seo:begin--><script type="application/ld+json">{"datePublished":"2026-08-07","dateModified":"2026-08-18","@context":"https://schema.org","@type":["Article","LearningResource"],"headline":"어휘 사전과 훈련","name":"어휘 사전과 훈련","url":"https://xueai.miyang.cn/slides/1-2-vocab.ko.html","inLanguage":"ko","author":{"@type":"Person","name":"뤄샤오산(洛小山)"},"publisher":{"@type":"Organization","name":"xueai.miyang.cn","url":"https://xueai.miyang.cn"},"learningResourceType":"강의","educationalLevel":"입문~중급","isPartOf":{"@type":"Course","name":"AI 실전 강의 · 기초 원리","url":"https://xueai.miyang.cn/slides/learn.ko.html"},"isAccessibleForFree":false,"description":"대형 언어 모델의 어휘 사전 구축 원리 심층 분석: BPE 토크나이저 알고리즘, Token과 단어의 관계, 중·영문 Token 효율 차이, 단어 벡터 행렬의 의미."}</script><!--seo:end-->
 <link rel="stylesheet" href="lesson-dark-compat.css?v=20260816k">
 </head>
 <body>
