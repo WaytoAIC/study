@@ -1069,43 +1069,55 @@ function WA_normFile(f) {
 // ── WaytoAIC 访问人数：匿名随机 ID 按天去重（不记任何个人信息），数据存学习站自己的
 //    Supabase（pv_hit RPC，表不对外直读）。阅读器内把统计 postMessage 给外壳显示；独立打开时显示在本顶条。──
 (function () {
-  var BASE = 'https://br-swift-pike-062ca892.supabase.aidap-global.cn-beijing.volces.com';
-  var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1wbGF0Zm9ybSIsInJvbGUiOiJhbm9uIiwiZXhwIjozNjgzNzE4MDQxfQ.OERqJGita64opa5WnjU4WjTg8nafjAeTnMUkZLwbG1U';
   // 隐私政策承诺：开「请勿追踪」或全局隐私控制后不再发送任何统计，访客计数与心跳同样不发
   if (navigator.doNotTrack === '1' || window.doNotTrack === '1' || navigator.msDoNotTrack === '1' || navigator.globalPrivacyControl === true) return;
-  var vid = null;
-  try {
-    vid = localStorage.getItem('wa_vid');
-    if (!vid || !/^[a-f0-9]{16,64}$/.test(vid)) {
-      var buf = new Uint8Array(16);
-      if (window.crypto && crypto.getRandomValues) crypto.getRandomValues(buf);
-      vid = Array.prototype.map.call(buf, function (b) { return (b + 256).toString(16).slice(1); }).join('');
-      if (!/^[a-f0-9]{32}$/.test(vid)) vid = (Date.now().toString(16) + Math.random().toString(16).slice(2)).replace(/[^a-f0-9]/g, '0').slice(0, 32).padEnd(32, '0');
-      localStorage.setItem('wa_vid', vid);
+  (function waitWA(n) {
+    if (window.WA && window.WA.ready) {
+      Promise.resolve(window.WA.ready).then(function () {
+        var config = window.WA_CONFIG;
+        if (!config || !config.supabaseUrl || !config.supabaseAnonKey) return;
+        startCounting(config);
+      }).catch(function () {});
+      return;
     }
-  } catch (e) { return; }
-  fetch(BASE + '/rest/v1/rpc/pv_hit', { method: 'POST', headers: { 'apikey': ANON, 'Content-Type': 'application/json' }, body: JSON.stringify({ vid: vid }) })
-    .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (st) {
-      if (!st) return;
-      if (EMBED_MODE) { try { window.top.postMessage({ type: 'wa-pv', stats: st }, location.origin); } catch (e) {} return; }
-      var bar = document.getElementById('nav-top-bar'); if (!bar) return;
-      var L = ({ zh: ['访客 累计', '本月', '今日'], en: ['Visitors total', 'month', 'today'], ko: ['방문자 누적', '이달', '오늘'] })[I18N.lang] || ['访客 累计', '本月', '今日'];
-      var el = document.createElement('span'); el.id = 'nav-pv';
-      el.textContent = L[0] + ' ' + Number(st.total).toLocaleString() + ' · ' + L[1] + ' ' + Number(st.month).toLocaleString() + ' · ' + L[2] + ' ' + Number(st.today).toLocaleString();
-      el.style.cssText = 'margin-left:10px;font-size:12px;color:#9ca3af;white-space:nowrap;';
-      bar.appendChild(el);
-    }).catch(function () {});
+    if (n < 100) setTimeout(function () { waitWA(n + 1); }, 100);
+  })(0);
 
-  // 「此刻在学」心跳：课程页在前台时每 60 秒报一次（pv_ping，见 supabase/pv_live.sql），
-  // 首页读「近 3 分钟有心跳」的人数；切到后台不报，免得挂着不看的标签页也算在学
-  function ping() {
-    if (document.visibilityState === 'hidden') return;
-    fetch(BASE + '/rest/v1/rpc/pv_ping', { method: 'POST', headers: { 'apikey': ANON, 'Content-Type': 'application/json' }, body: JSON.stringify({ vid: vid }) }).catch(function () {});
+  function startCounting(config) {
+    var vid = null;
+    try {
+      vid = localStorage.getItem('wa_vid');
+      if (!vid || !/^[a-f0-9]{16,64}$/.test(vid)) {
+        var buf = new Uint8Array(16);
+        if (window.crypto && crypto.getRandomValues) crypto.getRandomValues(buf);
+        vid = Array.prototype.map.call(buf, function (b) { return (b + 256).toString(16).slice(1); }).join('');
+        if (!/^[a-f0-9]{32}$/.test(vid)) vid = (Date.now().toString(16) + Math.random().toString(16).slice(2)).replace(/[^a-f0-9]/g, '0').slice(0, 32).padEnd(32, '0');
+        localStorage.setItem('wa_vid', vid);
+      }
+    } catch (e) { return; }
+    fetch(config.supabaseUrl + '/rest/v1/rpc/pv_hit', { method: 'POST', headers: { 'apikey': config.supabaseAnonKey, 'Content-Type': 'application/json' }, body: JSON.stringify({ vid: vid }) })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (st) {
+        if (!st) return;
+        if (EMBED_MODE) { try { window.top.postMessage({ type: 'wa-pv', stats: st }, location.origin); } catch (e) {} return; }
+        var bar = document.getElementById('nav-top-bar'); if (!bar) return;
+        var L = ({ zh: ['访客 累计', '本月', '今日'], en: ['Visitors total', 'month', 'today'], ko: ['방문자 누적', '이달', '오늘'] })[I18N.lang] || ['访客 累计', '本月', '今日'];
+        var el = document.createElement('span'); el.id = 'nav-pv';
+        el.textContent = L[0] + ' ' + Number(st.total).toLocaleString() + ' · ' + L[1] + ' ' + Number(st.month).toLocaleString() + ' · ' + L[2] + ' ' + Number(st.today).toLocaleString();
+        el.style.cssText = 'margin-left:10px;font-size:12px;color:#9ca3af;white-space:nowrap;';
+        bar.appendChild(el);
+      }).catch(function () {});
+
+    // 「此刻在学」心跳：课程页在前台时每 60 秒报一次（pv_ping，见 supabase/pv_live.sql），
+    // 首页读「近 3 分钟有心跳」的人数；切到后台不报，免得挂着不看的标签页也算在学
+    function ping() {
+      if (document.visibilityState === 'hidden') return;
+      fetch(config.supabaseUrl + '/rest/v1/rpc/pv_ping', { method: 'POST', headers: { 'apikey': config.supabaseAnonKey, 'Content-Type': 'application/json' }, body: JSON.stringify({ vid: vid }) }).catch(function () {});
+    }
+    ping();
+    setInterval(ping, 60000);
+    document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') ping(); });
   }
-  ping();
-  setInterval(ping, 60000);
-  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') ping(); });
 })();
 
 // ── WaytoAIC 知识点关联网络：数据+渲染都在 aic-rel.js，声明单点维护、反向自动 ──
@@ -1163,7 +1175,7 @@ function WA_normFile(f) {
     var dev = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
     var override = dev ? localStorage.getItem('wa_ui_src') : null;
     var s = document.createElement('script');
-    s.src = override || 'https://www.waytoaic.com/ui/v1/waytoaic-ui.js?v=20261103';
+    s.src = override || 'https://www.waytoaic.com/ui/v1/waytoaic-ui.js?v=20261105';
     s.async = true;
     document.head.appendChild(s);
   } catch (e) { /* 加载失败不影响浏览 */ }
