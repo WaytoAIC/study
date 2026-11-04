@@ -1284,7 +1284,7 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
     function share(url){
       if (navigator.share) {
         try {
-          navigator.share({ title: text, text: text, url: url }).catch(function(){ copy(url); });
+          navigator.share({ title: text, text: text, url: url }).catch(function(e){ if(!e || e.name!=='AbortError') copy(url); });
         } catch(e){ copy(url); }
       } else copy(url);
     }
