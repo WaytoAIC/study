@@ -46,32 +46,30 @@ window.WA_AUTH_ADAPTER = true;
     if(state.loggedIn || changed) setPaywallFlag(state.loggedIn);
   }
 
-  /* WA.ready 与 WA.auth.ready 共用 4 秒预算；任何失败均保留同步初值。 */
+  /* ready 最多等 4 秒，失败保留同步初值；共享脚本来晚了（30 秒内）照样接上，后面的进度同步不丢。 */
   var ready = new Promise(function(resolve){
-    var settled = false, poll;
+    var settled = false, poll, tries = 0;
     var timeout = setTimeout(finish, 4000);
     function finish(){
       if(settled) return;
       settled = true;
       clearTimeout(timeout);
-      clearTimeout(poll);
       resolve(state);
     }
+    function giveUp(){ tries = 300; clearTimeout(poll); finish(); }
     function waitAuth(){
-      if(settled) return;
       var candidate = window.WA && window.WA.auth;
-      if(!candidate || !candidate.ready){ poll = setTimeout(waitAuth, 100); return; }
+      if(!candidate || !candidate.ready){ if(++tries < 300) poll = setTimeout(waitAuth, 100); return; }
       Promise.resolve(candidate.ready).then(function(){
-        if(settled) return;
         auth = candidate;
-        syncState(false);
+        // 超时后才到的「匿名」不改同步初值：已展示的登录态不倒退，下次打开页面再校正
+        if(!settled || auth.state().status === 'user') syncState(false);
         auth.onChange(function(){ try{ syncState(true); }catch(e){} });
         finish();
       }).catch(function(){ auth = null; finish(); });
     }
     function waitWA(){
-      if(settled) return;
-      if(!window.WA || !window.WA.ready){ poll = setTimeout(waitWA, 100); return; }
+      if(!window.WA || !window.WA.ready){ if(++tries < 300) poll = setTimeout(waitWA, 100); return; }
       Promise.resolve(window.WA.ready).then(waitAuth).catch(finish);
     }
     if(!window.WA){
@@ -81,9 +79,9 @@ window.WA_AUTH_ADAPTER = true;
         var script = document.createElement('script');
         script.src = override || 'https://www.waytoaic.com/ui/v1/waytoaic-ui.js?v=20261105';
         script.async = true;
-        script.onerror = finish;
+        script.onerror = giveUp;
         document.head.appendChild(script);
-      }catch(e){ finish(); }
+      }catch(e){ giveUp(); }
     }
     waitWA();
   });

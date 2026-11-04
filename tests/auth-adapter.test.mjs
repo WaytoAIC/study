@@ -181,6 +181,7 @@ for (const kind of ['no WA', 'WA.ready hangs', 'auth.ready hangs', 'auth missing
     assert.equal(resolved, true);
     assert.deepEqual(copy(await h.adapter.ready), { loggedIn: true, nickname: 'old.learner' });
     assert.deepEqual(Object.fromEntries(h.values), stored);
+    await h.advance(30000);
     assert.equal(h.timers.size, 0);
     assert.deepEqual(copy(await h.adapter.getProgress()), { ok: false, progress: {} });
     await h.adapter.pushProgress({ 'lesson.html': 1 });
@@ -217,6 +218,18 @@ test('WA may arrive asynchronously; late auth completion after timeout cannot cl
   await flush();
   assert.equal(late.adapter.state.loggedIn, true);
   assert.equal(late.values.get('xa_auth'), '1');
+});
+
+test('shared script arriving after the 4 second deadline still syncs progress', async () => {
+  const paths = [];
+  const h = harness({ storage: { wa_session_v1: legacy, xa_auth: '1' } });
+  await h.advance(4000);
+  await h.adapter.ready;
+  h.context.WA = waStub({ fetch: path => { paths.push(path); return Promise.resolve([]); } }).WA;
+  await h.advance(100);
+  await flush();
+  assert.equal((await h.adapter.getProgress()).ok, true);
+  assert.equal(paths.length, 2);
 });
 
 test('script loader matches nav version; only localhost honors wa_ui_src', () => {
