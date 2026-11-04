@@ -698,6 +698,7 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
 @media(max-width:900px){.lang-switcher{display:none;}}
 </style>
 <style>.pv-badge{font-size:12px;color:var(--sub,#9ca3af);white-space:nowrap;margin:0 8px;}@media(max-width:960px){.pv-badge{display:none;}}</style>
+<script>/* WaytoAIC 两站共享脚本（身份/埋点/CTA），主站托管，加载失败静默；同 slides/nav-inject.js 末段 */(function(){try{if(window.WA)return;var d=/^(localhost|127\.0\.0\.1)$/.test(location.hostname);var o=d?localStorage.getItem('wa_ui_src'):null;var s=document.createElement('script');s.src=o||'https://www.waytoaic.com/ui/v1/waytoaic-ui.js?v=20261103';s.async=true;document.head.appendChild(s)}catch(e){}})();</script>
 </head>
 <body>
 
@@ -726,7 +727,7 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
       </div>
     </div>
   </div>
-  <button class="share-lesson-btn" id="shareLesson" title="Share this lesson">
+  <button class="share-lesson-btn" id="shareLesson" data-wa-share="lesson" title="Share this lesson">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
     Share
   </button>
@@ -780,7 +781,7 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
         <span>Your certificate is ready — the name comes from your account nickname</span>
       </div>
       <a class="fb-cta" href="certificate.html">Claim certificate</a>
-      <a class="fb-cta" style="background:transparent;color:inherit;border:1.5px solid rgba(127,127,127,.35);" href="https://www.waytoaic.com" target="_blank" rel="noopener">Join the WaytoAIC community</a>
+      <a class="fb-cta" style="background:transparent;color:inherit;border:1.5px solid rgba(127,127,127,.35);" href="https://www.waytoaic.com/community/?utm_source=study&utm_medium=cta&utm_campaign=finish#join" target="_blank" rel="noopener" data-wa-cta="community" data-wa-placement="finish">Join the WaytoAIC community</a>
       <button class="fb-close" id="finishClose" type="button" title="Don't show again">×</button>
     </div>
     <div class="lesson-foot">
