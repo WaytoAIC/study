@@ -121,7 +121,7 @@ body{
 /* 品牌块占满侧栏那一格，面包屑就正好从课件正文的左边缘起头——侧栏那条竖线
    和面包屑的左沿连成一条，顶栏才不像是浮在上面的另一层。+6px 是拖拽条的宽度。
    用 min-width 而不是 width：侧栏被拖得比品牌名还窄时，宁可对不齐，也不能把
-   「AI 产品从入门到精通」压成省略号。 */
+   「WaytoAIC 学习站」压成省略号。 */
 .brand{
   display:flex;align-items:center;gap:10px;text-decoration:none;
   flex:none;min-width:calc(var(--sidebar-w) - 26px);
@@ -1265,25 +1265,35 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
   document.getElementById('shareLesson').addEventListener('click', function(){
     var L = findLesson(currentFile()).data;
     var url = 'https://study.waytoaic.com/slides/learn.html#' + encodeURIComponent(L.file);
-    var text = '「' + L.title + '」— AI 产品从入门到精通';
-    if (navigator.share) {
-      navigator.share({ title: text, text: text, url: url }).catch(function(){});
-      return;
+    var text = '「' + L.title + '」— WaytoAIC 学习站';
+    function share(url){
+      if (navigator.share) {
+        try {
+          navigator.share({ title: text, text: text, url: url }).catch(function(e){ if(!e || e.name!=='AbortError') copy(url); });
+        } catch(e){ copy(url); }
+      } else copy(url);
     }
-    var full = text + ' ' + url;
-    function legacy(){
-      var tmp = document.createElement('textarea');
-      tmp.value = full;
-      tmp.style.cssText = 'position:fixed;opacity:0';
-      document.body.appendChild(tmp);
-      tmp.select();
-      try { document.execCommand('copy'); shareToast('链接已复制，去粘贴给朋友吧'); }
-      catch(e){ shareToast('复制失败，请手动复制地址栏链接'); }
-      document.body.removeChild(tmp);
+    function copy(url){
+      var full = text + ' ' + url;
+      function legacy(){
+        var tmp = document.createElement('textarea');
+        tmp.value = full;
+        tmp.style.cssText = 'position:fixed;opacity:0';
+        document.body.appendChild(tmp);
+        tmp.select();
+        try { document.execCommand('copy'); shareToast('链接已复制，去粘贴给朋友吧'); }
+        catch(e){ shareToast('复制失败，请手动复制地址栏链接'); }
+        document.body.removeChild(tmp);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(full).then(function(){ shareToast('链接已复制，去粘贴给朋友吧'); }, legacy);
+      } else legacy();
     }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(full).then(function(){ shareToast('链接已复制，去粘贴给朋友吧'); }, legacy);
-    } else legacy();
+    if (window.WA && WA.referral) {
+      try {
+        WA.referral.shareUrl(url).then(share, function(){ share(url); });
+      } catch(e){ share(url); }
+    } else share(url);
   });
 
   document.getElementById('menuBtn').addEventListener('click', function(){

@@ -1284,25 +1284,35 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
   document.getElementById('shareLesson').addEventListener('click', function(){
     var L = findLesson(currentFile()).data;
     var url = 'https://study.waytoaic.com/slides/learn.en.html#' + encodeURIComponent(L.file);
-    var text = '"' + L.title + '" — AI Product Management: Beginner to Pro';
-    if (navigator.share) {
-      navigator.share({ title: text, text: text, url: url }).catch(function(){});
-      return;
+    var text = '"' + L.title + '" — WaytoAIC Study';
+    function share(url){
+      if (navigator.share) {
+        try {
+          navigator.share({ title: text, text: text, url: url }).catch(function(e){ if(!e || e.name!=='AbortError') copy(url); });
+        } catch(e){ copy(url); }
+      } else copy(url);
     }
-    var full = text + ' ' + url;
-    function legacy(){
-      var tmp = document.createElement('textarea');
-      tmp.value = full;
-      tmp.style.cssText = 'position:fixed;opacity:0';
-      document.body.appendChild(tmp);
-      tmp.select();
-      try { document.execCommand('copy'); shareToast('Link copied — share it with a friend!'); }
-      catch(e){ shareToast('Copy failed — please copy the URL manually.'); }
-      document.body.removeChild(tmp);
+    function copy(url){
+      var full = text + ' ' + url;
+      function legacy(){
+        var tmp = document.createElement('textarea');
+        tmp.value = full;
+        tmp.style.cssText = 'position:fixed;opacity:0';
+        document.body.appendChild(tmp);
+        tmp.select();
+        try { document.execCommand('copy'); shareToast('Link copied — share it with a friend!'); }
+        catch(e){ shareToast('Copy failed — please copy the URL manually.'); }
+        document.body.removeChild(tmp);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(full).then(function(){ shareToast('Link copied — share it with a friend!'); }, legacy);
+      } else legacy();
     }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(full).then(function(){ shareToast('Link copied — share it with a friend!'); }, legacy);
-    } else legacy();
+    if (window.WA && WA.referral) {
+      try {
+        WA.referral.shareUrl(url).then(share, function(){ share(url); });
+      } catch(e){ share(url); }
+    } else share(url);
   });
 
   document.getElementById('menuBtn').addEventListener('click', function(){

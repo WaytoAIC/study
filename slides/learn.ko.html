@@ -1280,25 +1280,35 @@ body.alice-side-on .finish-banner{background-color:var(--bg);}
   document.getElementById('shareLesson').addEventListener('click', function(){
     var L = findLesson(currentFile()).data;
     var url = 'https://study.waytoaic.com/slides/learn.ko.html#' + encodeURIComponent(L.file);
-    var text = '「' + L.title + '」— AI 제품 입문부터 마스터까지';
-    if (navigator.share) {
-      navigator.share({ title: text, text: text, url: url }).catch(function(){});
-      return;
+    var text = '「' + L.title + '」— WaytoAIC 학습';
+    function share(url){
+      if (navigator.share) {
+        try {
+          navigator.share({ title: text, text: text, url: url }).catch(function(e){ if(!e || e.name!=='AbortError') copy(url); });
+        } catch(e){ copy(url); }
+      } else copy(url);
     }
-    var full = text + ' ' + url;
-    function legacy(){
-      var tmp = document.createElement('textarea');
-      tmp.value = full;
-      tmp.style.cssText = 'position:fixed;opacity:0';
-      document.body.appendChild(tmp);
-      tmp.select();
-      try { document.execCommand('copy'); shareToast('링크가 복사되었습니다. 친구에게 공유해보세요!'); }
-      catch(e){ shareToast('복사 실패. 주소창 링크를 직접 복사해 주세요.'); }
-      document.body.removeChild(tmp);
+    function copy(url){
+      var full = text + ' ' + url;
+      function legacy(){
+        var tmp = document.createElement('textarea');
+        tmp.value = full;
+        tmp.style.cssText = 'position:fixed;opacity:0';
+        document.body.appendChild(tmp);
+        tmp.select();
+        try { document.execCommand('copy'); shareToast('링크가 복사되었습니다. 친구에게 공유해보세요!'); }
+        catch(e){ shareToast('복사 실패. 주소창 링크를 직접 복사해 주세요.'); }
+        document.body.removeChild(tmp);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(full).then(function(){ shareToast('링크가 복사되었습니다. 친구에게 공유해보세요!'); }, legacy);
+      } else legacy();
     }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(full).then(function(){ shareToast('링크가 복사되었습니다. 친구에게 공유해보세요!'); }, legacy);
-    } else legacy();
+    if (window.WA && WA.referral) {
+      try {
+        WA.referral.shareUrl(url).then(share, function(){ share(url); });
+      } catch(e){ share(url); }
+    } else share(url);
   });
 
   document.getElementById('menuBtn').addEventListener('click', function(){
