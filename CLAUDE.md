@@ -5,7 +5,7 @@
 ## 发布纪律(最重要)
 - **`main` = 生产**:push 即火山 IGA Pages 构建上线。禁直推 main(`.claude/settings.json` deny + 分支保护:需 PR + `guard` 必过 + 禁强推删除,管理员同样生效)
 - 从 `origin/main` 开分支;因为是 fork,开 PR 要写全:`gh pr create --repo WaytoAIC/study --head WaytoAIC:<branch>`
-- 课页发布 = 运维仓 `publish-page` skill(reviewer 只读审 → 合并 → 线上验证 → 预建撤回草稿 PR → 24h 撤回窗);窗口内本仓不再发第二次
+- 课页发布 = 运维仓 `publish-page` skill(reviewer 只读审 → 合并 → 线上验证 → 账本)。D22 审过就发(CI 绿 + reviewer「可合并」+ Codex bot 无未处理问题 + 无未决 L0);同仓串行,上一发验证通过才合下一发,不再预建撤回草稿 PR,24h 只作观察期
 - 火山 webhook 偶发 500/502:合并后 5 分钟没上线,开一个空提交 PR 补触发,或控制台重新部署
 - 不改页面的仓内配置(CLAUDE.md、`.claude/`)可 PR 自合并;改 `slides/nav-inject.js`、登录墙、付费墙 = L0,先问维正
 - 提交标题末尾落款 `@Claude Code`,只 add 自己动过的路径
