@@ -346,8 +346,8 @@ test('openLoginModal forwards next/reason and handles unavailable or rejected se
   await h.adapter.ready;
   await h.adapter.openLoginModal('/slides/learn.html#one.html');
   assert.deepEqual(wa.logins, [{ next: '/slides/learn.html#one.html', reason: 'lock' }]);
-  wa.WA.auth.openLoginModal = () => Promise.reject(new Error('script unavailable'));
-  await assert.doesNotReject(Promise.resolve(h.adapter.openLoginModal()));
+  wa.WA.auth.openLoginModal = options => { options.onFail(); return true; };
+  assert.doesNotThrow(() => h.adapter.openLoginModal());
   assert.equal(h.alerts.length, 1);
   wa.WA.auth.openLoginModal = () => { throw new Error('unavailable'); };
   assert.doesNotThrow(() => h.adapter.openLoginModal());

@@ -138,7 +138,7 @@ window.WA_AUTH_ADAPTER = true;
 
   function openLoginModal(next){
     try{
-      if(auth) return Promise.resolve(auth.openLoginModal({ next:next, reason:'lock' })).catch(serviceUnavailable);
+      if(auth && auth.openLoginModal({ next:next, reason:'lock', onFail:serviceUnavailable }) !== false) return;
     }catch(e){}
     serviceUnavailable();
   }
