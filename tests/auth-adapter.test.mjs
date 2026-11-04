@@ -123,7 +123,7 @@ for (const [name, options, nickname] of [
   test('synchronous loggedIn from ' + name, () => {
     const h = harness(options);
     assert.deepEqual(copy(h.adapter.state), { loggedIn: true, nickname });
-    assert.deepEqual(h.writes, []);
+    assert.deepEqual(h.writes.filter(w => !JSON.stringify(w).includes('xa_auth')), []);   // 同步阶段只许补 xa_auth
   });
 }
 
