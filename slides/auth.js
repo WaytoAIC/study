@@ -22,7 +22,7 @@ window.WA_AUTH_ADAPTER = true;
 
   /* learn*.html 同步读取 state，不能等共享脚本或会话迁移。只读旧会话。 */
   var state = { loggedIn: false, nickname: '' };
-  try{ state.loggedIn = /(?:^|;\s*)wa_rt=([^;]+)/.test(document.cookie || ''); }catch(e){}
+  try{ state.loggedIn = /(?:^|;\s*)wa_(?:rt|at)=([^;]+)/.test(document.cookie || ''); }catch(e){}
   try{
     var legacy = localStorage.getItem('wa_session_v1');
     if(legacy){

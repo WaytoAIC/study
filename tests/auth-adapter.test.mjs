@@ -130,6 +130,7 @@ for (const [name, options, nickname] of [
 test('no clues stay anonymous; blocked storage still allows cookie detection', () => {
   assert.deepEqual(copy(harness().adapter.state), { loggedIn: false, nickname: '' });
   assert.equal(harness({ cookie: 'wa_rt=value', blockedStorage: true }).adapter.state.loggedIn, true);
+  assert.equal(harness({ cookie: 'wa_at=value', blockedStorage: true }).adapter.state.loggedIn, true);
   assert.equal(harness({ cookie: 'not_wa_rt=value; wa_rt=', blockedStorage: true }).adapter.state.loggedIn, false);
 });
 
