@@ -31,6 +31,8 @@ window.WA_AUTH_ADAPTER = true;
       state.nickname = ((saved && saved.user && saved.user.email) || '').split('@')[0];
     }
   }catch(e){}
+  /* 主站登录过的用户在本站只有 cookie 没有 xa_auth；内容页与 paywall.js 只认 xa_auth，先补上，别等共享脚本 */
+  if(state.loggedIn) setPaywallFlag(true);
   try{ if(localStorage.getItem('xa_auth') === '1') state.loggedIn = true; }catch(e){}
 
   /* xa_auth：给 paywall.js 与内容页 head 内联脚本用的登录标记（同源共享） */

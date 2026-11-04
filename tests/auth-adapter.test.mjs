@@ -221,6 +221,12 @@ test('WA may arrive asynchronously; late auth completion after timeout cannot cl
   assert.equal(late.values.get('xa_auth'), '1');
 });
 
+test('cookie session from the main site sets xa_auth synchronously', () => {
+  const h = harness({ cookie: 'wa_rt=value' });
+  assert.equal(h.values.get('xa_auth'), '1');
+  assert.equal(harness({ cookie: 'other=1' }).values.get('xa_auth'), undefined);
+});
+
 test('shared script arriving after the 4 second deadline still syncs progress', async () => {
   const paths = [];
   const h = harness({ storage: { wa_session_v1: legacy, xa_auth: '1' } });
