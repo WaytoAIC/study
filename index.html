@@ -282,11 +282,11 @@ footer{background:var(--ink);color:var(--faint);padding:52px 0 44px;text-align:c
   }
 
   /* 学习人数（pv_stats，见 supabase/pv_live.sql）：累计 = 打开过课程的浏览器去重人数（2026-09-10 起统计），
-     此刻 = 近 3 分钟有课程页心跳的人数；地址与公开 anon key 同 slides/nav-inject.js。取不到就整行不显示 */
-  var SB = 'https://br-swift-pike-062ca892.supabase.aidap-global.cn-beijing.volces.com';
-  var SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1wbGF0Zm9ybSIsInJvbGUiOiJhbm9uIiwiZXhwIjozNjgzNzE4MDQxfQ.OERqJGita64opa5WnjU4WjTg8nafjAeTnMUkZLwbG1U';
+     此刻 = 近 3 分钟有课程页心跳的人数；配置统一读 WA_CONFIG。取不到就整行不显示 */
   function loadLive(){
-    fetch(SB + '/rest/v1/rpc/pv_stats', {method:'POST', headers:{'apikey':SB_ANON, 'Content-Type':'application/json'}, body:'{}'})
+    var config = window.WA_CONFIG;
+    if(!config || !config.supabaseUrl || !config.supabaseAnonKey) return;
+    fetch(config.supabaseUrl + '/rest/v1/rpc/pv_stats', {method:'POST', headers:{'apikey':config.supabaseAnonKey, 'Content-Type':'application/json'}, body:'{}'})
       .then(function(r){ return r.ok ? r.json() : null; })
       .then(function(st){
         var total = st ? Number(st.total) : 0, live = st ? Number(st.live) : 0;
@@ -297,8 +297,18 @@ footer{background:var(--ink);color:var(--faint);padding:52px 0 44px;text-align:c
         box.hidden = false;
       }).catch(function(){});
   }
-  loadLive();
-  setInterval(function(){ if(document.visibilityState !== 'hidden') loadLive(); }, 60000);
+  (function waitWA(n){
+    if(window.WA && window.WA.ready){
+      Promise.resolve(window.WA.ready).then(function(){
+        var config = window.WA_CONFIG;
+        if(!config || !config.supabaseUrl || !config.supabaseAnonKey) return;
+        loadLive();
+        setInterval(function(){ if(document.visibilityState !== 'hidden') loadLive(); }, 60000);
+      }).catch(function(){});
+      return;
+    }
+    if(n < 100) setTimeout(function(){ waitWA(n + 1); }, 100);
+  })(0);
 
   if(!window.COURSE) return;
   var PARTS = window.COURSE.parts;
