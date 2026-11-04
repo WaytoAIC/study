@@ -1071,6 +1071,8 @@ function WA_normFile(f) {
 (function () {
   var BASE = 'https://br-swift-pike-062ca892.supabase.aidap-global.cn-beijing.volces.com';
   var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1wbGF0Zm9ybSIsInJvbGUiOiJhbm9uIiwiZXhwIjozNjgzNzE4MDQxfQ.OERqJGita64opa5WnjU4WjTg8nafjAeTnMUkZLwbG1U';
+  // 隐私政策承诺：开「请勿追踪」或全局隐私控制后不再发送任何统计，访客计数与心跳同样不发
+  if (navigator.doNotTrack === '1' || window.doNotTrack === '1' || navigator.msDoNotTrack === '1' || navigator.globalPrivacyControl === true) return;
   var vid = null;
   try {
     vid = localStorage.getItem('wa_vid');
